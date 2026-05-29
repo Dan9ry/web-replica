@@ -67,13 +67,21 @@ http://127.0.0.1:5173
 npm run build       # 构建前端工程
 npm run test        # 运行单元测试
 npm run test:e2e    # 运行 Playwright 冒烟测试
-npm run eval        # 运行一致性评估流程
-npm run eval:interactive # 交互式评估，遇到安全验证时暂停给用户处理
+npm run eval        # 运行一致性评估流程，必须配合 EVAL_TARGET 或 EVAL_ALL
+npm run eval:interactive # 交互式评估，必须配合 EVAL_TARGET 或 EVAL_ALL
+npm run eval:baidu  # 只评估百度目标
+npm run eval:baidu:interactive # 只用交互模式评估百度目标
+npm run eval:all    # 明确评估所有已配置目标
+npm run eval:all:interactive # 交互模式评估所有已配置目标
 ```
 
-`npm run eval` 适合自动化或 CI：只要原网页真实状态采集失败，就立即中断，不生成复刻一致性总分。
+评估必须显式指定范围。只评估单页时使用 `EVAL_TARGET` 或对应脚本，例如 `npm run eval:baidu:interactive`；明确要评估全部目标时使用 `npm run eval:all` 或设置 `EVAL_ALL=1`。如果没有指定目标或全部范围，评估器会直接报错退出，避免把未实现页面误纳入评估。
+
+`npm run eval` 适合自动化或 CI：指定范围后，只要原网页真实状态采集失败，就立即中断，不生成复刻一致性总分。
 
 `npm run eval:interactive` 适合本地人工辅助评估：当真实网页进入安全验证、AI 校验、验证码或关键状态未出现时，评估器会打开可见浏览器窗口并暂停。用户在浏览器中完成验证后，回到终端按 Enter，评估器会继续采集当前真实状态。该模式使用 `.evaluator-browser-profile/` 保存本地浏览器状态，减少重复验证。
+
+微信支付页面尚未复刻时，请不要使用 `eval:all`；当前只评估百度时使用 `npm run eval:baidu` 或 `npm run eval:baidu:interactive`。
 
 ## 复刻页面
 
