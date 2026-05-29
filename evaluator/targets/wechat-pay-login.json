@@ -3,10 +3,12 @@
   "name": "WeChat Pay Merchant Login",
   "originalUrl": "https://pay.weixin.qq.com/index.php/core/home/login",
   "replicaUrl": "http://127.0.0.1:5173/replica/wechat-pay-login",
+  "expectedTitleIncludes": ["微信支付"],
+  "expectedUrlIncludes": ["pay.weixin.qq.com"],
+  "expectedTextIncludes": ["用户名", "密码", "验证码"],
   "criticalSelectors": ["input", "button"],
   "viewports": [
     { "name": "desktop", "width": 1365, "height": 768 },
     { "name": "mobile", "width": 390, "height": 844 }
   ]
 }
-

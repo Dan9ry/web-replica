@@ -1,11 +1,16 @@
 node_modules/
 .npm-cache/
+.evaluator-dist/
 dist/
 .env
 .env.local
 playwright-report/
 test-results/
 reports/tmp/
+reports/latest/*
+!reports/latest/.gitkeep
+reports/history/*
+!reports/history/.gitkeep
 coverage/
 *.log
 .DS_Store
