@@ -67,6 +67,7 @@ describe("evaluateReplicaConsistency", () => {
     expect(result.metrics.interaction).toBe(100);
     expect(result.metrics).not.toHaveProperty("performance");
     expect(result.metrics).not.toHaveProperty("responsive");
+    expect(result.metrics).not.toHaveProperty("accessibility");
     expect(result.score.totalScore).toBeGreaterThan(80);
     expect(result.issues.map((issue) => issue.code)).not.toContain(
       "REPLICA_METRICS_NOT_IMPLEMENTED",
@@ -123,12 +124,6 @@ describe("evaluateReplicaConsistency", () => {
       expect.objectContaining({
         code: "LOW_VISUAL_SCORE",
         message: expect.stringContaining("视觉差异图"),
-      }),
-    );
-    expect(result.issues).toContainEqual(
-      expect.objectContaining({
-        code: "LOW_ACCESSIBILITY_SCORE",
-        message: expect.stringContaining("landmark"),
       }),
     );
     expect(result.issues).toContainEqual(

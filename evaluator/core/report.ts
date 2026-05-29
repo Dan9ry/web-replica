@@ -73,7 +73,6 @@ function renderPage(page: PageEvaluationResult): string {
     lines.push(`| 功能一致性 | ${page.score.metrics.functionality} |`);
     lines.push(`| 交互一致性 | ${page.score.metrics.interaction} |`);
     lines.push(`| 视觉一致性 | ${page.score.metrics.visual} |`);
-    lines.push(`| 可访问性一致性 | ${page.score.metrics.accessibility} |`);
     lines.push("");
   }
 

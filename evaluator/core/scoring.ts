@@ -1,10 +1,9 @@
 import type { ScoreMetrics, WeightedScore } from "./types.js";
 
 const weights: ScoreMetrics = {
-  functionality: 0.3,
-  interaction: 0.2,
+  functionality: 0.35,
+  interaction: 0.25,
   visual: 0.4,
-  accessibility: 0.1,
 };
 
 function clampScore(value: number): number {
@@ -36,14 +35,12 @@ export function calculateWeightedScore(metrics: ScoreMetrics): WeightedScore {
     functionality: clampScore(metrics.functionality),
     interaction: clampScore(metrics.interaction),
     visual: clampScore(metrics.visual),
-    accessibility: clampScore(metrics.accessibility),
   };
 
   const totalScore =
     normalized.functionality * weights.functionality +
     normalized.interaction * weights.interaction +
-    normalized.visual * weights.visual +
-    normalized.accessibility * weights.accessibility;
+    normalized.visual * weights.visual;
 
   const roundedTotal = Math.round(totalScore * 10) / 10;
 

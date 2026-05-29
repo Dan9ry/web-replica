@@ -2,7 +2,7 @@ import { describe, expect, test } from "vitest";
 import { buildMarkdownReport } from "../../evaluator/core/report";
 
 describe("buildMarkdownReport", () => {
-  test("prints capture mode and only the four agreed scoring dimensions", () => {
+  test("prints capture mode and only the three agreed scoring dimensions", () => {
     const markdown = buildMarkdownReport({
       generatedAt: "2026-05-29T12:00:00+08:00",
       pages: [
@@ -25,7 +25,6 @@ describe("buildMarkdownReport", () => {
               functionality: 100,
               interaction: 90,
               visual: 80,
-              accessibility: 90,
             },
           },
         },
@@ -36,7 +35,7 @@ describe("buildMarkdownReport", () => {
     expect(markdown).toContain("| 功能一致性 | 100 |");
     expect(markdown).toContain("| 交互一致性 | 90 |");
     expect(markdown).toContain("| 视觉一致性 | 80 |");
-    expect(markdown).toContain("| 可访问性一致性 | 90 |");
+    expect(markdown).not.toContain("可访问性一致性");
     expect(markdown).not.toContain("性能一致性");
     expect(markdown).not.toContain("响应式一致性");
   });
@@ -70,7 +69,6 @@ describe("buildMarkdownReport", () => {
               functionality: 100,
               interaction: 90,
               visual: 80,
-              accessibility: 90,
             },
           },
         },

@@ -153,7 +153,6 @@ export interface ScoreMetrics {
   functionality: number;
   interaction: number;
   visual: number;
-  accessibility: number;
 }
 
 export interface WeightedScore {

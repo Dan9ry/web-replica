@@ -7,10 +7,9 @@ describe("calculateWeightedScore", () => {
       functionality: 100,
       interaction: 90,
       visual: 80,
-      accessibility: 90,
     });
 
-    expect(result.totalScore).toBe(89);
+    expect(result.totalScore).toBe(89.5);
     expect(result.level).toBe("基本一致");
   });
 
@@ -19,11 +18,10 @@ describe("calculateWeightedScore", () => {
       functionality: 120,
       interaction: -20,
       visual: 50,
-      accessibility: 100,
     });
 
     expect(result.metrics.functionality).toBe(100);
     expect(result.metrics.interaction).toBe(0);
-    expect(result.totalScore).toBe(60);
+    expect(result.totalScore).toBe(55);
   });
 });

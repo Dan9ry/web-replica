@@ -30,50 +30,6 @@ function scoreFromSsim(ssim: number): number {
   return Math.max(0, Math.min(100, ssim * 100));
 }
 
-function compareLandmarks(original: StateCapture, replica: StateCapture): number {
-  const originalLandmarks = original.domProfile?.landmarks ?? {};
-  const replicaLandmarks = replica.domProfile?.landmarks ?? {};
-  const keys = new Set([
-    ...Object.keys(originalLandmarks),
-    ...Object.keys(replicaLandmarks),
-  ]);
-
-  if (keys.size === 0) {
-    return 0;
-  }
-
-  const perKeyScores = [...keys].map((key) => {
-    const expected = originalLandmarks[key] ?? 0;
-    const actual = replicaLandmarks[key] ?? 0;
-
-    if (expected === 0 && actual === 0) {
-      return 100;
-    }
-
-    const denominator = Math.max(expected, actual, 1);
-    return Math.max(0, 100 - (Math.abs(expected - actual) / denominator) * 100);
-  });
-
-  return average(perKeyScores);
-}
-
-function textCoverage(original: StateCapture, replica: StateCapture): number {
-  const originalWords = new Set(
-    (original.domProfile?.textSample || original.bodyTextSample)
-      .split(/\s+/)
-      .map((word) => word.trim())
-      .filter((word) => word.length >= 2),
-  );
-  const replicaText = replica.domProfile?.textSample || replica.bodyTextSample;
-
-  if (originalWords.size === 0) {
-    return 0;
-  }
-
-  const matched = [...originalWords].filter((word) => replicaText.includes(word));
-  return (matched.length / originalWords.size) * 100;
-}
-
 function collectIssues(
   originalCaptures: StateCapture[],
   replicaByState: Map<string, StateCapture>,
@@ -109,15 +65,6 @@ function addLowScoreSuggestions(metrics: ScoreMetrics, issues: ValidationIssue[]
       code: "LOW_INTERACTION_SCORE",
       message:
         "交互一致性偏低：请运行复刻页交互用例，重点检查搜索提交、Enter 键、空输入反馈、分页按钮和状态切换是否与真实流程一致。",
-    });
-  }
-
-  if (metrics.accessibility < 70) {
-    issues.push({
-      severity: "warning",
-      code: "LOW_ACCESSIBILITY_SCORE",
-      message:
-        "结构/可访问性一致性偏低：请补齐 nav/main/form/list 等 landmark，确保输入框、按钮、分页和结果列表有稳定语义和可访问名称。",
     });
   }
 
@@ -173,16 +120,10 @@ export function evaluateReplicaConsistency({
     return diffScore * 0.55 + ssimScore * 0.45;
   });
 
-  const structureScores = matchedPairs.map(
-    ({ original, replica }) =>
-      compareLandmarks(original, replica) * 0.65 + textCoverage(original, replica) * 0.35,
-  );
-
   const metrics: ScoreMetrics = {
     functionality: stateCompleteness,
     interaction: interactionScore,
     visual: Math.round(average(visualScores) * 10) / 10,
-    accessibility: Math.round(average(structureScores) * 10) / 10,
   };
   addLowScoreSuggestions(metrics, issues);
 
