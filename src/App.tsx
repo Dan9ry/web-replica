@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import styles from "./App.module.css";
-import { BaiduReplicaPage } from "../projects/baidu/page/BaiduReplicaPage";
 
 function HomePage() {
   return (
@@ -34,7 +33,6 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/replica/baidu" element={<BaiduReplicaPage />} />
     </Routes>
   );
 }
