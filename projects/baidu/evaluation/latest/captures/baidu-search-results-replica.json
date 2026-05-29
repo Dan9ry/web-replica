@@ -1,0 +1,35 @@
+{
+  "stateId": "search-results",
+  "side": "replica",
+  "viewport": "desktop",
+  "requestedUrl": "http://127.0.0.1:5173/replica/baidu?wd=%E7%BD%91%E9%A1%B5%E5%A4%8D%E5%88%BB",
+  "finalUrl": "http://127.0.0.1:5173/replica/baidu?wd=%E7%BD%91%E9%A1%B5%E5%A4%8D%E5%88%BB",
+  "status": 200,
+  "title": "Web Replica Evaluator",
+  "bodyTextSample": "Bai\ndu\n百度\n⌕\n⛓\n▧\n百度一下\n百度首页\n设置\n登录\n文心\n网页\n图片\n资讯\n视频\n笔记\n地图\n贴吧\n文库\n更多\n搜索工具\n百度AI\n停\n听\n\n网页复刻是指利用自动化工具或AI技术，快速复制目标网站的视觉样式、布局结构甚至交互功能的过程。 根据您的需求，是想要快速生成原型、学习前端代码，还是进行竞品分析，目前主要有以下几种主流方式和工具：\n\n1. AI 智能一键复刻（适合快速建站/原型验证）\n\n这是目前效率较高的方式，无需编写代码，通过AI解析页面结构并生成可编辑的代码或网站。\n\nSkywork AI (WebClone)：支持提供网址、上传文件或输入文字描述，AI会在数分钟内生成高还原度的网页原型。\nSame.dev：输入网页URL、截图或Figma设计稿，即可生成HTML/CSS/JS代码，适合快速原型开发。\n从灵感到网站,只要5分钟,扣子空间 网页复刻设计功能上线 - 文章 - 开发...\n\n2025年7月28日 同时上传参考图片,还能帮你一键完成网页复刻,截图/Figma 设计稿/网站/手画稿皆可上传,实现 1:1 复刻。\n\n开发者社区\n完全没有想玩的欲望了,复刻之前的网页版本 英雄传奇 - 百度贴吧\n\n8天前 玩家讨论复刻网页版本的体验,页面结构、按钮和内容区域都成为关注点。\n\n百度贴吧\n“全球100B级效果最强!”智谱新一代视觉推理模型GLM-4.5V上线并开源\n\n2025年8月11日 模型能结合视频理解与代码生成能力,输出相应的网页代码,成功复刻视频中展示的界面。\n\n华尔街见闻\n日活跌破1000后,Meta才想起来用移动端APP救活元宇宙\n\n2025年6月5日 复刻页面需要关注原网页的布局节奏、信息密度和交互反馈,而不是只看截图顶部。\n\n爱企查\nAI编程神器Cursor,教你用5分钟复刻一个网页工具\n\n2025年4月15日 打开朋友发来的目标网页监视器,分析数据并整理接口,再生成本地可运行页面。\n\n科技专栏\n1\n2\n下一页 >\n相关搜索\n○\n今天复刻\n○\nai18复刻计划\n○\n游戏复刻啥意思\n○\n复制数据大全最新版\n○\n199937复刻\n○\n光遇复刻最新消息\n百度热搜\n换一换\n↑\n夜空中最亮的星\n1\n日本全境调兵 12万居民转移\n热\n2\n诺基亚发布首款微聊手机 售价199元\n热\n3\n为什么是“六张网”\n4\n铁路新规6月1日起实施\n热\n5\n北京致谢全体市民：戴头盔已蔚然成风\n6\n奚梦瑶何猷君将在法国办婚礼\n热\n7\n你的麦子熟了 整个中国替你收\n8\n体检出这8种“假病” 只是身体老了",
+  "screenshotPath": "/Users/dangry/Documents/try/tencent/reports/latest/assets/baidu/search-results/replica-desktop.png",
+  "screenshot": {
+    "width": 1365,
+    "height": 768,
+    "blank": false
+  },
+  "selectors": {
+    "#kw": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "#su": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "#content_left": {
+      "count": 1,
+      "visibleCount": 1
+    }
+  },
+  "metrics": {
+    "loadTimeMs": 753,
+    "screenshotDiffRatio": 0.08829842032967034,
+    "ssim": 0.4062484885672144
+  }
+}

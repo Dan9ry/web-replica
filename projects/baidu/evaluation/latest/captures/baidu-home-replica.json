@@ -1,0 +1,31 @@
+{
+  "stateId": "home",
+  "side": "replica",
+  "viewport": "desktop",
+  "requestedUrl": "http://127.0.0.1:5173/replica/baidu",
+  "finalUrl": "http://127.0.0.1:5173/replica/baidu",
+  "status": 200,
+  "title": "Web Replica Evaluator",
+  "bodyTextSample": "新闻\nhao123\n地图\n贴吧\n视频\n图片\n网盘\n文库\n文心\n搭子DuMate\n更多\n设置\n登录\nBai\ndu\n百度\n⌕\n⛓\n▧\n百度一下\n文心　复杂问题就找文心助手，深入思考回答更优\n百度热搜\n换一换\n↑\n夜空中最亮的星\n1\n日本全境调兵 12万居民转移\n热\n2\n诺基亚发布首款微聊手机 售价199元\n热\n3\n为什么是“六张网”\n4\n铁路新规6月1日起实施\n热\n5\n北京致谢全体市民：戴头盔已蔚然成风\n6\n奚梦瑶何猷君将在法国办婚礼\n热\n7\n你的麦子熟了 整个中国替你收\n8\n体检出这8种“假病” 只是身体老了\n☼\n▦",
+  "screenshotPath": "/Users/dangry/Documents/try/tencent/reports/latest/assets/baidu/home/replica-desktop.png",
+  "screenshot": {
+    "width": 1365,
+    "height": 768,
+    "blank": false
+  },
+  "selectors": {
+    "#kw": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "#su": {
+      "count": 1,
+      "visibleCount": 1
+    }
+  },
+  "metrics": {
+    "loadTimeMs": 885,
+    "screenshotDiffRatio": 0.0365460927960928,
+    "ssim": 0.7913328765809317
+  }
+}

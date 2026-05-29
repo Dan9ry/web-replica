@@ -1,4 +1,5 @@
 import styles from "./App.module.css";
+import { BaiduReplicaPage } from "./pages/BaiduReplica/BaiduReplicaPage";
 
 function HomePage() {
   return (
@@ -29,5 +30,9 @@ function HomePage() {
 }
 
 export default function App() {
+  if (window.location.pathname === "/replica/baidu") {
+    return <BaiduReplicaPage />;
+  }
+
   return <HomePage />;
 }

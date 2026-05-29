@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-05-29T09:16:27.924Z",
+  "pages": [
+    {
+      "pageId": "baidu",
+      "name": "百度首页",
+      "originalUrl": "https://www.baidu.com",
+      "replicaUrl": "http://127.0.0.1:5173/replica/baidu",
+      "sourceValidation": {
+        "status": "passed",
+        "canScore": true,
+        "finalUrl": "https://www.baidu.com/",
+        "issues": [
+          {
+            "severity": "warning",
+            "code": "HIDDEN_CRITICAL_SELECTOR",
+            "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#kw"
+          },
+          {
+            "severity": "warning",
+            "code": "HIDDEN_CRITICAL_SELECTOR",
+            "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#su"
+          },
+          {
+            "severity": "warning",
+            "code": "HIDDEN_CRITICAL_SELECTOR",
+            "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#kw"
+          },
+          {
+            "severity": "warning",
+            "code": "HIDDEN_CRITICAL_SELECTOR",
+            "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#su"
+          },
+          {
+            "severity": "warning",
+            "code": "HIDDEN_CRITICAL_SELECTOR",
+            "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#kw"
+          },
+          {
+            "severity": "warning",
+            "code": "HIDDEN_CRITICAL_SELECTOR",
+            "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#su"
+          }
+        ],
+        "captureMode": "live",
+        "stateResults": [
+          {
+            "stateId": "home",
+            "name": "首页初始态",
+            "status": "passed",
+            "canScore": true,
+            "finalUrl": "https://www.baidu.com/",
+            "issues": [
+              {
+                "severity": "warning",
+                "code": "HIDDEN_CRITICAL_SELECTOR",
+                "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#kw"
+              },
+              {
+                "severity": "warning",
+                "code": "HIDDEN_CRITICAL_SELECTOR",
+                "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#su"
+              }
+            ],
+            "captureMode": "live"
+          },
+          {
+            "stateId": "search-results",
+            "name": "搜索结果展示态",
+            "status": "passed",
+            "canScore": true,
+            "finalUrl": "https://www.baidu.com/s?wd=%E7%BD%91%E9%A1%B5%E5%A4%8D%E5%88%BB",
+            "issues": [
+              {
+                "severity": "warning",
+                "code": "HIDDEN_CRITICAL_SELECTOR",
+                "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#kw"
+              },
+              {
+                "severity": "warning",
+                "code": "HIDDEN_CRITICAL_SELECTOR",
+                "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#su"
+              }
+            ],
+            "captureMode": "live"
+          },
+          {
+            "stateId": "pagination",
+            "name": "搜索结果翻页态",
+            "status": "passed",
+            "canScore": true,
+            "finalUrl": "https://www.baidu.com/s?wd=%E7%BD%91%E9%A1%B5%E5%A4%8D%E5%88%BB&pn=10",
+            "issues": [
+              {
+                "severity": "warning",
+                "code": "HIDDEN_CRITICAL_SELECTOR",
+                "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#kw"
+              },
+              {
+                "severity": "warning",
+                "code": "HIDDEN_CRITICAL_SELECTOR",
+                "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#su"
+              }
+            ],
+            "captureMode": "live"
+          }
+        ]
+      },
+      "stateResults": [
+        {
+          "stateId": "home",
+          "name": "首页初始态",
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://www.baidu.com/",
+          "issues": [
+            {
+              "severity": "warning",
+              "code": "HIDDEN_CRITICAL_SELECTOR",
+              "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#kw"
+            },
+            {
+              "severity": "warning",
+              "code": "HIDDEN_CRITICAL_SELECTOR",
+              "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#su"
+            }
+          ],
+          "captureMode": "live"
+        },
+        {
+          "stateId": "search-results",
+          "name": "搜索结果展示态",
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://www.baidu.com/s?wd=%E7%BD%91%E9%A1%B5%E5%A4%8D%E5%88%BB",
+          "issues": [
+            {
+              "severity": "warning",
+              "code": "HIDDEN_CRITICAL_SELECTOR",
+              "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#kw"
+            },
+            {
+              "severity": "warning",
+              "code": "HIDDEN_CRITICAL_SELECTOR",
+              "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#su"
+            }
+          ],
+          "captureMode": "live"
+        },
+        {
+          "stateId": "pagination",
+          "name": "搜索结果翻页态",
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://www.baidu.com/s?wd=%E7%BD%91%E9%A1%B5%E5%A4%8D%E5%88%BB&pn=10",
+          "issues": [
+            {
+              "severity": "warning",
+              "code": "HIDDEN_CRITICAL_SELECTOR",
+              "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#kw"
+            },
+            {
+              "severity": "warning",
+              "code": "HIDDEN_CRITICAL_SELECTOR",
+              "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#su"
+            }
+          ],
+          "captureMode": "live"
+        }
+      ]
+    }
+  ]
+}

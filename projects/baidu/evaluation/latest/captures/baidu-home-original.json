@@ -1,0 +1,29 @@
+{
+  "stateId": "home",
+  "side": "original",
+  "viewport": "desktop",
+  "requestedUrl": "https://www.baidu.com",
+  "finalUrl": "https://www.baidu.com/",
+  "status": 200,
+  "title": "百度一下，你就知道",
+  "bodyTextSample": "新闻hao123地图贴吧视频图片网盘文库文心搭子DuMate更多\n设置登录\n百度一下\n复杂问题就找文心助手，深入思考回答更优\n\n\n换一换\n夜空中最亮的星\n5“你的麦子熟了 整个中国替你收”\n1日本全境调兵 12万居民转移\n热\n6奚梦瑶何猷君将在法国办婚礼\n热\n2诺基亚发布首款微聊手机 售价199元\n热\n7北京致谢全体市民：戴头盔已蔚然成风\n热\n3为什么是“六张网”\n8俩男孩到派出所休息被投喂后主动干活\n4中方回应日本防卫省订单激增\n热\n9夏天这样洗澡 大脑和心脏真的受不了\n\n关于百度\n\nAbout Baidu\n\n使用百度前必读\n\n帮助中心\n\n企业推广\n\n京公网安备11000002000001号\n\n京ICP证030173号\n\n互联网新闻信息服务许可证11220180008\n\n网络文化经营许可证： 京网文〔2026〕0171-042号\n\n",
+  "screenshotPath": "/Users/dangry/Documents/try/tencent/reports/latest/assets/baidu/home/original-desktop.png",
+  "screenshot": {
+    "width": 1365,
+    "height": 768,
+    "blank": false
+  },
+  "selectors": {
+    "#kw": {
+      "count": 1,
+      "visibleCount": 0
+    },
+    "#su": {
+      "count": 1,
+      "visibleCount": 0
+    }
+  },
+  "metrics": {
+    "loadTimeMs": 3722
+  }
+}
