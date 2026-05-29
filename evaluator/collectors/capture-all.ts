@@ -5,6 +5,7 @@ import pixelmatch from "pixelmatch";
 import sharp from "sharp";
 import { ssim } from "ssim.js";
 import { loadTargets } from "../core/targets.js";
+import { buildCaptureGateMessage, shouldInterruptEvaluation } from "../core/captureGate.js";
 import { normalizeTargetStates, validateTargetStateCaptures } from "../core/stateValidation.js";
 import { writeJsonFile } from "../core/files.js";
 import type {
@@ -14,6 +15,7 @@ import type {
   DomProfile,
   PageStateConfig,
   PageTarget,
+  PageEvaluationResult,
   SelectorCapture,
   StateCapture,
 } from "../core/types.js";
@@ -297,7 +299,7 @@ async function compareScreenshots(
 }
 
 const targets = await loadTargets();
-const validations = [];
+const validations: PageEvaluationResult[] = [];
 let hasFailure = false;
 
 for (const target of targets) {
@@ -337,7 +339,14 @@ for (const target of targets) {
     }
   }
 
-  validations.push({ target, validation });
+  validations.push({
+    pageId: target.id,
+    name: target.name,
+    originalUrl: target.originalUrl,
+    replicaUrl: target.replicaUrl,
+    sourceValidation: validation,
+    stateResults: validation.stateResults,
+  });
   await writeJsonFile(join(latestDir, "captures", `${target.id}-source.json`), {
     original: originalCaptures,
     replica: replicaCaptures,
@@ -350,18 +359,12 @@ for (const target of targets) {
 
 await writeJsonFile(join(latestDir, "source-validation.json"), {
   generatedAt: new Date().toISOString(),
-  pages: validations.map(({ target, validation }) => ({
-    pageId: target.id,
-    name: target.name,
-    originalUrl: target.originalUrl,
-    replicaUrl: target.replicaUrl,
-    sourceValidation: validation,
-    stateResults: validation.stateResults,
-  })),
+  pages: validations,
 });
 
-if (hasFailure) {
-  console.error("原网页采集可信性门禁失败，失败页面不会进入评分。详情见 reports/latest/source-validation.json。");
+if (hasFailure || shouldInterruptEvaluation(validations)) {
+  console.error(buildCaptureGateMessage(validations));
+  process.exitCode = 1;
 } else {
   console.log("原网页采集可信性门禁通过。");
 }
