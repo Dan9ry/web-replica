@@ -1,6 +1,7 @@
 node_modules/
 .npm-cache/
 .evaluator-dist/
+.evaluator-browser-profile/
 dist/
 .env
 .env.local

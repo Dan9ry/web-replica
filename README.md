@@ -68,13 +68,18 @@ npm run build       # 构建前端工程
 npm run test        # 运行单元测试
 npm run test:e2e    # 运行 Playwright 冒烟测试
 npm run eval        # 运行一致性评估流程
+npm run eval:interactive # 交互式评估，遇到安全验证时暂停给用户处理
 ```
+
+`npm run eval` 适合自动化或 CI：只要原网页真实状态采集失败，就立即中断，不生成复刻一致性总分。
+
+`npm run eval:interactive` 适合本地人工辅助评估：当真实网页进入安全验证、AI 校验、验证码或关键状态未出现时，评估器会打开可见浏览器窗口并暂停。用户在浏览器中完成验证后，回到终端按 Enter，评估器会继续采集当前真实状态。该模式使用 `.evaluator-browser-profile/` 保存本地浏览器状态，减少重复验证。
 
 ## 复刻页面
 
 | 页面 | 路由 | 当前状态 |
 | --- | --- | --- |
-| 百度首页 | `/replica/baidu` | 第一阶段占位页 |
+| 百度首页 | `/replica/baidu` | 已实现首页、搜索结果页、分页和空输入交互 |
 | 微信支付商户登录页 | `/replica/wechat-pay-login` | 第一阶段占位页 |
 | 第三个目标页面 | `/replica/third` | 等待用户提供目标 URL |
 

@@ -47,7 +47,10 @@ export function validateSourceCapture(
     addIssue(issues, "CAPTURE_ERROR", `原网页采集异常：${capture.error}`);
   }
 
-  if (capture.status === null || capture.status < 200 || capture.status >= 400) {
+  if (
+    !capture.manualVerified &&
+    (capture.status === null || capture.status < 200 || capture.status >= 400)
+  ) {
     addIssue(
       issues,
       "HTTP_STATUS",

@@ -1,11 +1,18 @@
 import { mkdir } from "node:fs/promises";
 import { join } from "node:path";
-import { chromium, type Page } from "playwright";
+import { stdin as input, stdout as output } from "node:process";
+import { createInterface } from "node:readline/promises";
+import { chromium, type Browser, type BrowserContext, type Page } from "playwright";
 import pixelmatch from "pixelmatch";
 import sharp from "sharp";
 import { ssim } from "ssim.js";
 import { loadTargets } from "../core/targets.js";
-import { buildCaptureGateMessage, shouldInterruptEvaluation } from "../core/captureGate.js";
+import {
+  buildCaptureGateMessage,
+  buildInteractiveVerificationMessage,
+  shouldInterruptEvaluation,
+  shouldOfferInteractiveRepair,
+} from "../core/captureGate.js";
 import { normalizeTargetStates, validateTargetStateCaptures } from "../core/stateValidation.js";
 import { writeJsonFile } from "../core/files.js";
 import type {
@@ -21,6 +28,30 @@ import type {
 } from "../core/types.js";
 
 const latestDir = join(process.cwd(), "reports", "latest");
+const interactiveMode = process.env.EVAL_INTERACTIVE === "1";
+const interactiveProfileDir =
+  process.env.EVAL_PROFILE_DIR ?? join(process.cwd(), ".evaluator-browser-profile");
+
+interface PageSession {
+  page: Page;
+  close: () => Promise<void>;
+}
+
+interface CaptureEvidenceOptions {
+  target: PageTarget;
+  state: PageStateConfig;
+  side: CaptureSide;
+  page: Page;
+  url: string;
+  viewport: { name: string; width: number; height: number };
+  criticalSelectors: string[];
+  compareSelectors: string[];
+  status: number | null;
+  start: number;
+  suffix?: "failure";
+  error?: string;
+  manualVerified?: boolean;
+}
 
 function summarizeError(error: unknown): string {
   const message = error instanceof Error ? error.message : String(error);
@@ -130,13 +161,110 @@ async function collectDomProfile(
   ) as Promise<DomProfile>;
 }
 
+async function createPageSession(
+  viewport: { width: number; height: number },
+  side: CaptureSide,
+): Promise<PageSession> {
+  if (interactiveMode && side === "original") {
+    const context: BrowserContext = await chromium.launchPersistentContext(
+      interactiveProfileDir,
+      {
+        headless: false,
+        viewport: { width: viewport.width, height: viewport.height },
+      },
+    );
+    const page = context.pages()[0] ?? (await context.newPage());
+
+    return {
+      page,
+      close: () => context.close(),
+    };
+  }
+
+  const browser: Browser = await chromium.launch({ headless: true });
+  const page = await browser.newPage({
+    viewport: { width: viewport.width, height: viewport.height },
+  });
+
+  return {
+    page,
+    close: () => browser.close(),
+  };
+}
+
+async function waitForEnter(): Promise<void> {
+  const readline = createInterface({ input, output });
+  try {
+    await readline.question("");
+  } finally {
+    readline.close();
+  }
+}
+
+async function capturePageEvidence({
+  target,
+  state,
+  side,
+  page,
+  url,
+  viewport,
+  criticalSelectors,
+  compareSelectors,
+  status,
+  start,
+  suffix,
+  error,
+  manualVerified,
+}: CaptureEvidenceOptions): Promise<StateCapture> {
+  const assetsDir = join(latestDir, "assets", target.id, state.id);
+  await mkdir(assetsDir, { recursive: true });
+  const screenshotPath = join(
+    assetsDir,
+    `${side}-${viewport.name}${suffix ? `-${suffix}` : ""}.png`,
+  );
+  await page.screenshot({ path: screenshotPath, fullPage: false });
+
+  const title = await page.title();
+  const finalUrl = page.url();
+  const bodyTextSample = await page
+    .locator("body")
+    .innerText({ timeout: 5_000 })
+    .then((text) => text.slice(0, 4000))
+    .catch(() => "");
+  const metadata = await sharp(screenshotPath).metadata();
+
+  return {
+    stateId: state.id,
+    side,
+    viewport: viewport.name,
+    requestedUrl: url,
+    finalUrl,
+    status,
+    title,
+    bodyTextSample,
+    screenshotPath,
+    screenshot: {
+      width: metadata.width ?? 0,
+      height: metadata.height ?? 0,
+      blank: await isBlankScreenshot(screenshotPath),
+    },
+    selectors: await collectSelectors(page, criticalSelectors).catch(() => ({})),
+    domProfile: await collectDomProfile(page, compareSelectors).catch(() => undefined),
+    metrics: {
+      loadTimeMs: Math.round(performance.now() - start),
+    },
+    error,
+    manualVerified,
+  };
+}
+
 async function collectState(
   target: PageTarget,
   state: PageStateConfig,
   side: CaptureSide,
 ): Promise<StateCapture> {
   const viewport = target.viewports[0] ?? { name: "desktop", width: 1365, height: 768 };
-  let browser: Awaited<ReturnType<typeof chromium.launch>> | undefined;
+  let session: PageSession | undefined;
   let page: Page | undefined;
   const url =
     side === "original"
@@ -148,10 +276,8 @@ async function collectState(
   const start = performance.now();
 
   try {
-    browser = await chromium.launch({ headless: true });
-    page = await browser.newPage({
-      viewport: { width: viewport.width, height: viewport.height },
-    });
+    session = await createPageSession(viewport, side);
+    page = session.page;
 
     const response = await page.goto(url, {
       waitUntil: "domcontentloaded",
@@ -161,65 +287,80 @@ async function collectState(
     await executeSteps(page, steps);
     await page.waitForLoadState("networkidle", { timeout: 5_000 }).catch(() => undefined);
 
-    const assetsDir = join(latestDir, "assets", target.id, state.id);
-    await mkdir(assetsDir, { recursive: true });
-    const screenshotPath = join(assetsDir, `${side}-${viewport.name}.png`);
-    await page.screenshot({ path: screenshotPath, fullPage: false });
-
-    const title = await page.title();
-    const finalUrl = page.url();
-    const bodyTextSample = await page
-      .locator("body")
-      .innerText({ timeout: 5_000 })
-      .then((text) => text.slice(0, 4000))
-      .catch(() => "");
-    const metadata = await sharp(screenshotPath).metadata();
-
-    return {
-      stateId: state.id,
+    return await capturePageEvidence({
+      target,
+      state,
       side,
-      viewport: viewport.name,
-      requestedUrl: url,
-      finalUrl,
+      page,
+      url,
+      viewport,
+      criticalSelectors,
+      compareSelectors,
       status: response?.status() ?? null,
-      title,
-      bodyTextSample,
-      screenshotPath,
-      screenshot: {
-        width: metadata.width ?? 0,
-        height: metadata.height ?? 0,
-        blank: await isBlankScreenshot(screenshotPath),
-      },
-      selectors: await collectSelectors(page, criticalSelectors),
-      domProfile: await collectDomProfile(page, compareSelectors),
-      metrics: {
-        loadTimeMs: Math.round(performance.now() - start),
-      },
-    };
+      start,
+    });
   } catch (error) {
-    const assetsDir = join(latestDir, "assets", target.id, state.id);
-    const screenshotPath = join(assetsDir, `${side}-${viewport.name}-failure.png`);
-    let screenshot: StateCapture["screenshot"] | undefined;
-    let bodyTextSample = "";
-    let selectors: Record<string, SelectorCapture> = {};
+    const errorMessage = summarizeError(error);
 
     if (page) {
-      await mkdir(assetsDir, { recursive: true }).catch(() => undefined);
-      await page.screenshot({ path: screenshotPath, fullPage: false }).catch(() => undefined);
-      const metadata = await sharp(screenshotPath).metadata().catch(() => undefined);
-      if (metadata) {
-        screenshot = {
-          width: metadata.width ?? 0,
-          height: metadata.height ?? 0,
-          blank: await isBlankScreenshot(screenshotPath).catch(() => true),
-        };
+      const failedCapture = await capturePageEvidence({
+        target,
+        state,
+        side,
+        page,
+        url,
+        viewport,
+        criticalSelectors,
+        compareSelectors,
+        status: null,
+        start,
+        suffix: "failure",
+        error: errorMessage,
+      }).catch<StateCapture>(() => ({
+        stateId: state.id,
+        side,
+        viewport: viewport.name,
+        requestedUrl: url,
+        finalUrl: page?.url() ?? url,
+        status: null,
+        title: "",
+        bodyTextSample: "",
+        selectors: {},
+        error: errorMessage,
+      }));
+
+      if (interactiveMode && shouldOfferInteractiveRepair(failedCapture, side)) {
+        console.error(
+          buildInteractiveVerificationMessage({
+            targetName: target.name,
+            stateName: state.name,
+            stateId: state.id,
+            finalUrl: failedCapture.finalUrl,
+            side,
+          }),
+        );
+        await waitForEnter();
+        await page.waitForLoadState("domcontentloaded", { timeout: 10_000 }).catch(() => undefined);
+
+        return await capturePageEvidence({
+          target,
+          state,
+          side,
+          page,
+          url,
+          viewport,
+          criticalSelectors,
+          compareSelectors,
+          status: 200,
+          start,
+          manualVerified: true,
+        }).catch<StateCapture>((retryError) => ({
+          ...failedCapture,
+          error: `${failedCapture.error ?? "原网页采集失败"}；人工验证后重新采集仍失败：${summarizeError(retryError)}`,
+        }));
       }
-      bodyTextSample = await page
-        .locator("body")
-        .innerText({ timeout: 2_000 })
-        .then((text) => text.slice(0, 4000))
-        .catch(() => "");
-      selectors = await collectSelectors(page, criticalSelectors).catch(() => ({}));
+
+      return failedCapture;
     }
 
     return {
@@ -227,17 +368,15 @@ async function collectState(
       side,
       viewport: viewport.name,
       requestedUrl: url,
-      finalUrl: page?.url() ?? url,
+      finalUrl: url,
       status: null,
-      title: page ? await page.title().catch(() => "") : "",
-      bodyTextSample,
-      screenshotPath: screenshot ? screenshotPath : undefined,
-      screenshot,
-      selectors,
-      error: summarizeError(error),
+      title: "",
+      bodyTextSample: "",
+      selectors: {},
+      error: errorMessage,
     };
   } finally {
-    await browser?.close().catch(() => undefined);
+    await session?.close().catch(() => undefined);
   }
 }
 

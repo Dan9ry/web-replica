@@ -89,6 +89,7 @@ export interface SourceCapture {
   screenshot?: ScreenshotCapture;
   selectors: Record<string, SelectorCapture>;
   error?: string;
+  manualVerified?: boolean;
 }
 
 export interface DomProfile {

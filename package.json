@@ -13,7 +13,8 @@
     "eval:capture": "npm run eval:build && node .evaluator-dist/evaluator/collectors/capture-all.js",
     "eval:run": "node .evaluator-dist/evaluator/run-evaluation.js",
     "eval:report": "node .evaluator-dist/evaluator/reports/generate-html.js",
-    "eval": "npm run eval:build && node .evaluator-dist/evaluator/collectors/capture-all.js && node .evaluator-dist/evaluator/run-evaluation.js && node .evaluator-dist/evaluator/reports/generate-html.js"
+    "eval": "npm run eval:build && node .evaluator-dist/evaluator/collectors/capture-all.js && node .evaluator-dist/evaluator/run-evaluation.js && node .evaluator-dist/evaluator/reports/generate-html.js",
+    "eval:interactive": "npm run eval:build && EVAL_INTERACTIVE=1 node .evaluator-dist/evaluator/collectors/capture-all.js && node .evaluator-dist/evaluator/run-evaluation.js && node .evaluator-dist/evaluator/reports/generate-html.js"
   },
   "dependencies": {
     "react": "^19.0.0",
