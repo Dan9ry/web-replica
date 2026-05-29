@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises";
-import { join } from "node:path";
+import { isAbsolute, join } from "node:path";
 import type { PageTarget } from "./types.js";
 
 interface RawTarget extends PageTarget {
@@ -8,28 +8,21 @@ interface RawTarget extends PageTarget {
   expectedTextIncludes?: string[];
 }
 
-const targetFiles = ["baidu.json", "wechat-pay-login.json", "third-page.json"];
-
 export async function loadTargets(rootDir = process.cwd()): Promise<PageTarget[]> {
-  const targetFilter = process.env.EVAL_TARGET?.trim();
+  const targetConfig = process.env.EVAL_TARGET_CONFIG?.trim();
 
-  if (!targetFilter) {
-    throw new Error("必须通过 EVAL_TARGET 指定当前复刻项目。评估器不支持评估全部页面。");
+  if (!targetConfig) {
+    throw new Error(
+      "必须通过 EVAL_TARGET_CONFIG 指定当前复刻项目配置，例如 projects/{target-id}/config/target.json。",
+    );
   }
 
-  const targets = await Promise.all(
-    targetFiles.map(async (fileName) => {
-      const filePath = join(rootDir, "evaluator", "targets", fileName);
-      const raw = JSON.parse(await readFile(filePath, "utf8")) as RawTarget;
-      return raw;
-    }),
-  );
+  const filePath = isAbsolute(targetConfig) ? targetConfig : join(rootDir, targetConfig);
+  const target = JSON.parse(await readFile(filePath, "utf8")) as RawTarget;
 
-  return targets.filter((target) => {
-    if (target.originalUrl.trim().length === 0) {
-      return false;
-    }
+  if (target.originalUrl.trim().length === 0) {
+    throw new Error(`当前复刻项目配置缺少 originalUrl：${filePath}`);
+  }
 
-    return target.id === targetFilter;
-  });
+  return [target];
 }

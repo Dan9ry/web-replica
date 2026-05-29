@@ -1,9 +1,7 @@
 import { expect, test } from "@playwright/test";
 
-test("home page links to replica scaffolds", async ({ page }) => {
+test("home page describes the clean replica workflow", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("link", { name: /Baidu Replica/i })).toBeVisible();
-  await expect(page.getByRole("link", { name: /WeChat Pay Login/i })).toBeVisible();
-  await expect(page.getByRole("link", { name: /Third Page/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "网页复刻与一致性评估基础环境" })).toBeVisible();
+  await expect(page.getByText("使用 skill 创建复刻 project")).toBeVisible();
 });
-

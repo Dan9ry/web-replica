@@ -16,7 +16,7 @@
 | 模块 | 技术 |
 | --- | --- |
 | 前端工程 | Vite + React + TypeScript |
-| 路由 | React Router |
+| 页面生成 | 由项目级 skill 按当前复刻 project 创建页面与入口 |
 | 自动化浏览器 | Playwright；必要时使用 `@chrome` 操作真实 Chrome |
 | 视觉对比 | pixelmatch、sharp、ssim.js |
 | 测试 | Vitest、Playwright Test |
@@ -26,22 +26,18 @@
 
 ```text
 src/
-  pages/
-    BaiduReplica/
-    WeChatPayLoginReplica/
-    ThirdReplica/
   shared/
 evaluator/
   collectors/        # 原网页与复刻页采集
   core/              # 配置、门禁、指标、报告核心逻辑
   reports/           # 报告生成脚本
-  targets/           # 每个目标页面的评估配置
 tests/
   e2e/
   unit/
+.codex/
+  skills/
+    web-replica-workflow/
 docs/
-  ai-logs/
-  prompts/
 reports/
   latest/
   history/
@@ -66,27 +62,23 @@ http://127.0.0.1:5173
 npm run build       # 构建前端工程
 npm run test        # 运行单元测试
 npm run test:e2e    # 运行 Playwright 冒烟测试
-npm run eval        # 运行一致性评估流程，必须配合 EVAL_TARGET 指定当前复刻项目
-npm run eval:interactive # 交互式评估，必须配合 EVAL_TARGET 指定当前复刻项目
-npm run eval:baidu  # 只评估百度目标
-npm run eval:baidu:interactive # 只用交互模式评估百度目标
+npm run eval        # 运行一致性评估流程，必须配合 EVAL_TARGET_CONFIG
+npm run eval:interactive # 交互式评估，必须配合 EVAL_TARGET_CONFIG
 ```
 
-评估永远只针对当前正在进行的复刻项目。运行通用命令时必须使用 `EVAL_TARGET` 指定目标，例如 `EVAL_TARGET=baidu npm run eval`；也可以使用对应脚本，例如 `npm run eval:baidu:interactive`。评估器不提供“评估全部”选项，避免把未实现页面误纳入评估。
+评估器是通用工具，不内置具体复刻项目。运行评估时必须传入当前 project 的配置：
 
-`npm run eval` 适合自动化或 CI：指定范围后，如果原网页实时采集遇到安全验证、AI 校验或验证码，评估器会优先使用最近一次成功保存的原站截图/DOM 基准降级评估；复刻页仍会实时运行交互流程并采集截图。若没有可用历史基准，才会中断，不生成复刻一致性总分。
+```bash
+EVAL_TARGET_CONFIG=projects/{target-id}/config/target.json npm run eval
+```
 
-`npm run eval:interactive` 适合本地人工辅助评估：当真实网页进入安全验证、AI 校验、验证码或关键状态未出现时，评估器会打开可见浏览器窗口并暂停。用户在浏览器中完成验证后，回到终端按 Enter，评估器会继续采集当前真实状态。该模式使用 `.evaluator-browser-profile/` 保存本地浏览器状态，减少重复验证。
+交互辅助评估使用：
 
-当前只评估百度时使用 `npm run eval:baidu` 或 `npm run eval:baidu:interactive`。
+```bash
+EVAL_TARGET_CONFIG=projects/{target-id}/config/target.json npm run eval:interactive
+```
 
-## 复刻页面
-
-| 页面 | 路由 | 当前状态 |
-| --- | --- | --- |
-| 百度首页 | `/replica/baidu` | 已实现首页、搜索结果页、分页和空输入交互 |
-| 微信支付商户登录页 | `/replica/wechat-pay-login` | 第一阶段占位页 |
-| 第三个目标页面 | `/replica/third` | 等待用户提供目标 URL |
+具体复刻页面不预置在仓库中，由项目级 skill 创建 `projects/{target-id}/`、页面源码、评估配置和素材基线。
 
 ## 评估原则
 
@@ -156,5 +148,4 @@ npm run eval:baidu:interactive # 只用交互模式评估百度目标
 
 - [题目原文](docs/微信支付后台开发实习岗-基于%20AI%20工具的网页复刻与一致性评估.md)
 - [实施方案](docs/网页复刻与一致性评估实施方案.md)
-- [网页复刻六阶段流程](docs/网页复刻六阶段流程.md)
 - [项目级网页复刻 Skill](.codex/skills/web-replica-workflow/SKILL.md)

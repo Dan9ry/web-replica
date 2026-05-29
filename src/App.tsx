@@ -1,53 +1,33 @@
-import { NavLink, Route, Routes } from "react-router-dom";
-import { ExternalLink } from "lucide-react";
-import { BaiduReplicaPage } from "./pages/BaiduReplica/BaiduReplicaPage";
-import { WeChatPayLoginReplicaPage } from "./pages/WeChatPayLoginReplica/WeChatPayLoginReplicaPage";
-import { ThirdReplicaPage } from "./pages/ThirdReplica/ThirdReplicaPage";
 import styles from "./App.module.css";
-
-const pages = [
-  { path: "/replica/baidu", label: "Baidu Replica" },
-  { path: "/replica/wechat-pay-login", label: "WeChat Pay Login" },
-  { path: "/replica/third", label: "Third Page" },
-];
 
 function HomePage() {
   return (
     <main className={styles.home}>
       <section className={styles.intro}>
         <p className={styles.eyebrow}>Web Replica Evaluator</p>
-        <h1>AI-assisted page replica and consistency evaluation</h1>
+        <h1>网页复刻与一致性评估基础环境</h1>
         <p>
-          This project reproduces target web pages and scores them with an
-          automated evaluation pipeline covering source capture validation,
-          functionality, interaction, visual similarity, performance,
-          accessibility, and responsive behavior.
+          这是一个干净的复刻工程壳子。新的复刻任务由项目级 skill 创建
+          <code>projects/{"{target-id}"}</code>，生成页面源码、评估配置和素材基线后，
+          再调用通用评估器完成一致性评估。
         </p>
       </section>
 
-      <section className={styles.grid} aria-label="Replica pages">
-        {pages.map((page) => (
-          <NavLink className={styles.card} to={page.path} key={page.path}>
-            <span>{page.label}</span>
-            <ExternalLink size={18} aria-hidden="true" />
-          </NavLink>
-        ))}
+      <section className={styles.grid} aria-label="Workflow summary">
+        <article className={styles.card}>
+          <span>1. 使用 skill 创建复刻 project</span>
+        </article>
+        <article className={styles.card}>
+          <span>2. 采集真实状态与截图基线</span>
+        </article>
+        <article className={styles.card}>
+          <span>3. 实现页面并调用通用评估器</span>
+        </article>
       </section>
     </main>
   );
 }
 
 export default function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/replica/baidu" element={<BaiduReplicaPage />} />
-      <Route
-        path="/replica/wechat-pay-login"
-        element={<WeChatPayLoginReplicaPage />}
-      />
-      <Route path="/replica/third" element={<ThirdReplicaPage />} />
-    </Routes>
-  );
+  return <HomePage />;
 }
-

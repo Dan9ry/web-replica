@@ -1,108 +1,234 @@
 ---
 name: web-replica-workflow
-description: Use for this repository when planning, collecting sources for, implementing, evaluating, or iterating a website replica. Enforces the project-local six-phase clone workflow, current-project-only evaluation, upfront evaluation-mode selection, project folder organization, and live replica URL reporting.
+description: Use in this repository for any website replica request, including planning, project creation, real source capture, implementation, evaluation, cleanup, or workflow revision. Enforces the self-contained six-phase project workflow, project-local files, upfront evaluation-mode selection, generic evaluator invocation, and replica access URL reporting.
 ---
 
 # Web Replica Workflow
 
-Use this skill for every website replica task in this repository, including requests to create a clone plan, collect real site evidence, implement a replica page, evaluate a replica, or revise the clone workflow.
+Use this skill for every website replica task in this repository.
 
-Detailed workflow reference:
+## Non-Negotiable Rules
 
-```text
-docs/网页复刻六阶段流程.md
+1. Do not start implementation before the replica request, source/state scope, evaluation mode, and replica access URL are documented.
+2. Each replica target is created under `projects/{target-id}/`; project files are not scattered across `docs/`.
+3. The skill creates project files and target config, then calls the generic evaluator with the project config.
+4. The evaluator is generic. It does not own fixed project targets and must be invoked with:
+
+```bash
+EVAL_TARGET_CONFIG=projects/{target-id}/config/target.json npm run eval
 ```
 
-Read that document when the task needs phase details, templates, project folder layout, or acceptance gates.
-
-## Core Rules
-
-1. Follow the six phases in order:
-   - Phase 1: Replica request parsing.
-   - Phase 2: Project initialization.
-   - Phase 3: Real source capture and state baselines.
-   - Phase 4: Replica strategy and spec confirmation.
-   - Phase 5: Replica implementation.
-   - Phase 6: Evaluation iteration and delivery.
-2. Every replica target gets its own project folder:
-   - `projects/{target-id}/request.md`
-   - `projects/{target-id}/spec.md`
-   - `projects/{target-id}/logs/`
-   - `projects/{target-id}/prompts/`
-   - `projects/{target-id}/sources/`
-   - `projects/{target-id}/baselines/`
-   - `projects/{target-id}/evaluation/`
-   - `projects/{target-id}/config/target.json`
-3. Before implementation, create or update the replica request/spec and obtain user confirmation when scope or evaluation mode is not already locked.
-4. Evaluation mode is decided in the upfront replica plan:
-   - `普通自动评估`
-   - `交互辅助评估`
-   - `截图来源评估`
-   Record the chosen mode and evidence source in `projects/{target-id}/spec.md`.
-5. Evaluation is always for the current replica project only. Use `EVAL_TARGET={target-id}` or a current-target script. Do not offer or run all-target evaluation.
-6. Source capture must fail closed:
-   - If the real site cannot be accessed, enters security verification, shows captcha, requires login, or cannot be confirmed as the target page, pause and ask the user to intervene.
-   - Do not guess missing original states.
-   - Screenshot-source replicas can only rely on states visible in provided screenshots.
-7. Capture all required states before implementation. For scrollable pages, capture top, middle, bottom, and viewport screenshots.
-8. Evaluation uses only:
-   - 功能一致性
-   - 交互一致性
-   - 视觉一致性
-9. Reports must identify:
-   - locked evaluation mode,
-   - actual source evidence,
-   - score breakdown,
-   - low-score fix suggestions.
-10. Every replica plan and delivery update must include the live local access URL for the replica page, for example:
+5. There is no all-project evaluation. Evaluate only the current project.
+6. Source capture fails closed. If the real site cannot be verified, asks for login, shows captcha/security verification, or a required state is missing, pause and ask the user to intervene.
+7. Evaluation uses only functionality, interaction, and visual consistency.
+8. Every replica plan and delivery update must include the local replica access URL:
 
 ```text
 http://127.0.0.1:5173/replica/{target}
 ```
 
-If the dev server is not running yet, still state the intended URL and the command to start it:
+If the dev server is not running, also include:
 
 ```bash
 npm run dev
 ```
 
+## Project Folder Contract
+
+Create this structure for every new replica:
+
+```text
+projects/{target-id}/
+├── request.md
+├── spec.md
+├── logs/
+│   ├── ai-log.md
+│   ├── decisions.md
+│   └── blockers.md
+├── prompts/
+│   └── replica-prompts.md
+├── sources/
+│   ├── user-screenshots/
+│   └── urls.md
+├── baselines/
+│   └── {state-id}/
+├── captures/
+├── evaluation/
+│   ├── latest/
+│   └── history/
+└── config/
+    └── target.json
+```
+
+Page source code may be generated under `src/pages/{TargetReplica}/`, but the project remains the owner of request/spec/logs/sources/baselines/evaluation/config.
+
+## Six-Phase Workflow
+
+### Phase 1: Replica Request Parsing
+
+Create or update `projects/{target-id}/request.md`.
+
+Record:
+
+- material source: URL, screenshot, or mixed,
+- original URL or screenshot list,
+- replica access URL,
+- page scope,
+- state scope,
+- function scope,
+- explicit non-goals,
+- evaluation mode,
+- source evidence mode,
+- verification/fallback behavior,
+- acceptance thresholds.
+
+Evaluation modes:
+
+- `普通自动评估`: realtime source capture; configured fallback may use the latest verified screenshot/DOM baseline.
+- `交互辅助评估`: visible browser; pause for user verification when needed.
+- `截图来源评估`: use user screenshots or confirmed baselines; do not infer states outside screenshots.
+
+Gate: request is documented and user confirms scope or explicitly authorizes the recommended scope.
+
+### Phase 2: Project Initialization
+
+Create the project folder contract above.
+
+Create `projects/{target-id}/config/target.json` with the evaluator target config. This config is the source passed to the generic evaluator.
+
+Gate:
+
+- project folder exists,
+- `request.md` exists,
+- `config/target.json` exists,
+- local route and replica access URL are known.
+
+### Phase 3: Real Source Capture And State Baselines
+
+Before implementation, collect every required original state.
+
+For URL sources:
+
+- open the real site,
+- execute state trigger steps,
+- capture top, middle, bottom, and viewport screenshots for scrollable pages,
+- save DOM/style summaries and interaction notes,
+- pause if access or verification fails.
+
+For screenshot sources:
+
+- place user screenshots in `sources/user-screenshots/`,
+- label each screenshot by page and state,
+- pause if required state screenshots are missing.
+
+Each required state should have:
+
+```text
+projects/{target-id}/baselines/{state-id}/original-desktop.png
+projects/{target-id}/baselines/{state-id}/original-top.png
+projects/{target-id}/baselines/{state-id}/original-middle.png
+projects/{target-id}/baselines/{state-id}/original-bottom.png
+projects/{target-id}/baselines/{state-id}/original-dom.json
+projects/{target-id}/baselines/{state-id}/capture-notes.md
+```
+
+Gate: every required state has verified source evidence.
+
+### Phase 4: Replica Strategy And Spec Confirmation
+
+Create `projects/{target-id}/spec.md`.
+
+Confirm with the user:
+
+- page scope,
+- state scope,
+- function scope,
+- explicit non-goals,
+- visual priorities for header/body/footer/popups/forms/lists,
+- component split,
+- route and replica access URL,
+- evaluation mode and fallback behavior,
+- acceptance thresholds.
+
+Gate:
+
+- user confirms strategy,
+- every state maps to source evidence,
+- evaluation mode is locked,
+- `config/target.json` covers all required states.
+
+### Phase 5: Replica Implementation
+
+Implement only after Phase 4 is locked.
+
+Do:
+
+- create page route/source files,
+- implement states one by one,
+- keep real network/login/payment/upload out unless explicitly requested,
+- locally self-check that all required states can be triggered,
+- record prompts, AI outputs, manual edits, and commits in `logs/ai-log.md` and `logs/decisions.md`.
+
+Gate:
+
+- replica URL opens locally,
+- required states are triggerable,
+- header/body/footer or screenshot-covered regions are implemented,
+- non-goals are respected.
+
+### Phase 6: Evaluation Iteration And Delivery
+
+Run only the current project:
+
+```bash
+EVAL_TARGET_CONFIG=projects/{target-id}/config/target.json npm run eval
+```
+
+For interaction-assisted evaluation:
+
+```bash
+EVAL_TARGET_CONFIG=projects/{target-id}/config/target.json npm run eval:interactive
+```
+
+Reports must include:
+
+- locked evaluation mode,
+- actual source evidence,
+- total score,
+- functionality score,
+- interaction score,
+- visual score,
+- visual diffs,
+- issue list,
+- low-score fix suggestions.
+
+Archive reports:
+
+```text
+projects/{target-id}/evaluation/latest/
+projects/{target-id}/evaluation/history/{timestamp}/
+```
+
+Gate:
+
+- report contains only functionality, interaction, and visual scores,
+- report identifies source evidence and evaluation mode,
+- low-score items include fix suggestions,
+- result contains only the current project,
+- score reaches target or next fixes are documented.
+
 ## Required Plan Output
 
 When giving a replica plan, include:
 
-- Material source: URL, screenshot, or mixed.
-- Replica access URL: `http://127.0.0.1:5173/replica/{target}`.
-- Page scope.
-- State scope.
-- Function scope.
-- Explicit non-goals.
-- Evaluation mode and fallback behavior.
-- Required real screenshots or screenshot baselines.
-- Project folder path: `projects/{target-id}/`.
-- Acceptance thresholds for functionality, interaction, visual, and total score.
-
-## Required Evaluation Behavior
-
-Before running evaluation:
-
-1. Confirm the current `target-id`.
-2. Confirm the locked evaluation mode from `projects/{target-id}/spec.md`.
-3. Run only that target:
-
-```bash
-EVAL_TARGET={target-id} npm run eval
-```
-
-or the target-specific script, such as:
-
-```bash
-npm run eval:baidu
-```
-
-For interaction-assisted evaluation, use the matching interactive command:
-
-```bash
-EVAL_TARGET={target-id} npm run eval:interactive
-```
-
-If verification appears, pause and wait for the user to complete it before continuing.
+- material source,
+- replica access URL,
+- page scope,
+- state scope,
+- function scope,
+- non-goals,
+- evaluation mode and fallback behavior,
+- required source screenshots/baselines,
+- project folder path,
+- evaluator config path,
+- acceptance thresholds.

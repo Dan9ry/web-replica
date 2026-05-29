@@ -14,15 +14,11 @@
     "eval:run": "node .evaluator-dist/evaluator/run-evaluation.js",
     "eval:report": "node .evaluator-dist/evaluator/reports/generate-html.js",
     "eval": "npm run eval:build && node .evaluator-dist/evaluator/collectors/capture-all.js && node .evaluator-dist/evaluator/run-evaluation.js && node .evaluator-dist/evaluator/reports/generate-html.js",
-    "eval:interactive": "npm run eval:build && EVAL_INTERACTIVE=1 node .evaluator-dist/evaluator/collectors/capture-all.js && node .evaluator-dist/evaluator/run-evaluation.js && node .evaluator-dist/evaluator/reports/generate-html.js",
-    "eval:baidu": "npm run eval:build && EVAL_TARGET=baidu node .evaluator-dist/evaluator/collectors/capture-all.js && node .evaluator-dist/evaluator/run-evaluation.js && node .evaluator-dist/evaluator/reports/generate-html.js",
-    "eval:baidu:interactive": "npm run eval:build && EVAL_TARGET=baidu EVAL_INTERACTIVE=1 node .evaluator-dist/evaluator/collectors/capture-all.js && node .evaluator-dist/evaluator/run-evaluation.js && node .evaluator-dist/evaluator/reports/generate-html.js"
+    "eval:interactive": "npm run eval:build && EVAL_INTERACTIVE=1 node .evaluator-dist/evaluator/collectors/capture-all.js && node .evaluator-dist/evaluator/run-evaluation.js && node .evaluator-dist/evaluator/reports/generate-html.js"
   },
   "dependencies": {
-    "lucide-react": "^0.468.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-router-dom": "^7.0.0"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.50.0",

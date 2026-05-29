@@ -4,17 +4,19 @@ import { tmpdir } from "node:os";
 import { afterEach, describe, expect, test } from "vitest";
 import { loadTargets } from "../../evaluator/core/targets";
 
-const previousTarget = process.env.EVAL_TARGET;
+const previousConfig = process.env.EVAL_TARGET_CONFIG;
 
-async function writeTarget(rootDir: string, fileName: string, id: string, originalUrl: string) {
+async function createProjectFixture(originalUrl = "https://example.com"): Promise<string> {
+  const rootDir = await mkdtemp(join(tmpdir(), "web-replica-target-config-"));
+  await mkdir(join(rootDir, "projects", "example", "config"), { recursive: true });
   await writeFile(
-    join(rootDir, "evaluator", "targets", fileName),
+    join(rootDir, "projects", "example", "config", "target.json"),
     JSON.stringify(
       {
-        id,
-        name: id,
+        id: "example",
+        name: "Example",
         originalUrl,
-        replicaUrl: `http://127.0.0.1:5173/replica/${id}`,
+        replicaUrl: "http://127.0.0.1:5173/replica/example",
         criticalSelectors: [],
         viewports: [{ name: "desktop", width: 1365, height: 768 }],
       },
@@ -23,59 +25,43 @@ async function writeTarget(rootDir: string, fileName: string, id: string, origin
     ),
     "utf8",
   );
-}
-
-async function createTargetsFixture(): Promise<string> {
-  const rootDir = await mkdtemp(join(tmpdir(), "web-replica-targets-"));
-  await mkdir(join(rootDir, "evaluator", "targets"), { recursive: true });
-  await writeTarget(rootDir, "baidu.json", "baidu", "https://www.baidu.com");
-  await writeTarget(
-    rootDir,
-    "wechat-pay-login.json",
-    "wechat-pay-login",
-    "https://pay.weixin.qq.com",
-  );
-  await writeTarget(rootDir, "third-page.json", "third-page", "");
   return rootDir;
 }
 
 afterEach(() => {
-  if (previousTarget === undefined) {
-    delete process.env.EVAL_TARGET;
+  if (previousConfig === undefined) {
+    delete process.env.EVAL_TARGET_CONFIG;
   } else {
-    process.env.EVAL_TARGET = previousTarget;
+    process.env.EVAL_TARGET_CONFIG = previousConfig;
   }
 
+  delete process.env.EVAL_TARGET;
   delete process.env.EVAL_ALL;
 });
 
 describe("loadTargets", () => {
-  test("filters targets by EVAL_TARGET when provided", async () => {
-    const rootDir = await createTargetsFixture();
-    process.env.EVAL_TARGET = "baidu";
+  test("loads the current project target from EVAL_TARGET_CONFIG", async () => {
+    const rootDir = await createProjectFixture();
+    process.env.EVAL_TARGET_CONFIG = "projects/example/config/target.json";
 
     const targets = await loadTargets(rootDir);
 
-    expect(targets.map((target) => target.id)).toEqual(["baidu"]);
+    expect(targets.map((target) => target.id)).toEqual(["example"]);
   });
 
-  test("does not support all-target evaluation", async () => {
-    const rootDir = await createTargetsFixture();
-    delete process.env.EVAL_TARGET;
-    process.env.EVAL_ALL = "1";
+  test("requires a current project target config", async () => {
+    const rootDir = await createProjectFixture();
+    delete process.env.EVAL_TARGET_CONFIG;
 
     await expect(loadTargets(rootDir)).rejects.toThrow(
-      "必须通过 EVAL_TARGET 指定当前复刻项目",
+      "必须通过 EVAL_TARGET_CONFIG 指定当前复刻项目配置",
     );
   });
 
-  test("requires an explicit current project target", async () => {
-    const rootDir = await createTargetsFixture();
-    delete process.env.EVAL_TARGET;
-    delete process.env.EVAL_ALL;
+  test("rejects project configs without an original URL", async () => {
+    const rootDir = await createProjectFixture("");
+    process.env.EVAL_TARGET_CONFIG = "projects/example/config/target.json";
 
-    await expect(loadTargets(rootDir)).rejects.toThrow(
-      "必须通过 EVAL_TARGET 指定当前复刻项目",
-    );
+    await expect(loadTargets(rootDir)).rejects.toThrow("当前复刻项目配置缺少 originalUrl");
   });
 });
