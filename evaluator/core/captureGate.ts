@@ -26,8 +26,8 @@ export function shouldInterruptEvaluation(pages: PageEvaluationResult[]): boolea
 export function buildCaptureGateMessage(pages: PageEvaluationResult[]): string {
   const failedPages = pages.filter((page) => !page.sourceValidation.canScore);
   const lines = [
-    "评估已中断：原始真实页面状态采集未通过可信性门禁。",
-    "为避免基于错误页面、验证码页或主观猜测继续评分，本次不会生成复刻一致性总分。",
+    "评估已中断：Phase 3 原始真实页面截图/DOM 基线未通过可信性门禁。",
+    "为避免基于缺失、错误或不完整的原站证据继续评分，本次不会生成复刻一致性总分。",
     "",
     "需要处理的页面/状态：",
   ];
@@ -52,7 +52,7 @@ export function buildCaptureGateMessage(pages: PageEvaluationResult[]): string {
   }
 
   lines.push("");
-  lines.push("请先在真实浏览器中完成安全验证/AI 校验/验证码，确认目标状态可正常打开后，再重新运行：");
+  lines.push("请回到素材采集阶段，补齐并确认当前复刻项目的原站截图/DOM 基线后，再重新运行：");
   lines.push("npm run eval");
   lines.push("");
   lines.push("诊断文件：reports/latest/source-validation.json");

@@ -37,7 +37,7 @@ function captureModeLabel(page: PageEvaluationResult): string {
       : "live");
 
   return mode === "baseline"
-    ? "截图/DOM 基线降级评估"
+    ? "Phase 3 截图/DOM 基线评估"
     : "实时原站采集评估";
 }
 
@@ -55,8 +55,8 @@ function renderPage(page: PageEvaluationResult): string {
   ];
 
   if (!page.sourceValidation.canScore) {
-    lines.push("### 原网页采集失败", "");
-    lines.push("本页面未生成一致性总分，因为原网页采集未通过可信性门禁。", "");
+    lines.push("### 原网页基线门禁失败", "");
+    lines.push("本页面未生成一致性总分，因为 Phase 3 原网页截图/DOM 基线未通过可信性门禁。", "");
     lines.push(...renderStateResults(page));
     lines.push("### 问题列表", "");
     lines.push(renderIssues(page.sourceValidation.issues));

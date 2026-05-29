@@ -54,7 +54,7 @@ describe("capture gate", () => {
     expect(message).toContain("评估已中断");
     expect(message).toContain("Baidu Home");
     expect(message).toContain("results");
-    expect(message).toContain("请先在真实浏览器中完成安全验证/AI 校验/验证码");
+    expect(message).toContain("请回到素材采集阶段");
     expect(message).toContain("npm run eval");
   });
 

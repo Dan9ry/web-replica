@@ -1,22 +1,13 @@
 import { copyFile, mkdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { stdin as input, stdout as output } from "node:process";
-import { createInterface } from "node:readline/promises";
-import { chromium, type Browser, type BrowserContext, type Page } from "playwright";
+import { chromium, type Browser, type Page } from "playwright";
 import pixelmatch from "pixelmatch";
 import sharp from "sharp";
 import { ssim } from "ssim.js";
 import { loadTargets } from "../core/targets.js";
-import {
-  buildCaptureGateMessage,
-  buildInteractiveVerificationMessage,
-  shouldInterruptEvaluation,
-  shouldOfferInteractiveRepair,
-  shouldUseScreenshotFallback,
-} from "../core/captureGate.js";
+import { buildCaptureGateMessage, shouldInterruptEvaluation } from "../core/captureGate.js";
 import {
   normalizeTargetStates,
-  validateStateCapture,
   validateTargetStateCaptures,
 } from "../core/stateValidation.js";
 import { writeJsonFile } from "../core/files.js";
@@ -33,10 +24,6 @@ import type {
 } from "../core/types.js";
 
 const latestDir = join(process.cwd(), "reports", "latest");
-const baselineDir = join(process.cwd(), "reports", "baselines");
-const interactiveMode = process.env.EVAL_INTERACTIVE === "1";
-const interactiveProfileDir =
-  process.env.EVAL_PROFILE_DIR ?? join(process.cwd(), ".evaluator-browser-profile");
 
 interface PageSession {
   page: Page;
@@ -169,24 +156,7 @@ async function collectDomProfile(
 
 async function createPageSession(
   viewport: { width: number; height: number },
-  side: CaptureSide,
 ): Promise<PageSession> {
-  if (interactiveMode && side === "original") {
-    const context: BrowserContext = await chromium.launchPersistentContext(
-      interactiveProfileDir,
-      {
-        headless: false,
-        viewport: { width: viewport.width, height: viewport.height },
-      },
-    );
-    const page = context.pages()[0] ?? (await context.newPage());
-
-    return {
-      page,
-      close: () => context.close(),
-    };
-  }
-
   const browser: Browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({
     viewport: { width: viewport.width, height: viewport.height },
@@ -196,15 +166,6 @@ async function createPageSession(
     page,
     close: () => browser.close(),
   };
-}
-
-async function waitForEnter(): Promise<void> {
-  const readline = createInterface({ input, output });
-  try {
-    await readline.question("");
-  } finally {
-    readline.close();
-  }
 }
 
 async function capturePageEvidence({
@@ -264,70 +225,69 @@ async function capturePageEvidence({
   };
 }
 
-function baselineJsonPath(target: PageTarget, state: PageStateConfig, viewportName: string): string {
-  return join(baselineDir, target.id, state.id, `original-${viewportName}.json`);
+function targetBaselineDir(target: PageTarget): string {
+  return target.baselineDir ?? join(process.cwd(), "projects", target.id, "baselines");
 }
 
-function baselineScreenshotPath(
+function baselineScreenshotPath(target: PageTarget, state: PageStateConfig, viewportName: string): string {
+  return join(targetBaselineDir(target), state.id, `original-${viewportName}.png`);
+}
+
+function baselineDomPath(target: PageTarget, state: PageStateConfig): string {
+  return join(targetBaselineDir(target), state.id, "original-dom.json");
+}
+
+async function loadProjectBaselineCapture(
   target: PageTarget,
   state: PageStateConfig,
   viewportName: string,
-): string {
-  return join(baselineDir, target.id, state.id, `original-${viewportName}.png`);
-}
-
-async function saveBaselineCapture(
-  target: PageTarget,
-  state: PageStateConfig,
-  capture: StateCapture,
-): Promise<void> {
-  if (
-    capture.side !== "original" ||
-    capture.fallbackFromBaseline ||
-    capture.error ||
-    !capture.screenshotPath ||
-    !capture.screenshot ||
-    capture.screenshot.blank
-  ) {
-    return;
-  }
-
-  const validation = validateStateCapture(target, state, capture);
-  if (!validation.canScore) {
-    return;
-  }
-
-  const screenshotPath = baselineScreenshotPath(target, state, capture.viewport);
-  const jsonPath = baselineJsonPath(target, state, capture.viewport);
-  await mkdir(join(baselineDir, target.id, state.id), { recursive: true });
-  await copyFile(capture.screenshotPath, screenshotPath);
-  await writeJsonFile(jsonPath, {
-    ...capture,
-    screenshotPath,
-    fallbackFromBaseline: false,
-    fallbackReason: undefined,
-  });
-}
-
-async function loadBaselineCapture(
-  target: PageTarget,
-  state: PageStateConfig,
-  viewportName: string,
-  reason: string,
-): Promise<StateCapture | undefined> {
-  const jsonPath = baselineJsonPath(target, state, viewportName);
+): Promise<StateCapture> {
+  const jsonPath = baselineDomPath(target, state);
+  const sourceScreenshotPath = baselineScreenshotPath(target, state, viewportName);
+  const reportAssetsDir = join(latestDir, "assets", target.id, state.id);
+  const reportScreenshotPath = join(reportAssetsDir, `original-${viewportName}.png`);
 
   try {
+    await mkdir(reportAssetsDir, { recursive: true });
     const baseline = JSON.parse(await readFile(jsonPath, "utf8")) as StateCapture;
+    await copyFile(sourceScreenshotPath, reportScreenshotPath);
+    const metadata = await sharp(reportScreenshotPath).metadata();
+
     return {
       ...baseline,
-      fallbackFromBaseline: true,
-      fallbackReason: reason,
+      stateId: state.id,
+      side: "original",
+      viewport: viewportName,
+      requestedUrl: state.originalUrl ?? target.originalUrl,
+      screenshotPath: reportScreenshotPath,
+      screenshot: {
+        width: metadata.width ?? baseline.screenshot?.width ?? 0,
+        height: metadata.height ?? baseline.screenshot?.height ?? 0,
+        blank: await isBlankScreenshot(reportScreenshotPath),
+      },
+      fromProjectBaseline: true,
+      baselinePath: jsonPath,
+      fallbackFromBaseline: false,
+      fallbackReason: undefined,
       error: undefined,
       status: baseline.status ?? 200,
     };
-  } catch {
-    return undefined;
+  } catch (error) {
+    const message = summarizeError(error);
+    return {
+      stateId: state.id,
+      side: "original",
+      viewport: viewportName,
+      requestedUrl: state.originalUrl ?? target.originalUrl,
+      finalUrl: state.originalUrl ?? target.originalUrl,
+      status: null,
+      title: "",
+      bodyTextSample: "",
+      selectors: {},
+      fromProjectBaseline: true,
+      baselinePath: jsonPath,
+      error: `缺少或无法读取 Phase 3 原站基线文件：${jsonPath} / ${sourceScreenshotPath}；${message}`,
+    };
   }
 }
 
@@ -349,7 +309,7 @@ async function collectState(
   const start = performance.now();
 
   try {
-    session = await createPageSession(viewport, side);
+    session = await createPageSession(viewport);
     page = session.page;
 
     const response = await page.goto(url, {
@@ -401,53 +361,6 @@ async function collectState(
         selectors: {},
         error: errorMessage,
       }));
-
-      if (interactiveMode && shouldOfferInteractiveRepair(failedCapture, side)) {
-        console.error(
-          buildInteractiveVerificationMessage({
-            targetName: target.name,
-            stateName: state.name,
-            stateId: state.id,
-            finalUrl: failedCapture.finalUrl,
-            side,
-          }),
-        );
-        await waitForEnter();
-        await page.waitForLoadState("domcontentloaded", { timeout: 10_000 }).catch(() => undefined);
-
-        return await capturePageEvidence({
-          target,
-          state,
-          side,
-          page,
-          url,
-          viewport,
-          criticalSelectors,
-          compareSelectors,
-          status: 200,
-          start,
-          manualVerified: true,
-        }).catch<StateCapture>((retryError) => ({
-          ...failedCapture,
-          error: `${failedCapture.error ?? "原网页采集失败"}；人工验证后重新采集仍失败：${summarizeError(retryError)}`,
-        }));
-      }
-
-      if (shouldUseScreenshotFallback(failedCapture, side, interactiveMode)) {
-        const fallbackCapture = await loadBaselineCapture(
-          target,
-          state,
-          viewport.name,
-          failedCapture.error ?? "原网页采集遇到安全验证，使用最近一次成功截图基准降级评估。",
-        );
-
-        if (fallbackCapture) {
-          console.warn(
-            `原网页状态 ${target.id}/${state.id} 采集遇到验证问题，已使用最近一次成功截图基准降级评估。`,
-          );
-          return fallbackCapture;
-        }
-      }
 
       return failedCapture;
     }
@@ -534,11 +447,11 @@ for (const target of targets) {
   const states = normalizeTargetStates(target);
   const originalCaptures: StateCapture[] = [];
   const replicaCaptures: StateCapture[] = [];
+  const viewport = target.viewports[0] ?? { name: "desktop", width: 1365, height: 768 };
 
   for (const state of states) {
-    const originalCapture = await collectState(target, state, "original");
+    const originalCapture = await loadProjectBaselineCapture(target, state, viewport.name);
     originalCaptures.push(originalCapture);
-    await saveBaselineCapture(target, state, originalCapture);
     await writeJsonFile(
       join(latestDir, "captures", `${target.id}-${state.id}-original.json`),
       originalCapture,
@@ -595,5 +508,5 @@ if (hasFailure || shouldInterruptEvaluation(validations)) {
   console.error(buildCaptureGateMessage(validations));
   process.exitCode = 1;
 } else {
-  console.log("原网页采集可信性门禁通过。");
+  console.log("Phase 3 原网页截图/DOM 基线可信性门禁通过。");
 }

@@ -47,7 +47,14 @@ export function validateSourceCapture(
     addIssue(issues, "CAPTURE_ERROR", `原网页采集异常：${capture.error}`);
   }
 
-  if (capture.fallbackFromBaseline) {
+  if (capture.fromProjectBaseline) {
+    addIssue(
+      issues,
+      "PROJECT_BASELINE_SOURCE",
+      `原网页证据来自 Phase 3 已确认截图/DOM 基线：${capture.baselinePath ?? "未记录路径"}`,
+      "info",
+    );
+  } else if (capture.fallbackFromBaseline) {
     addIssue(
       issues,
       "SOURCE_FALLBACK_SCREENSHOT",
@@ -130,6 +137,6 @@ export function validateSourceCapture(
     canScore: !hasError,
     finalUrl: capture.finalUrl,
     issues,
-    captureMode: capture.fallbackFromBaseline ? "baseline" : "live",
+    captureMode: capture.fromProjectBaseline || capture.fallbackFromBaseline ? "baseline" : "live",
   };
 }

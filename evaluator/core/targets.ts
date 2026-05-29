@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises";
-import { isAbsolute, join } from "node:path";
+import { dirname, isAbsolute, join } from "node:path";
 import type { PageTarget } from "./types.js";
 
 interface RawTarget extends PageTarget {
@@ -19,10 +19,12 @@ export async function loadTargets(rootDir = process.cwd()): Promise<PageTarget[]
 
   const filePath = isAbsolute(targetConfig) ? targetConfig : join(rootDir, targetConfig);
   const target = JSON.parse(await readFile(filePath, "utf8")) as RawTarget;
+  const projectRoot = target.projectRoot ?? dirname(dirname(filePath));
+  const baselineDir = target.baselineDir ?? join(projectRoot, "baselines");
 
   if (target.originalUrl.trim().length === 0) {
     throw new Error(`当前复刻项目配置缺少 originalUrl：${filePath}`);
   }
 
-  return [target];
+  return [{ ...target, projectRoot, baselineDir }];
 }

@@ -91,6 +91,27 @@ describe("validateSourceCapture", () => {
     );
   });
 
+  test("marks Phase 3 project baseline captures without treating them as fallback", () => {
+    const result = validateSourceCapture(target, {
+      ...validCapture,
+      fromProjectBaseline: true,
+      baselinePath: "projects/baidu/baselines/home/original-dom.json",
+    });
+
+    expect(result.status).toBe("passed");
+    expect(result.canScore).toBe(true);
+    expect(result.captureMode).toBe("baseline");
+    expect(result.issues).toContainEqual(
+      expect.objectContaining({
+        severity: "info",
+        code: "PROJECT_BASELINE_SOURCE",
+      }),
+    );
+    expect(result.issues.map((issue) => issue.code)).not.toContain(
+      "SOURCE_FALLBACK_SCREENSHOT",
+    );
+  });
+
   test("fails closed for suspicious error or interception pages", () => {
     const result = validateSourceCapture(target, {
       ...validCapture,

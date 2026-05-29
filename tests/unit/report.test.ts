@@ -75,7 +75,7 @@ describe("buildMarkdownReport", () => {
       ],
     });
 
-    expect(markdown).toContain("评估方式：截图/DOM 基线降级评估");
+    expect(markdown).toContain("评估方式：Phase 3 截图/DOM 基线评估");
   });
 
   test("does not print a total score when source validation failed", () => {
@@ -103,7 +103,7 @@ describe("buildMarkdownReport", () => {
       ],
     });
 
-    expect(markdown).toContain("原网页采集失败");
+    expect(markdown).toContain("原网页基线门禁失败");
     expect(markdown).toContain("缺失关键元素 #kw");
     expect(markdown).not.toContain("总分：");
   });

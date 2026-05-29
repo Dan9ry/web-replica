@@ -13,6 +13,8 @@ export interface PageTarget {
   name: string;
   originalUrl: string;
   replicaUrl: string;
+  projectRoot?: string;
+  baselineDir?: string;
   criticalSelectors: string[];
   viewports: ViewportConfig[];
   expectedTitleIncludes?: string[];
@@ -90,6 +92,8 @@ export interface SourceCapture {
   selectors: Record<string, SelectorCapture>;
   error?: string;
   manualVerified?: boolean;
+  fromProjectBaseline?: boolean;
+  baselinePath?: string;
   fallbackFromBaseline?: boolean;
   fallbackReason?: string;
 }

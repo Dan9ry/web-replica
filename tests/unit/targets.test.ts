@@ -47,6 +47,8 @@ describe("loadTargets", () => {
     const targets = await loadTargets(rootDir);
 
     expect(targets.map((target) => target.id)).toEqual(["example"]);
+    expect(targets[0].projectRoot).toBe(join(rootDir, "projects", "example"));
+    expect(targets[0].baselineDir).toBe(join(rootDir, "projects", "example", "baselines"));
   });
 
   test("requires a current project target config", async () => {
