@@ -1,42 +1,63 @@
 ---
 name: web-replica-workflow-skip
-description: Use in this repository when the user wants a website replica workflow that skips blocking user confirmations. Automatically parses the request, creates the project, captures real source baselines, writes the spec, implements, evaluates, and iterates. Still fails closed on captcha, inaccessible source pages, missing required screenshots, or unverifiable original evidence.
+description: Use in this repository when the user wants a website replica workflow that skips blocking user confirmations. It keeps the full web-replica-workflow process and constraints, but automatically proceeds after request parsing and spec generation. It still enforces explicit gates, project-local files, generic evaluator invocation, fail-closed source capture, and replica access URL reporting.
 ---
 
 # Web Replica Workflow Skip
 
-Use this skill only when the user explicitly wants the website replica process to run without confirmation gates, or names the `web-replica-workflow-skip` skill.
+Use this skill only when the user explicitly wants a no-confirmation website replica workflow, asks to skip confirmations, or names `web-replica-workflow-skip`.
 
-Default user-facing language in this repository is Chinese.
+This skip skill must stay content-equivalent to `web-replica-workflow` except for removing the two blocking user-confirmation waits after Phase 1 and Phase 4.
 
-**Core Pipeline**: `Replica Request -> Auto Plan -> Create Project -> Source Baselines -> Auto Spec -> Implementation -> Evaluation`
+**Core Pipeline**: `Replica Request → Auto Plan → Create Project → Source Baselines → Auto Spec → Implementation → Evaluation`
 
-## Skip Mode Rules
+> [!CAUTION]
+> ## Global Execution Discipline (MANDATORY)
+>
+> This workflow is a strict serial pipeline. Violating any rule below is an execution failure:
+>
+> 1. **SERIAL EXECUTION**: phases MUST run in order. The output of each phase is the input for the next.
+> 2. **AUTO-CONTINUE CONFIRMATION STEPS**: Phase 1 and Phase 4 do not wait for user confirmation. Present the plan/spec summary, record it, and continue automatically.
+> 3. **CONSERVATIVE DEFAULTS**: if details are missing but a safe default exists in this skill, choose it, record it, and continue. If no safe default exists, stop and ask only for the missing material input.
+> 4. **GATE BEFORE ENTRY**: every phase has a 🚧 GATE. Verify the gate before starting that phase.
+> 5. **NO CROSS-PHASE BUNDLING**: phases may auto-continue, but do not skip, reorder, or merge request parsing, project creation, source capture, implementation, and evaluation.
+> 6. **NO SPECULATIVE EXECUTION**: do not pre-create project files, target config, source files, baselines, or implementation before their phase gate is satisfied.
+> 7. **SOURCE CAPTURE FAILS CLOSED**: if the original page cannot be verified, shows captcha/security verification, requires login, returns an error page, or misses a required state, pause and ask the user to intervene. Do not guess.
+> 8. **HEAD / MIDDLE / FOOTER COVERAGE**: interactive source capture MUST collect the page head, middle, and footer for every required state. If the site has no stable footer because infinite scrolling keeps loading new content, document that exception and capture representative lower loaded content instead.
+> 9. **SCREENSHOTS WITH STRATEGY**: Phase 4 MUST present source screenshots/baselines together with the replica strategy. Text-only strategy summaries are forbidden.
+> 10. **NO SOURCE RE-CAPTURE DURING EVALUATION**: Phase 6 evaluation MUST use the screenshots/baselines captured in Phase 3 as original evidence. Do not run interactive source capture again during evaluation. If baselines are missing or stale, return to Phase 3.
+> 11. **CURRENT PROJECT ONLY**: evaluation is always for the current replica project. Do not evaluate all projects.
+> 12. **GENERIC EVALUATOR ONLY**: the evaluator does not own fixed targets. Invoke it with the current project config:
+>
+> ```bash
+> EVAL_TARGET_CONFIG=projects/{target-id}/config/target.json npm run eval
+> ```
+>
+> 13. **THREE METRICS ONLY**: evaluation uses functionality, interaction, and visual consistency.
+> 14. **ACCESS URL REQUIRED**: every replica plan and delivery update must include the replica access URL. Phase 1 may show the default planned URL:
+>
+> ```text
+> http://127.0.0.1:5173/replica/{target}
+> ```
+>
+> After the dev server starts, the reported URL MUST use the actual server port from the dev-server output, because `5173` is not always available. If the dev server is not running, also include:
+>
+> ```bash
+> npm run dev
+> ```
+> 15. **PROJECT-LOCAL PAGE SOURCE**: generated replica page source MUST live inside the current project folder, not under `src/pages/`. `src/` is only the shared app shell, router entry, and common infrastructure.
+> 16. **SAME-BROWSER VERIFICATION HANDOFF**: if the browser used for source capture hits CAPTCHA, security verification, login, or AI verification, hand that exact browser tab/session to the user. Do not tell the user to verify in a different browser/profile. After the user finishes, resume in the same session and re-check the target state.
+> 17. **NO OLD-PROJECT REFERENCE**: a new replica project MUST NOT reference any old project, including its directory shape, file names, component split, prompts, mock data, CSS, page logic, interaction implementation, or visual implementation. Build only from this skill, the current user request, and the current source baselines/screenshots.
+> 18. **MAINTAINABLE AND INDEPENDENT OUTPUT**: the replica artifact must be complete, long-term maintainable source code that can run locally or online without the original site's backend for the specified core functionality and interactions.
 
-This skill removes user confirmation gates, but it does not remove evidence quality gates.
-
-1. **No confirmation waiting**: do not stop after request parsing or strategy/spec generation to ask "是否确认". Present a short progress summary and continue automatically.
-2. **Conservative defaults**: when request details are incomplete, choose conservative defaults from this skill and record the decision in `projects/{target-id}/logs/decisions.md`.
-3. **Fail closed on source evidence**: if the original site cannot be verified, shows captcha/security verification, requires login, returns an error page, or misses a required state, pause for user intervention. Do not guess.
-4. **Same-browser verification handoff**: if the capture browser hits verification, hand that exact browser tab/session to the user. Do not ask the user to verify in a different browser/profile.
-5. **No source recapture during evaluation**: evaluation uses Phase 3 baselines only. If baselines are missing or stale, return to Phase 3 before evaluating.
-6. **Current project only**: evaluate only the current replica project. Do not evaluate all projects.
-7. **Project-local page source**: generated replica page source must live under `projects/{target-id}/page/`, not under `src/pages/`.
-8. **No old-project reference**: do not inspect, copy, adapt, or pattern-match previous `projects/*` implementations.
-9. **Access URL required**: every progress/delivery update must include the replica access URL. Before the dev server starts, use the planned URL; after it starts, use the actual port from dev-server output.
-10. **Three metrics only**: evaluation reports functionality, interaction, and visual consistency.
-
-Planned URL format:
-
-```text
-http://127.0.0.1:5173/replica/{target}
-```
-
-Actual URL must use the running dev server port, because `5173` is not always available.
+> [!IMPORTANT]
+> ## Communication Rule
+>
+> Match the user's language. For this repository, Chinese user-facing plans, checkpoints, reports, and questions are preferred unless the user asks otherwise.
 
 ## Project Folder Contract
 
-Every target gets this folder:
+After Phase 1 produces a usable auto plan, every replica target gets this project folder:
 
 ```text
 projects/{target-id}/
@@ -69,104 +90,164 @@ projects/{target-id}/
     └── target.json
 ```
 
-Default implementation stack is **React + TypeScript + CSS Modules**. Do not switch to Vue, Next.js, plain static HTML, Tailwind, or another stack unless the user explicitly requested it.
+Replica page source code belongs under `projects/{target-id}/page/`. Do not generate replica UI under `src/pages/`. The `src` tree may only be changed to register routes, shared styles, or common app infrastructure needed to serve the project page.
 
-Use `page/components/` for meaningful UI regions, `page/data/` for local mock/result data, `page/hooks/` for reusable local interaction state, and `page/utils/` for pure helpers when needed. Do not deliver a one-off static HTML dump or one giant file when multiple regions or states are in scope.
+Default implementation stack is **React + TypeScript + CSS Modules**. Do not switch to Vue, Next.js, plain static HTML, Tailwind, or another UI stack unless the user explicitly changes the stack. Use existing project dependencies first; add a dependency only when it clearly improves maintainability or fidelity, and record the reason in `logs/decisions.md`.
 
-## Website Type Defaults
+Replica source should be structured for long-term maintenance. Use `page/components/` for meaningful UI regions, `page/data/` for local mock/result data, `page/hooks/` for reusable local interaction state, and `page/utils/` for pure helpers when they are needed. Do not collapse JSX, mock data, interaction logic, and styling into one giant file when the page has multiple regions or states.
 
-Use these as defaults when the user does not fully specify scope.
+Do not inspect, copy, adapt, or pattern-match any previous `projects/*` project when creating a new project. If a useful practice should apply broadly, it must already be written in this skill; otherwise it is not allowed as input for the new project.
 
-**Content/search display pages**:
+## Website Type Templates
 
-- states: entry page, query/results page, pagination or more-results state, empty/no-result state when naturally in scope,
-- regions: header, search box, category/filter nav, result list, side panels when present, pagination, footer,
-- interactions: typing, click submit, Enter submit, result text rendering, pagination or more-results navigation.
+Use these templates only as generic checklists. They do not override the current user request or current source baselines.
 
-**Form interaction pages**:
+**Content/search display pages** such as Google Search, Baidu Search, Bing Search:
 
-- states: initial form, typed input, validation error, submit loading/failure, captcha/security state when present,
-- regions: form container, labels, inputs, helper text, captcha block, submit button, error messages, footer,
-- interactions: focus/blur, typing, clearing, validation, disabled/enabled submit, local failure feedback.
+- capture states: entry page, query/results page, pagination or more-results state, empty/no-result state when in scope,
+- core regions: header, search box, category/filter nav, result list, side panels when present, pagination, footer,
+- core interactions: typing, click submit, Enter submit, result text rendering, pagination or more-results navigation.
 
-Do not call real login, payment, upload, or destructive APIs unless explicitly requested.
+**Form interaction pages** such as login, registration, password reset:
 
-## Phase 1: Automatic Request Parsing
+- capture states: initial form, typed input, validation error, submit loading/failure, captcha/security state when present,
+- core regions: form container, labels, inputs, helper text, captcha block, submit button, error messages, footer,
+- core interactions: focus/blur, typing, clearing, validation, disabled/enabled submit, local failure feedback. Do not call real login/payment/upload APIs unless explicitly requested.
 
-**Gate**: the user provided at least one source:
+## Workflow
+
+### Phase 1: Replica Request Parsing
+
+🚧 **GATE**: The user has provided a replica request with at least one material source:
 
 - website URL,
 - user-provided screenshot,
 - or mixed URL + screenshot material.
 
-If no material source exists, ask for the missing source and stop.
-
 **Actions**:
 
-1. Parse the request into a replica plan.
-2. Fill missing details with conservative defaults.
-3. Record the plan in `projects/{target-id}/request.md` after Phase 2 creates the project.
-4. Continue directly to Phase 2 without asking for confirmation.
+1. Parse the request into a proposed replica plan.
+2. Identify missing request information and make conservative recommendations when possible.
+3. Present the plan as a progress summary and continue.
+4. Do not create `projects/{target-id}/`, `request.md`, `target.json`, baselines, or source files in this phase.
 
-**Plan must include**:
+**Required plan output**:
 
-- material source,
+- material source: URL, screenshot, or mixed,
 - original URL or screenshot list,
-- target id,
+- target id recommendation,
 - replica access URL,
 - page scope,
 - state scope,
 - function scope,
 - explicit non-goals,
 - Phase 3 source capture mode,
-- Phase 6 baseline-only evaluation rule,
+- Phase 6 evaluation uses existing baselines only,
+- source evidence mode,
 - same-browser verification handoff plan,
-- required screenshots/baselines,
+- required real screenshots or baselines,
 - project folder path,
 - evaluator config path,
 - acceptance thresholds.
 
-Default thresholds:
+Default acceptance thresholds:
 
 - total score >= 90,
 - functionality >= 90,
 - interaction >= 90,
 - visual >= 90.
 
-## Phase 2: Project Initialization
+If the user asks for stricter thresholds, use the stricter values. Do not lower these defaults unless the user explicitly accepts a lower target.
 
-**Gate**: Phase 1 produced a usable plan.
+**Phase 3 source capture modes**:
+
+- `普通自动采集`: realtime source capture; configured fallback may use the latest verified screenshot/DOM baseline.
+- `交互辅助采集`: visible browser during Phase 3 only; pause for user verification when needed.
+- `截图来源采集`: use user screenshots or confirmed baselines; do not infer states outside screenshots.
+
+Phase 6 evaluation must not use interactive source capture; it evaluates against the Phase 3 baselines.
+
+✅ **Checkpoint**:
+
+```markdown
+## Phase 1 Complete
+- [x] Replica request parsed
+- [x] Replica plan presented
+- [x] Evaluation mode recommended
+- [x] Skip mode: continuing to Phase 2 without user confirmation
+```
+
+**Skip behavior**: Do not wait for "确认", "可以，继续", or equivalent. Continue to Phase 2 after the plan is presented.
+
+### Phase 2: Project Initialization
+
+🚧 **GATE**: Phase 1 complete and a usable auto plan exists.
 
 **Actions**:
 
 1. Create the project folder contract under `projects/{target-id}/`.
-2. Write the parsed request and selected defaults into `request.md`.
-3. Create `config/target.json` for the generic evaluator.
-4. Create initial `logs/` and `prompts/` files.
-5. Record the route plan and replica access URL.
-6. Create `page/` implementation folders.
-7. Continue directly to Phase 3.
+2. Write the parsed request and selected defaults into `projects/{target-id}/request.md`.
+3. Create `projects/{target-id}/config/target.json` for the generic evaluator.
+4. Create initial log files under `logs/` and prompt tracking under `prompts/`.
+5. Ensure the route plan and replica access URL are recorded.
+6. Create `projects/{target-id}/page/` for page implementation files.
+7. Do not copy or infer any files from previous `projects/*` directories.
 
-Do not collect baselines or implement UI in this phase.
+**Do not** collect original baselines or implement UI in this phase.
 
-## Phase 3: Real Source Capture And State Baselines
+✅ **Checkpoint**:
 
-**Gate**: Phase 2 complete; `config/target.json` exists; required states are known.
+```markdown
+## Phase 2 Complete
+- [x] Project folder created
+- [x] request.md written
+- [x] config/target.json created
+- [x] Logs/prompts folders initialized
+- [x] page/ source folder initialized
+- [ ] Next: proceed to Phase 3 source capture
+```
 
-**URL source actions**:
+Default: auto-proceed to Phase 3 unless the user asked to pause.
+
+### Phase 3: Real Source Capture And State Baselines
+
+🚧 **GATE**: Phase 2 complete; `projects/{target-id}/config/target.json` exists; required states are known.
+
+**Actions for URL sources**:
 
 - choose and record the capture browser/session before opening the real site,
-- prefer `@chrome` when normal Chrome profile, cookies, extensions, or visible local verification matter,
+- prefer `@chrome` when the task needs the user's normal Chrome profile, cookies, extensions, or visible local verification,
 - if using Playwright or another automation browser, launch a visible persistent browser/context that can be handed to the user,
 - open the real site,
 - execute state trigger steps,
 - capture page head/top, middle, footer/bottom, and viewport screenshots for every required state,
-- if the page uses infinite scroll and has no stable footer, capture representative lower loaded content and document why no footer exists,
+- if the page uses infinite scroll and has no stable footer, capture a representative lower loaded region and document why no footer exists,
 - save DOM/style summaries and interaction notes,
-- record blockers in `logs/blockers.md`,
+- record any blocker in `logs/blockers.md`,
 - pause if access or verification fails.
 
-**Screenshot source actions**:
+**Same-browser verification handoff protocol**:
+
+1. Detect verification pages by URL/title/text signals such as CAPTCHA, security verification, AI verification, access restriction, login challenge, or missing required selectors.
+2. Keep the failing tab/session open. Do not close it, recreate it, or switch to another browser profile.
+3. Bring that exact browser window/tab to the foreground or provide its live-view URL when using a remote browser session.
+4. Tell the user: "Please complete verification in this opened browser window/tab, then tell me when finished."
+5. Provide an explicit recovery signal before waiting. The recovery path must be visible to Codex and the user, for example terminal `Enter`, a documented resume command, or a watched `verification-resume.json` file.
+6. Wait for the user confirmation or the documented recovery signal. Do not leave a capture process waiting with no Codex-side resume entry.
+7. Resume capture in the same browser session and re-run the state gate.
+8. If the same session still fails, record the blocker and stop. Do not guess or use a different browser silently.
+
+Record the browser handoff in `projects/{target-id}/sources/capture-session.md`:
+
+- browser provider: `@chrome`, Playwright headed, remote live-view browser, or screenshot source,
+- profile/session path or live-view URL when available,
+- target state and URL,
+- verification signal detected,
+- recovery signal or resume command,
+- user handoff time and result,
+- post-verification gate result.
+
+**Actions for screenshot sources**:
 
 - place user screenshots in `sources/user-screenshots/`,
 - label each screenshot by page and state,
@@ -183,41 +264,50 @@ projects/{target-id}/baselines/{state-id}/original-dom.json
 projects/{target-id}/baselines/{state-id}/capture-notes.md
 ```
 
-`capture-notes.md` must explicitly mark:
+`capture-notes.md` MUST explicitly mark:
 
 - head/top captured,
 - middle captured,
 - footer/bottom captured,
 - browser/session used,
-- or `no-stable-footer` with reason and lower-content evidence.
+- or `no-stable-footer` with the reason and representative lower-content evidence.
 
-**Same-browser verification handoff**:
+**Forbidden**:
 
-1. Detect CAPTCHA, security verification, AI verification, access restriction, login challenge, or missing required selectors.
-2. Keep the failing tab/session open.
-3. Bring that exact browser window/tab to the foreground or provide its live-view URL.
-4. Ask the user to complete verification in that opened browser window/tab.
-5. Provide a visible recovery signal such as terminal `Enter`, a documented resume command, or a watched `verification-resume.json` file.
-6. Resume in the same session and re-run the state gate.
-7. If the same session still fails, record the blocker and stop.
+- do not treat blank/error/captcha/security pages as original baselines,
+- do not guess missing middle/bottom/page states,
+- do not proceed if head, middle, and footer coverage has not been checked for every required state,
+- do not start implementation if any required state is unverified.
 
-Continue directly to Phase 4 only after all required states have verified baselines.
+✅ **Checkpoint**:
 
-## Phase 4: Automatic Replica Strategy And Spec
+```markdown
+## Phase 3 Complete
+- [x] Required original states captured or screenshot baselines labeled
+- [x] Head/middle/footer coverage checked for every required state
+- [x] DOM/style summaries saved where available
+- [x] Capture notes written
+- [ ] Next: proceed to Phase 4 spec generation
+```
 
-**Gate**: Phase 3 complete; every required state has verified source evidence.
+Default: auto-proceed to Phase 4 unless source capture failed or the user asked to pause.
+
+### Phase 4: Replica Strategy And Spec
+
+🚧 **GATE**: Phase 3 complete; every required state has verified source evidence.
 
 **Actions**:
 
 1. Create `projects/{target-id}/spec.md`.
-2. Map every required state to source evidence.
-3. Embed or link source screenshots for every required state, including head/middle/footer evidence.
-4. Create a region/component decomposition table.
-5. Write the implementation strategy.
-6. Present a concise summary with screenshot links, decomposition table location, strategy, and access URL.
-7. Continue directly to Phase 5 without asking for confirmation.
+2. Map each required state to its source evidence.
+3. Embed or link the captured source screenshots for every required state, including head/middle/footer evidence.
+4. Create a region/component decomposition table that binds every in-scope area to real screenshot or DOM evidence.
+5. Propose the implementation strategy.
+6. Present the screenshots, region/component table, and strategy together as a progress summary, then continue.
 
-`spec.md` must include a region/component table with these columns:
+**Region/component decomposition table**:
+
+`spec.md` MUST include a table with these columns:
 
 - area/region,
 - source state and screenshot evidence,
@@ -226,30 +316,87 @@ Continue directly to Phase 4 only after all required states have verified baseli
 - interaction requirements,
 - implementation component/file.
 
-Every in-scope header, body section, footer, form, list, pagination control, popup, empty state, loading state, and error state must appear in the table. Every row must reference Phase 3 evidence. Do not invent regions without source evidence.
+Every in-scope header, body section, footer, form, list, pagination control, popup, and empty/loading/error state must appear in the table. Each row must reference real Phase 3 evidence. Do not invent any region without source evidence.
 
-## Phase 5: Replica Implementation
+**Spec must cover**:
 
-**Gate**: Phase 4 complete and `spec.md` exists.
+- page scope,
+- state scope,
+- function scope,
+- explicit non-goals,
+- visual priorities for header/body/footer/popups/forms/lists,
+- screenshot evidence for header/body/footer or documented no-footer exception,
+- region/component decomposition table with source evidence,
+- component split,
+- route and replica access URL,
+- maintainable source-code plan,
+- independent local/online run plan,
+- Phase 3 source capture mode and Phase 6 baseline-only evaluation behavior,
+- acceptance thresholds.
+
+✅ **Checkpoint**:
+
+```markdown
+## Phase 4 Complete
+- [x] spec.md drafted
+- [x] State-to-baseline mapping complete
+- [x] Source screenshots/baselines shown together with implementation strategy
+- [x] Region/component decomposition table complete and evidence-bound
+- [x] Skip mode: continuing to implementation without user confirmation
+```
+
+**Skip behavior**: Do not wait for explicit strategy confirmation. Continue to Phase 5 after the screenshots, region/component table, and strategy are presented.
+
+### Phase 5: Replica Implementation
+
+🚧 **GATE**: Phase 4 complete and `projects/{target-id}/spec.md` exists.
 
 **Actions**:
 
-- create route registration in `src` only when needed,
+- create page route registration in `src` only when needed,
 - create all replica page source files under `projects/{target-id}/page/`,
 - implement with React + TypeScript + CSS Modules unless the user explicitly requested another stack,
-- keep component/file names aligned with the region/component table,
-- separate components, state/hooks, mock data, helpers, and styles where useful,
-- implement required states one by one,
+- create complete maintainable source code, not a one-off static dump,
+- separate components, local state/hooks, mock data, helpers, and styles where that improves maintainability,
+- keep component/file names aligned with the generated region/component decomposition table,
+- implement states one by one,
 - keep real network/login/payment/upload out unless explicitly requested,
-- make specified core functionality and interactions work locally without the original site's backend,
-- locally self-check every required state,
+- make the specified core functionality and interactions work locally without depending on the original site's backend,
+- locally self-check that all required states can be triggered,
 - start the dev server and report the actual working URL/port,
-- keep `logs/ai-log.md`, `logs/decisions.md`, and `prompts/replica-prompts.md` updated,
-- continue directly to Phase 6 unless the dev server or required state self-check fails.
+- keep `logs/ai-log.md`, `logs/decisions.md`, and `prompts/replica-prompts.md` updated.
 
-## Phase 6: Evaluation Iteration And Delivery
+**Forbidden**:
 
-**Gate**: Phase 5 complete; replica page runs locally; `config/target.json` points to the current project; Phase 3 baselines exist.
+- do not implement states that were not included in the parsed scope,
+- do not put generated replica UI files under `src/pages/`,
+- do not reference or copy any old project implementation,
+- do not switch frontend stack or add UI/dependency bloat without explicit need and a recorded decision,
+- do not deliver a single static HTML dump or one giant page file when multiple regions/states are in scope,
+- do not call real payment/login/upload APIs unless explicitly requested,
+- do not remove or overwrite unrelated user changes.
+
+✅ **Checkpoint**:
+
+```markdown
+## Phase 5 Complete
+- [x] Replica page opens locally
+- [x] Required states are triggerable
+- [x] Actual local access URL/port reported
+- [x] Source code is maintainable and project-local
+- [x] React + TypeScript + CSS Modules stack used, or user-approved exception recorded
+- [x] Source files follow the generated region/component decomposition
+- [x] Core functionality works without original backend dependency
+- [x] Header/body/footer or screenshot-covered regions implemented
+- [x] AI usage and manual decisions logged
+- [ ] Next: proceed to Phase 6 evaluation
+```
+
+Default: auto-proceed to Phase 6 unless the user asked to pause.
+
+### Phase 6: Evaluation Iteration And Delivery
+
+🚧 **GATE**: Phase 5 complete; the replica page is runnable locally; `config/target.json` points to the current project; Phase 3 baselines exist for all required states.
 
 Run only the current project:
 
@@ -257,18 +404,18 @@ Run only the current project:
 EVAL_TARGET_CONFIG=projects/{target-id}/config/target.json npm run eval
 ```
 
-Evaluation rules:
+Evaluation source rule:
 
-- use Phase 3 screenshots/baselines as original evidence,
+- use Phase 3 screenshots/baselines as the original evidence,
 - do not open the original website interactively during evaluation,
 - do not ask the user to solve captcha/security verification during evaluation,
-- if baselines are missing, incomplete, or stale, stop and return to Phase 3.
+- if original baselines are missing, incomplete, or stale, stop and return to Phase 3 source capture before evaluating.
 
 Reports must include:
 
 - locked evaluation mode,
 - actual source evidence,
-- whether Phase 3 baseline screenshots were used,
+- whether evaluation used Phase 3 baseline screenshots,
 - total score,
 - functionality score,
 - interaction score,
@@ -277,7 +424,7 @@ Reports must include:
 - issue list,
 - low-score fix suggestions.
 
-Archive reports under:
+Archive reports:
 
 ```text
 projects/{target-id}/evaluation/latest/
@@ -286,18 +433,30 @@ projects/{target-id}/evaluation/history/{timestamp}/
 
 **Iteration rule**:
 
-- if evaluation misses the target score, fix the low-score items,
-- rerun only the current project evaluation,
-- record each round in `logs/decisions.md` or `logs/ai-log.md`,
-- stop once the target score is reached,
-- run at most 3 fix/evaluation rounds,
-- if still below target after 3 rounds, deliver the latest score, report, and remaining issue list.
+- If evaluation does not meet the target score, fix the low-score items listed in the report.
+- Rerun only the current project evaluation after each fix round.
+- Record each round in `projects/{target-id}/logs/decisions.md` or `logs/ai-log.md`, including the low-score items, changes made, command run, score change, and remaining issues.
+- Stop immediately once the target score is reached.
+- Do not exceed 3 fix/evaluation rounds for one Phase 6 pass.
+- If the target is still not reached after 3 rounds, stop and deliver the latest score, reports, and a remaining-issues list instead of continuing indefinitely.
 
-**Delivery must include**:
+Stable same-type validation:
 
-- replica access URL,
-- project path,
-- evaluation report path,
-- final functionality/interaction/visual scores,
-- remaining issues if any,
-- commands needed to run locally.
+- After the delivered project reaches the target or the 3-round limit, run a light stability check on one new page of the same type when feasible.
+- The check starts only from the initial user-style request and this skill. Do not use old project files.
+- For content/search pages, choose another search/display page and verify that request parsing, state planning, source-capture planning, and implementation strategy can proceed without extra user intervention.
+- For form pages, choose another login/register/reset-style page and verify the same workflow stability.
+- Record the stability result in `projects/{target-id}/logs/decisions.md`.
+
+✅ **Checkpoint**:
+
+```markdown
+## Phase 6 Complete
+- [x] Current project evaluated only
+- [x] Report identifies source evidence and evaluation mode
+- [x] Functionality/interaction/visual scores reported
+- [x] Low-score fix suggestions listed
+- [x] Fix/evaluation rounds recorded, max 3 rounds
+- [x] Same-type stability check recorded when feasible
+- [x] Replica access URL reported
+```
