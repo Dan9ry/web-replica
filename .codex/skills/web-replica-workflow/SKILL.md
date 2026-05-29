@@ -10,18 +10,19 @@ Use this skill for every website replica task in this repository.
 ## Non-Negotiable Rules
 
 1. Do not start implementation before the replica request, source/state scope, evaluation mode, and replica access URL are documented.
-2. Each replica target is created under `projects/{target-id}/`; project files are not scattered across `docs/`.
-3. The skill creates project files and target config, then calls the generic evaluator with the project config.
-4. The evaluator is generic. It does not own fixed project targets and must be invoked with:
+2. After Phase 1 request parsing is complete, stop and wait for explicit user confirmation before entering Phase 2 project initialization. Do not treat silence or an inferred scope as approval.
+3. Each replica target is created under `projects/{target-id}/`; project files are not scattered across `docs/`.
+4. The skill creates project files and target config, then calls the generic evaluator with the project config.
+5. The evaluator is generic. It does not own fixed project targets and must be invoked with:
 
 ```bash
 EVAL_TARGET_CONFIG=projects/{target-id}/config/target.json npm run eval
 ```
 
-5. There is no all-project evaluation. Evaluate only the current project.
-6. Source capture fails closed. If the real site cannot be verified, asks for login, shows captcha/security verification, or a required state is missing, pause and ask the user to intervene.
-7. Evaluation uses only functionality, interaction, and visual consistency.
-8. Every replica plan and delivery update must include the local replica access URL:
+6. There is no all-project evaluation. Evaluate only the current project.
+7. Source capture fails closed. If the real site cannot be verified, asks for login, shows captcha/security verification, or a required state is missing, pause and ask the user to intervene.
+8. Evaluation uses only functionality, interaction, and visual consistency.
+9. Every replica plan and delivery update must include the local replica access URL:
 
 ```text
 http://127.0.0.1:5173/replica/{target}
@@ -88,7 +89,7 @@ Evaluation modes:
 - `交互辅助评估`: visible browser; pause for user verification when needed.
 - `截图来源评估`: use user screenshots or confirmed baselines; do not infer states outside screenshots.
 
-Gate: request is documented and user confirms scope or explicitly authorizes the recommended scope.
+Gate: request is documented, the replica plan is shown to the user, and the user explicitly confirms it. Stop here until confirmation is received; do not create the project folder, target config, source files, or baselines before the user confirms Phase 1.
 
 ### Phase 2: Project Initialization
 
