@@ -43,6 +43,7 @@ Use this skill for every website replica task in this repository.
 > ```bash
 > npm run dev
 > ```
+> 15. **PROJECT-LOCAL PAGE SOURCE**: generated replica page source MUST live inside the current project folder, not under `src/pages/`. `src/` is only the shared app shell, router entry, and common infrastructure.
 
 > [!IMPORTANT]
 > ## Communication Rule
@@ -66,6 +67,9 @@ projects/{target-id}/
 ├── sources/
 │   ├── user-screenshots/
 │   └── urls.md
+├── page/
+│   ├── {TargetReplica}Page.tsx
+│   └── {TargetReplica}Page.module.css
 ├── baselines/
 │   └── {state-id}/
 ├── captures/
@@ -76,7 +80,7 @@ projects/{target-id}/
     └── target.json
 ```
 
-Page source code may be generated under `src/pages/{TargetReplica}/`, but request/spec/logs/prompts/sources/baselines/evaluation/config belong to `projects/{target-id}/`.
+Replica page source code belongs under `projects/{target-id}/page/`. Do not generate replica UI under `src/pages/`. The `src` tree may only be changed to register routes, shared styles, or common app infrastructure needed to serve the project page.
 
 ## Workflow
 
@@ -145,6 +149,7 @@ Phase 6 evaluation must not use interactive source capture; it evaluates against
 3. Create `projects/{target-id}/config/target.json` for the generic evaluator.
 4. Create initial log files under `logs/` and prompt tracking under `prompts/`.
 5. Ensure the route plan and replica access URL are recorded.
+6. Create `projects/{target-id}/page/` for page implementation files.
 
 **Do not** collect original baselines or implement UI in this phase.
 
@@ -156,6 +161,7 @@ Phase 6 evaluation must not use interactive source capture; it evaluates against
 - [x] request.md written
 - [x] config/target.json created
 - [x] Logs/prompts folders initialized
+- [x] page/ source folder initialized
 - [ ] Next: proceed to Phase 3 source capture
 ```
 
@@ -262,7 +268,8 @@ Default: auto-proceed to Phase 4 unless source capture failed or the user asked 
 
 **Actions**:
 
-- create page route/source files,
+- create page route registration in `src` only when needed,
+- create all replica page source files under `projects/{target-id}/page/`,
 - implement states one by one,
 - keep real network/login/payment/upload out unless explicitly requested,
 - locally self-check that all required states can be triggered,
@@ -271,6 +278,7 @@ Default: auto-proceed to Phase 4 unless source capture failed or the user asked 
 **Forbidden**:
 
 - do not implement states that were not included in the confirmed scope,
+- do not put generated replica UI files under `src/pages/`,
 - do not call real payment/login/upload APIs unless explicitly requested,
 - do not remove or overwrite unrelated user changes.
 
@@ -324,7 +332,14 @@ projects/{target-id}/evaluation/latest/
 projects/{target-id}/evaluation/history/{timestamp}/
 ```
 
-**Iteration rule**: Fix low-score items, rerun only the current project evaluation, and record changes until the score reaches the target or remaining fixes are documented.
+**Iteration rule**:
+
+- If evaluation does not meet the confirmed target score, fix the low-score items listed in the report.
+- Rerun only the current project evaluation after each fix round.
+- Record each round in `projects/{target-id}/logs/decisions.md` or `logs/ai-log.md`, including the low-score items, changes made, command run, score change, and remaining issues.
+- Stop immediately once the target score is reached.
+- Do not exceed 3 fix/evaluation rounds for one Phase 6 pass.
+- If the target is still not reached after 3 rounds, stop and deliver the latest score, reports, and a remaining-issues list instead of continuing indefinitely.
 
 ✅ **Checkpoint**:
 
@@ -334,5 +349,6 @@ projects/{target-id}/evaluation/history/{timestamp}/
 - [x] Report identifies source evidence and evaluation mode
 - [x] Functionality/interaction/visual scores reported
 - [x] Low-score fix suggestions listed
+- [x] Fix/evaluation rounds recorded, max 3 rounds
 - [x] Replica access URL reported
 ```

@@ -65,6 +65,7 @@ npm run dev
 
 ## 组件拆分建议
 
+- 页面源码位置：`projects/baidu/page/`。
 - `BaiduReplicaPage`：页面状态容器。
 - `HomeSearchPanel`：首页搜索区域。
 - `SearchSuggestPanel`：输入实时联想下拉层。
@@ -75,12 +76,12 @@ npm run dev
 
 ## 评估模式
 
-- 锁定模式：`交互辅助评估`。
-- 普通模式如再次遇到验证，只能使用最近一次已验证基线降级；没有基线则中断。
+- 锁定模式：`Phase 3 截图/DOM 基线评估`。
+- 评估阶段只使用 `projects/baidu/baselines/` 下已确认的原站基线，不再交互式打开原站。
 - 评估命令：
 
 ```bash
-EVAL_TARGET_CONFIG=projects/baidu/config/target.json npm run eval:interactive
+EVAL_TARGET_CONFIG=projects/baidu/config/target.json npm run eval
 ```
 
 ## 验收阈值

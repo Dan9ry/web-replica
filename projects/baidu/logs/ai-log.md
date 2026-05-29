@@ -26,9 +26,15 @@
 
 ## 阶段六：评估迭代
 
-- 运行 `EVAL_TARGET_CONFIG=projects/baidu/config/target.json npm run eval:interactive`。
-- 原网页门禁通过，评估方式为实时原站采集评估。
+- 运行 `EVAL_TARGET_CONFIG=projects/baidu/config/target.json npm run eval`。
+- 当时原网页门禁通过，归档报告记录为实时原站采集评估；当前流程已修订为 Phase 3 截图/DOM 基线评估。
 - 第一轮评估总分 `89.5`，功能一致性 `100`，交互一致性 `100`，视觉一致性 `73.7`。
 - 根据低分项建议，为搜索结果第一页补充百度 AI 答案块，贴近原站本次采集状态。
 - 第二轮评估总分 `90`，功能一致性 `100`，交互一致性 `100`，视觉一致性 `74.9`，结论为“高一致”。
 - 报告已归档到 `projects/baidu/evaluation/latest/`。
+
+## 流程修订
+
+- 根据最新 project 归属规则，将百度复刻页面源码移动到 `projects/baidu/page/`。
+- 根据最新评估规则，后续阶段六评估使用 Phase 3 原站截图/DOM 基线，不再使用交互式原站采集。
+- 若评估未达目标分数，最多执行 3 轮“修复低分项 + 重新评估当前 project”，每轮记录低分项、修改内容、命令、分数变化和剩余问题。

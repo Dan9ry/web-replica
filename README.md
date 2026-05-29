@@ -19,7 +19,7 @@
 | 路由 | React Router |
 | 图标 | lucide-react |
 | UI 组件库 | Ant Design |
-| 页面生成 | 由项目级 skill 按当前复刻 project 创建页面与入口；复刻页优先使用自定义 CSS 贴近原站 |
+| 页面生成 | 由项目级 skill 按当前复刻 project 创建页面源码；`src` 只负责应用壳与路由入口 |
 | 自动化浏览器 | Playwright；必要时使用 `@chrome` 操作真实 Chrome |
 | 视觉对比 | pixelmatch、sharp、ssim.js |
 | 测试 | Vitest、Playwright Test |
@@ -29,7 +29,15 @@
 
 ```text
 src/
+  main.tsx
+  App.tsx             # 应用壳与路由入口
   shared/
+projects/
+  {target-id}/
+    page/             # 当前复刻页面源码
+    baselines/        # Phase 3 原站截图/DOM 基线
+    config/           # 当前 project 的评估配置
+    logs/             # AI 使用与人工决策记录
 evaluator/
   collectors/        # 读取原站基线并采集复刻页
   core/              # 配置、门禁、指标、报告核心逻辑
@@ -93,7 +101,7 @@ npm run eval:interactive # 兼容旧命令；当前等同于 npm run eval
 EVAL_TARGET_CONFIG=projects/{target-id}/config/target.json npm run eval
 ```
 
-具体复刻页面不预置在仓库中，由项目级 skill 创建 `projects/{target-id}/`、页面源码、评估配置和素材基线。
+具体复刻页面不预置在 `src/pages/` 中，由项目级 skill 在 `projects/{target-id}/page/` 创建页面源码，并在 `projects/{target-id}/` 下管理评估配置和素材基线。
 
 ## 评估原则
 
@@ -109,9 +117,8 @@ EVAL_TARGET_CONFIG=projects/{target-id}/config/target.json npm run eval
 
 禁止把空白页、错误页、拦截页、验证码页或不确定页面作为原网页基准。评估器只使用当前 project 的 `projects/{target-id}/baselines/{state-id}/original-dom.json` 与 `original-{viewport}.png` 作为原站证据；如果这些文件不存在或无法通过门禁，则中断评估。
 
-报告会标明本次评估使用的原站证据来源：
+报告会标明本次评估使用的原站证据来源。当前流程固定为：
 
-- `实时原站采集评估`：本次运行中实时打开原网页，并成功采集截图、DOM、关键 selector 和页面文本。
 - `Phase 3 截图/DOM 基线评估`：评估阶段使用素材采集阶段已经确认的原站截图、DOM、关键 selector 和页面文本，不再访问原站。
 
 报告会对低分项给出修改建议，例如功能分偏低时提示补齐缺失状态，交互分偏低时提示检查搜索、分页和表单反馈，视觉分偏低时提示查看差异图并修复布局、间距、颜色和组件尺寸。
