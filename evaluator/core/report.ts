@@ -27,6 +27,20 @@ function renderStateResults(page: PageEvaluationResult): string[] {
   return lines;
 }
 
+function captureModeLabel(page: PageEvaluationResult): string {
+  const mode =
+    page.sourceValidation.captureMode ??
+    (page.sourceValidation.issues.some(
+      (issue) => issue.code === "SOURCE_FALLBACK_SCREENSHOT",
+    )
+      ? "baseline"
+      : "live");
+
+  return mode === "baseline"
+    ? "截图/DOM 基线降级评估"
+    : "实时原站采集评估";
+}
+
 function renderPage(page: PageEvaluationResult): string {
   const lines = [
     `## ${page.name}`,
@@ -35,6 +49,7 @@ function renderPage(page: PageEvaluationResult): string {
     `- 原始地址：${page.originalUrl || "未配置"}`,
     `- 复刻地址：${page.replicaUrl}`,
     `- 原网页门禁：${page.sourceValidation.status}`,
+    `- 评估方式：${captureModeLabel(page)}`,
     `- 最终 URL：${page.sourceValidation.finalUrl || "未获取"}`,
     "",
   ];
@@ -58,9 +73,7 @@ function renderPage(page: PageEvaluationResult): string {
     lines.push(`| 功能一致性 | ${page.score.metrics.functionality} |`);
     lines.push(`| 交互一致性 | ${page.score.metrics.interaction} |`);
     lines.push(`| 视觉一致性 | ${page.score.metrics.visual} |`);
-    lines.push(`| 性能一致性 | ${page.score.metrics.performance} |`);
     lines.push(`| 可访问性一致性 | ${page.score.metrics.accessibility} |`);
-    lines.push(`| 响应式一致性 | ${page.score.metrics.responsive} |`);
     lines.push("");
   }
 

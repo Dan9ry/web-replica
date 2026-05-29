@@ -130,5 +130,6 @@ export function validateSourceCapture(
     canScore: !hasError,
     finalUrl: capture.finalUrl,
     issues,
+    captureMode: capture.fallbackFromBaseline ? "baseline" : "live",
   };
 }

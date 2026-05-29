@@ -66,6 +66,7 @@ export function validateStateCapture(
     canScore: result.canScore,
     finalUrl: result.finalUrl,
     issues: result.issues,
+    captureMode: result.captureMode,
   };
 }
 
@@ -100,12 +101,16 @@ export function validateTargetStateCaptures(
   }
 
   const hasError = stateResults.some((state) => !state.canScore);
+  const captureMode = stateResults.some((state) => state.captureMode === "baseline")
+    ? "baseline"
+    : "live";
 
   return {
     status: hasError ? "failed" : "passed",
     canScore: !hasError,
     finalUrl: stateResults[0]?.finalUrl ?? "",
     issues,
+    captureMode,
     stateResults,
   };
 }

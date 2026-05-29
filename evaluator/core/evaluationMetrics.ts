@@ -178,24 +178,11 @@ export function evaluateReplicaConsistency({
       compareLandmarks(original, replica) * 0.65 + textCoverage(original, replica) * 0.35,
   );
 
-  const loadScores = matchedPairs.map(({ original, replica }) => {
-    const originalLoad = original.metrics?.loadTimeMs ?? 0;
-    const replicaLoad = replica.metrics?.loadTimeMs ?? originalLoad;
-
-    if (originalLoad <= 0 || replicaLoad <= 0) {
-      return 80;
-    }
-
-    return Math.max(0, Math.min(100, 100 - Math.max(0, replicaLoad - originalLoad) / 20));
-  });
-
   const metrics: ScoreMetrics = {
     functionality: stateCompleteness,
     interaction: interactionScore,
     visual: Math.round(average(visualScores) * 10) / 10,
-    performance: Math.round(average(loadScores) * 10) / 10,
     accessibility: Math.round(average(structureScores) * 10) / 10,
-    responsive: stateCompleteness,
   };
   addLowScoreSuggestions(metrics, issues);
 

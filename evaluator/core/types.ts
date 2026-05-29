@@ -135,6 +135,7 @@ export interface SourceValidationResult {
   canScore: boolean;
   finalUrl: string;
   issues: ValidationIssue[];
+  captureMode?: "live" | "baseline";
   stateResults?: StateValidationResult[];
 }
 
@@ -145,15 +146,14 @@ export interface StateValidationResult {
   canScore: boolean;
   finalUrl: string;
   issues: ValidationIssue[];
+  captureMode?: "live" | "baseline";
 }
 
 export interface ScoreMetrics {
   functionality: number;
   interaction: number;
   visual: number;
-  performance: number;
   accessibility: number;
-  responsive: number;
 }
 
 export interface WeightedScore {

@@ -65,6 +65,8 @@ describe("evaluateReplicaConsistency", () => {
     expect(result.metrics.visual).toBeGreaterThan(80);
     expect(result.metrics.functionality).toBe(100);
     expect(result.metrics.interaction).toBe(100);
+    expect(result.metrics).not.toHaveProperty("performance");
+    expect(result.metrics).not.toHaveProperty("responsive");
     expect(result.score.totalScore).toBeGreaterThan(80);
     expect(result.issues.map((issue) => issue.code)).not.toContain(
       "REPLICA_METRICS_NOT_IMPLEMENTED",
