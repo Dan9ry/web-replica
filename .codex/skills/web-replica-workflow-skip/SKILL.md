@@ -49,6 +49,7 @@ This skip skill must stay content-equivalent to `web-replica-workflow` except fo
 > 16. **SAME-BROWSER VERIFICATION HANDOFF**: if the browser used for source capture hits CAPTCHA, security verification, login, or AI verification, hand that exact browser tab/session to the user. Do not tell the user to verify in a different browser/profile. After the user finishes, resume in the same session and re-check the target state.
 > 17. **NO OLD-PROJECT REFERENCE**: a new replica project MUST NOT reference any old project, including its directory shape, file names, component split, prompts, mock data, CSS, page logic, interaction implementation, or visual implementation. Build only from this skill, the current user request, and the current source baselines/screenshots.
 > 18. **MAINTAINABLE AND INDEPENDENT OUTPUT**: the replica artifact must be complete, long-term maintainable source code that can run locally or online without the original site's backend for the specified core functionality and interactions.
+> 19. **INTERACTIVE WEBPAGE ONLY, NEVER SCREENSHOT-AS-PAGE**: source screenshots are evidence and implementation references only. The final replica MUST be an interactive webpage built with DOM/CSS/JS behavior. Never use a full-page screenshot, large region screenshot, image map, canvas-only screenshot rendering, or screenshot background as the webpage. Never switch to screenshot-as-page because evaluation scores are low; if scores remain below target, deliver the best interactive webpage plus the report and remaining issues.
 
 > [!IMPORTANT]
 > ## Communication Rule
@@ -95,6 +96,8 @@ Replica page source code belongs under `projects/{target-id}/page/`. Do not gene
 Default implementation stack is **React + TypeScript + CSS Modules**. Do not switch to Vue, Next.js, plain static HTML, Tailwind, or another UI stack unless the user explicitly changes the stack. Use existing project dependencies first; add a dependency only when it clearly improves maintainability or fidelity, and record the reason in `logs/decisions.md`.
 
 Replica source should be structured for long-term maintenance. Use `page/components/` for meaningful UI regions, `page/data/` for local mock/result data, `page/hooks/` for reusable local interaction state, and `page/utils/` for pure helpers when they are needed. Do not collapse JSX, mock data, interaction logic, and styling into one giant file when the page has multiple regions or states.
+
+Screenshots in `baselines/` and `sources/user-screenshots/` are not page implementation assets. They may guide visual matching and evaluation, but they must not be placed into the replica page to stand in for real text, controls, layout, forms, lists, pagination, or interactive states. Image assets are allowed only for genuine image content such as logos, photos, icons, or illustrations when those are part of the source page; they cannot replace DOM/CSS reconstruction of the page.
 
 Do not inspect, copy, adapt, or pattern-match any previous `projects/*` project when creating a new project. If a useful practice should apply broadly, it must already be written in this skill; otherwise it is not allowed as input for the new project.
 
@@ -357,6 +360,7 @@ Every in-scope header, body section, footer, form, list, pagination control, pop
 - create all replica page source files under `projects/{target-id}/page/`,
 - implement with React + TypeScript + CSS Modules unless the user explicitly requested another stack,
 - create complete maintainable source code, not a one-off static dump,
+- build real DOM/CSS/JS interactions for text, controls, layout, forms, lists, pagination, and state transitions; screenshots are references only,
 - separate components, local state/hooks, mock data, helpers, and styles where that improves maintainability,
 - keep component/file names aligned with the generated region/component decomposition table,
 - implement states one by one,
@@ -373,6 +377,8 @@ Every in-scope header, body section, footer, form, list, pagination control, pop
 - do not reference or copy any old project implementation,
 - do not switch frontend stack or add UI/dependency bloat without explicit need and a recorded decision,
 - do not deliver a single static HTML dump or one giant page file when multiple regions/states are in scope,
+- do not use full-page screenshots, cropped page-region screenshots, image maps, canvas-only screenshot renderings, or screenshot backgrounds as the replica webpage,
+- do not replace low-scoring interactive implementation with screenshot-as-page to improve visual score,
 - do not call real payment/login/upload APIs unless explicitly requested,
 - do not remove or overwrite unrelated user changes.
 
@@ -386,6 +392,7 @@ Every in-scope header, body section, footer, form, list, pagination control, pop
 - [x] Source code is maintainable and project-local
 - [x] React + TypeScript + CSS Modules stack used, or user-approved exception recorded
 - [x] Source files follow the generated region/component decomposition
+- [x] Final product is an interactive webpage, not screenshot-as-page
 - [x] Core functionality works without original backend dependency
 - [x] Header/body/footer or screenshot-covered regions implemented
 - [x] AI usage and manual decisions logged
@@ -439,6 +446,7 @@ projects/{target-id}/evaluation/history/{timestamp}/
 - Stop immediately once the target score is reached.
 - Do not exceed 3 fix/evaluation rounds for one Phase 6 pass.
 - If the target is still not reached after 3 rounds, stop and deliver the latest score, reports, and a remaining-issues list instead of continuing indefinitely.
+- If the target is still not reached, do not use screenshots as the webpage or otherwise reduce interactivity to improve visual scoring. The final deliverable remains the best interactive webpage achieved, with scores and issues reported honestly.
 
 Stable same-type validation:
 
@@ -458,5 +466,6 @@ Stable same-type validation:
 - [x] Low-score fix suggestions listed
 - [x] Fix/evaluation rounds recorded, max 3 rounds
 - [x] Same-type stability check recorded when feasible
+- [x] Final deliverable remains an interactive webpage even if scores are below target
 - [x] Replica access URL reported
 ```
