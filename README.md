@@ -16,7 +16,10 @@
 | 模块 | 技术 |
 | --- | --- |
 | 前端工程 | Vite + React + TypeScript |
-| 页面生成 | 由项目级 skill 按当前复刻 project 创建页面与入口 |
+| 路由 | React Router |
+| 图标 | lucide-react |
+| UI 组件库 | Ant Design |
+| 页面生成 | 由项目级 skill 按当前复刻 project 创建页面与入口；复刻页优先使用自定义 CSS 贴近原站 |
 | 自动化浏览器 | Playwright；必要时使用 `@chrome` 操作真实 Chrome |
 | 视觉对比 | pixelmatch、sharp、ssim.js |
 | 测试 | Vitest、Playwright Test |

@@ -17,8 +17,11 @@
     "eval:interactive": "npm run eval:build && EVAL_INTERACTIVE=1 node .evaluator-dist/evaluator/collectors/capture-all.js && node .evaluator-dist/evaluator/run-evaluation.js && node .evaluator-dist/evaluator/reports/generate-html.js"
   },
   "dependencies": {
+    "antd": "^6.4.3",
+    "lucide-react": "^1.17.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.16.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.50.0",

@@ -1,3 +1,4 @@
+import { Route, Routes } from "react-router-dom";
 import styles from "./App.module.css";
 import { BaiduReplicaPage } from "./pages/BaiduReplica/BaiduReplicaPage";
 
@@ -30,9 +31,10 @@ function HomePage() {
 }
 
 export default function App() {
-  if (window.location.pathname === "/replica/baidu") {
-    return <BaiduReplicaPage />;
-  }
-
-  return <HomePage />;
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/replica/baidu" element={<BaiduReplicaPage />} />
+    </Routes>
+  );
 }
