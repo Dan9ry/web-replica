@@ -73,7 +73,11 @@ projects/{target-id}/
 │   └── capture-session.md
 ├── page/
 │   ├── {TargetReplica}Page.tsx
-│   └── {TargetReplica}Page.module.css
+│   ├── {TargetReplica}Page.module.css
+│   ├── components/
+│   ├── data/
+│   ├── hooks/
+│   └── utils/
 ├── baselines/
 │   └── {state-id}/
 ├── captures/
@@ -85,6 +89,10 @@ projects/{target-id}/
 ```
 
 Replica page source code belongs under `projects/{target-id}/page/`. Do not generate replica UI under `src/pages/`. The `src` tree may only be changed to register routes, shared styles, or common app infrastructure needed to serve the project page.
+
+Default implementation stack is **React + TypeScript + CSS Modules**. Do not switch to Vue, Next.js, plain static HTML, Tailwind, or another UI stack unless the user explicitly changes the stack. Use existing project dependencies first; add a dependency only when it clearly improves maintainability or fidelity, and record the reason in `logs/decisions.md`.
+
+Replica source should be structured for long-term maintenance. Use `page/components/` for meaningful UI regions, `page/data/` for local mock/result data, `page/hooks/` for reusable local interaction state, and `page/utils/` for pure helpers when they are needed. Do not collapse JSX, mock data, interaction logic, and styling into one giant file when the page has multiple regions or states.
 
 Do not inspect, copy, adapt, or pattern-match any previous `projects/*` project when creating a new project. If a useful practice should apply broadly, it must already be written in this skill; otherwise it is not allowed as input for the new project.
 
@@ -291,8 +299,22 @@ Default: auto-proceed to Phase 4 unless source capture failed or the user asked 
 1. Create `projects/{target-id}/spec.md`.
 2. Map each required state to its source evidence.
 3. Embed or link the captured source screenshots for every required state, including head/middle/footer evidence.
-4. Propose the implementation strategy.
-5. Present the screenshots and strategy together, then stop for user confirmation.
+4. Create a region/component decomposition table that binds every in-scope area to real screenshot or DOM evidence.
+5. Propose the implementation strategy.
+6. Present the screenshots, region/component table, and strategy together, then stop for user confirmation.
+
+**Region/component decomposition table**:
+
+`spec.md` MUST include a table with these columns:
+
+- area/region,
+- source state and screenshot evidence,
+- key elements,
+- visual requirements,
+- interaction requirements,
+- implementation component/file.
+
+Every in-scope header, body section, footer, form, list, pagination control, popup, and empty/loading/error state must appear in the table. Each row must reference real Phase 3 evidence. Do not invent any region without source evidence.
 
 **Spec confirmation must cover**:
 
@@ -302,6 +324,7 @@ Default: auto-proceed to Phase 4 unless source capture failed or the user asked 
 - explicit non-goals,
 - visual priorities for header/body/footer/popups/forms/lists,
 - screenshot evidence for header/body/footer or documented no-footer exception,
+- region/component decomposition table with source evidence,
 - component split,
 - route and replica access URL,
 - maintainable source-code plan,
@@ -316,6 +339,7 @@ Default: auto-proceed to Phase 4 unless source capture failed or the user asked 
 - [x] spec.md drafted
 - [x] State-to-baseline mapping complete
 - [x] Source screenshots/baselines shown together with implementation strategy
+- [x] Region/component decomposition table complete and evidence-bound
 - [ ] BLOCKING: waiting for explicit user confirmation before implementation
 ```
 
@@ -329,8 +353,10 @@ Default: auto-proceed to Phase 4 unless source capture failed or the user asked 
 
 - create page route registration in `src` only when needed,
 - create all replica page source files under `projects/{target-id}/page/`,
+- implement with React + TypeScript + CSS Modules unless the user explicitly confirmed another stack,
 - create complete maintainable source code, not a one-off static dump,
-- separate components, local state, mock data, and styles where that improves maintainability,
+- separate components, local state/hooks, mock data, helpers, and styles where that improves maintainability,
+- keep component/file names aligned with the confirmed region/component decomposition table,
 - implement states one by one,
 - keep real network/login/payment/upload out unless explicitly requested,
 - make the specified core functionality and interactions work locally without depending on the original site's backend,
@@ -343,6 +369,8 @@ Default: auto-proceed to Phase 4 unless source capture failed or the user asked 
 - do not implement states that were not included in the confirmed scope,
 - do not put generated replica UI files under `src/pages/`,
 - do not reference or copy any old project implementation,
+- do not switch frontend stack or add UI/dependency bloat without explicit need and a recorded decision,
+- do not deliver a single static HTML dump or one giant page file when multiple regions/states are in scope,
 - do not call real payment/login/upload APIs unless explicitly requested,
 - do not remove or overwrite unrelated user changes.
 
@@ -354,6 +382,8 @@ Default: auto-proceed to Phase 4 unless source capture failed or the user asked 
 - [x] Required states are triggerable
 - [x] Actual local access URL/port reported
 - [x] Source code is maintainable and project-local
+- [x] React + TypeScript + CSS Modules stack used, or user-approved exception recorded
+- [x] Source files follow the confirmed region/component decomposition
 - [x] Core functionality works without original backend dependency
 - [x] Header/body/footer or screenshot-covered regions implemented
 - [x] AI usage and manual decisions logged

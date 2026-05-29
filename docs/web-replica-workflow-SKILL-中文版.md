@@ -79,7 +79,11 @@ projects/{target-id}/
 │   └── capture-session.md
 ├── page/
 │   ├── {TargetReplica}Page.tsx
-│   └── {TargetReplica}Page.module.css
+│   ├── {TargetReplica}Page.module.css
+│   ├── components/
+│   ├── data/
+│   ├── hooks/
+│   └── utils/
 ├── baselines/
 │   └── {state-id}/
 ├── captures/
@@ -91,6 +95,10 @@ projects/{target-id}/
 ```
 
 复刻页面源码必须放在 `projects/{target-id}/page/` 下。不得把复刻 UI 生成到 `src/pages/`。`src` 目录只允许用于注册路由、共享样式或运行 project 页面所需的通用应用基础设施。
+
+默认实现技术栈是 **React + TypeScript + CSS Modules**。除非用户明确改变技术栈，否则不得切换到 Vue、Next.js、纯静态 HTML、Tailwind 或其他 UI 技术栈。优先使用项目已有依赖；只有在能明显提升可维护性或复刻一致性时才新增依赖，并在 `logs/decisions.md` 中记录原因。
+
+复刻源码必须面向长期维护组织。必要时使用 `page/components/` 放置有意义的 UI 区域组件，`page/data/` 放置本地 mock/结果数据，`page/hooks/` 放置可复用的本地交互状态，`page/utils/` 放置纯工具函数。页面包含多个区域或状态时，不得把 JSX、mock 数据、交互逻辑和样式全部塞进一个巨大的文件。
 
 创建新 project 时，不得查看、复制、改写或套用任何旧 `projects/*` 项目。如果某个经验应该通用，必须已经写入本 skill；否则不能作为新 project 的输入。
 
@@ -297,8 +305,22 @@ projects/{target-id}/baselines/{state-id}/capture-notes.md
 1. 创建 `projects/{target-id}/spec.md`。
 2. 将每个必需状态映射到对应原站证据。
 3. 嵌入或链接每个必需状态的原站截图，包括头部、中部和尾部证据。
-4. 提出实现策略。
-5. 将截图证据和复刻策略一起展示，然后停止等待确认。
+4. 创建区域/组件拆解表，将每个复刻范围内的区域绑定到真实截图或 DOM 证据。
+5. 提出实现策略。
+6. 将截图证据、区域/组件拆解表和复刻策略一起展示，然后停止等待确认。
+
+**区域/组件拆解表**：
+
+`spec.md` 必须包含一张表，列包括：
+
+- 区域/模块。
+- 原站状态与截图证据。
+- 关键元素。
+- 视觉要求。
+- 交互要求。
+- 实现组件/文件。
+
+每个在范围内的 header、body 区块、footer、表单、列表、分页控件、弹窗、空状态、加载态和错误态都必须出现在表中。每一行都必须引用真实的阶段三证据。没有原站证据的区域不得凭空创造。
 
 **规格确认必须覆盖**：
 
@@ -308,6 +330,7 @@ projects/{target-id}/baselines/{state-id}/capture-notes.md
 - 明确不复刻内容。
 - header、body、footer、弹窗、表单、列表等区域的视觉优先级。
 - header/body/footer 截图证据，或已记录的无稳定尾部例外。
+- 绑定原站证据的区域/组件拆解表。
 - 组件拆分。
 - 路由和复刻页面访问地址。
 - 可维护源码方案。
@@ -322,6 +345,7 @@ projects/{target-id}/baselines/{state-id}/capture-notes.md
 - [x] spec.md 已起草
 - [x] 状态与基线映射已完成
 - [x] 原站截图/基线已和实现策略一起展示
+- [x] 区域/组件拆解表已完成，且每项都绑定原站证据
 - [ ] BLOCKING：等待用户明确确认后才能开始实现
 ```
 
@@ -335,8 +359,10 @@ projects/{target-id}/baselines/{state-id}/capture-notes.md
 
 - 仅在必要时在 `src` 中创建页面路由注册。
 - 所有复刻页面源码都创建在 `projects/{target-id}/page/` 下。
+- 除非用户明确确认其他技术栈，否则使用 React + TypeScript + CSS Modules 实现。
 - 创建完整可维护源码，不得只是一次性静态 HTML。
-- 在有助于维护时，拆分组件、本地状态、mock 数据和样式。
+- 在有助于维护时，拆分组件、本地状态/hooks、mock 数据、工具函数和样式。
+- 组件和文件命名要与已确认的区域/组件拆解表对齐。
 - 按状态逐个实现。
 - 除非用户明确要求，不实现真实网络请求、登录、支付、上传等能力。
 - 指定核心功能和交互必须能在本地闭环运行，不依赖原站后端。
@@ -349,6 +375,8 @@ projects/{target-id}/baselines/{state-id}/capture-notes.md
 - 不得实现未包含在确认范围内的状态。
 - 不得把生成的复刻 UI 文件放入 `src/pages/`。
 - 不得参考或复制任何旧 project 实现。
+- 不得在没有明确必要性和决策记录的情况下切换前端技术栈或新增 UI/依赖膨胀。
+- 当多个区域或状态在范围内时，不得交付单个静态 HTML dump 或巨大的单文件页面。
 - 除非用户明确要求，不得调用真实支付、登录或上传接口。
 - 不得删除或覆盖无关的用户改动。
 
@@ -360,6 +388,8 @@ projects/{target-id}/baselines/{state-id}/capture-notes.md
 - [x] 必需状态都可以触发
 - [x] 已汇报实际本地访问 URL/端口
 - [x] 源码可维护且归属当前 project
+- [x] 已使用 React + TypeScript + CSS Modules，或已记录用户批准的例外
+- [x] 源码文件遵循已确认的区域/组件拆解
 - [x] 核心功能不依赖原站后端即可运行
 - [x] header/body/footer 或截图覆盖区域已实现
 - [x] AI 使用过程和人工决策已记录
