@@ -45,8 +45,16 @@ reports/
 
 ## 本地启动
 
+首次安装：
+
 ```bash
 npm install
+npx playwright install chromium
+```
+
+启动开发服务器：
+
+```bash
 npm run dev
 ```
 
@@ -55,6 +63,16 @@ npm run dev
 ```text
 http://127.0.0.1:5173
 ```
+
+快速验证：
+
+```bash
+npm run test
+npm run build
+npm run test:e2e
+```
+
+环境依赖说明见 [环境依赖](docs/环境依赖.md)。
 
 ## 常用命令
 
