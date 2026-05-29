@@ -32,19 +32,21 @@ Use this skill for every website replica task in this repository.
 > ```
 >
 > 13. **THREE METRICS ONLY**: evaluation uses functionality, interaction, and visual consistency.
-> 14. **ACCESS URL REQUIRED**: every replica plan and delivery update must include:
+> 14. **ACCESS URL REQUIRED**: every replica plan and delivery update must include the replica access URL. Phase 1 may show the default planned URL:
 >
 > ```text
 > http://127.0.0.1:5173/replica/{target}
 > ```
 >
-> If the dev server is not running, also include:
+> After the dev server starts, the reported URL MUST use the actual server port from the dev-server output, because `5173` is not always available. If the dev server is not running, also include:
 >
 > ```bash
 > npm run dev
 > ```
 > 15. **PROJECT-LOCAL PAGE SOURCE**: generated replica page source MUST live inside the current project folder, not under `src/pages/`. `src/` is only the shared app shell, router entry, and common infrastructure.
 > 16. **SAME-BROWSER VERIFICATION HANDOFF**: if the browser used for source capture hits CAPTCHA, security verification, login, or AI verification, hand that exact browser tab/session to the user. Do not tell the user to verify in a different browser/profile. After the user finishes, resume in the same session and re-check the target state.
+> 17. **NO OLD-PROJECT REFERENCE**: a new replica project MUST NOT reference any old project, including its directory shape, file names, component split, prompts, mock data, CSS, page logic, interaction implementation, or visual implementation. Build only from this skill, the current user request, and the current source baselines/screenshots.
+> 18. **MAINTAINABLE AND INDEPENDENT OUTPUT**: the replica artifact must be complete, long-term maintainable source code that can run locally or online without the original site's backend for the specified core functionality and interactions.
 
 > [!IMPORTANT]
 > ## Communication Rule
@@ -84,6 +86,24 @@ projects/{target-id}/
 
 Replica page source code belongs under `projects/{target-id}/page/`. Do not generate replica UI under `src/pages/`. The `src` tree may only be changed to register routes, shared styles, or common app infrastructure needed to serve the project page.
 
+Do not inspect, copy, adapt, or pattern-match any previous `projects/*` project when creating a new project. If a useful practice should apply broadly, it must already be written in this skill; otherwise it is not allowed as input for the new project.
+
+## Website Type Templates
+
+Use these templates only as generic checklists. They do not override the current user request or current source baselines.
+
+**Content/search display pages** such as Google Search, Baidu Search, Bing Search:
+
+- capture states: entry page, query/results page, pagination or more-results state, empty/no-result state when in scope,
+- core regions: header, search box, category/filter nav, result list, side panels when present, pagination, footer,
+- core interactions: typing, click submit, Enter submit, result text rendering, pagination or more-results navigation.
+
+**Form interaction pages** such as login, registration, password reset:
+
+- capture states: initial form, typed input, validation error, submit loading/failure, captcha/security state when present,
+- core regions: form container, labels, inputs, helper text, captcha block, submit button, error messages, footer,
+- core interactions: focus/blur, typing, clearing, validation, disabled/enabled submit, local failure feedback. Do not call real login/payment/upload APIs unless explicitly requested.
+
 ## Workflow
 
 ### Phase 1: Replica Request Parsing (⛔ BLOCKING)
@@ -120,6 +140,15 @@ Replica page source code belongs under `projects/{target-id}/page/`. Do not gene
 - evaluator config path,
 - acceptance thresholds.
 
+Default acceptance thresholds:
+
+- total score >= 90,
+- functionality >= 90,
+- interaction >= 90,
+- visual >= 90.
+
+If the user asks for stricter thresholds, use the stricter values. Do not lower these defaults unless the user explicitly accepts a lower target.
+
 **Phase 3 source capture modes**:
 
 - `普通自动采集`: realtime source capture; configured fallback may use the latest verified screenshot/DOM baseline.
@@ -152,6 +181,7 @@ Phase 6 evaluation must not use interactive source capture; it evaluates against
 4. Create initial log files under `logs/` and prompt tracking under `prompts/`.
 5. Ensure the route plan and replica access URL are recorded.
 6. Create `projects/{target-id}/page/` for page implementation files.
+7. Do not copy or infer any files from previous `projects/*` directories.
 
 **Do not** collect original baselines or implement UI in this phase.
 
@@ -192,9 +222,10 @@ Default: auto-proceed to Phase 3 unless the user asked to pause.
 2. Keep the failing tab/session open. Do not close it, recreate it, or switch to another browser profile.
 3. Bring that exact browser window/tab to the foreground or provide its live-view URL when using a remote browser session.
 4. Tell the user: "Please complete verification in this opened browser window/tab, then tell me when finished."
-5. Wait for the user confirmation.
-6. Resume capture in the same browser session and re-run the state gate.
-7. If the same session still fails, record the blocker and stop. Do not guess or use a different browser silently.
+5. Provide an explicit recovery signal before waiting. The recovery path must be visible to Codex and the user, for example terminal `Enter`, a documented resume command, or a watched `verification-resume.json` file.
+6. Wait for the user confirmation or the documented recovery signal. Do not leave a capture process waiting with no Codex-side resume entry.
+7. Resume capture in the same browser session and re-run the state gate.
+8. If the same session still fails, record the blocker and stop. Do not guess or use a different browser silently.
 
 Record the browser handoff in `projects/{target-id}/sources/capture-session.md`:
 
@@ -202,6 +233,7 @@ Record the browser handoff in `projects/{target-id}/sources/capture-session.md`:
 - profile/session path or live-view URL when available,
 - target state and URL,
 - verification signal detected,
+- recovery signal or resume command,
 - user handoff time and result,
 - post-verification gate result.
 
@@ -272,6 +304,8 @@ Default: auto-proceed to Phase 4 unless source capture failed or the user asked 
 - screenshot evidence for header/body/footer or documented no-footer exception,
 - component split,
 - route and replica access URL,
+- maintainable source-code plan,
+- independent local/online run plan,
 - Phase 3 source capture mode and Phase 6 baseline-only evaluation behavior,
 - acceptance thresholds.
 
@@ -295,15 +329,20 @@ Default: auto-proceed to Phase 4 unless source capture failed or the user asked 
 
 - create page route registration in `src` only when needed,
 - create all replica page source files under `projects/{target-id}/page/`,
+- create complete maintainable source code, not a one-off static dump,
+- separate components, local state, mock data, and styles where that improves maintainability,
 - implement states one by one,
 - keep real network/login/payment/upload out unless explicitly requested,
+- make the specified core functionality and interactions work locally without depending on the original site's backend,
 - locally self-check that all required states can be triggered,
+- start the dev server and report the actual working URL/port,
 - keep `logs/ai-log.md`, `logs/decisions.md`, and `prompts/replica-prompts.md` updated.
 
 **Forbidden**:
 
 - do not implement states that were not included in the confirmed scope,
 - do not put generated replica UI files under `src/pages/`,
+- do not reference or copy any old project implementation,
 - do not call real payment/login/upload APIs unless explicitly requested,
 - do not remove or overwrite unrelated user changes.
 
@@ -313,6 +352,9 @@ Default: auto-proceed to Phase 4 unless source capture failed or the user asked 
 ## Phase 5 Complete
 - [x] Replica page opens locally
 - [x] Required states are triggerable
+- [x] Actual local access URL/port reported
+- [x] Source code is maintainable and project-local
+- [x] Core functionality works without original backend dependency
 - [x] Header/body/footer or screenshot-covered regions implemented
 - [x] AI usage and manual decisions logged
 - [ ] Next: proceed to Phase 6 evaluation
@@ -366,6 +408,14 @@ projects/{target-id}/evaluation/history/{timestamp}/
 - Do not exceed 3 fix/evaluation rounds for one Phase 6 pass.
 - If the target is still not reached after 3 rounds, stop and deliver the latest score, reports, and a remaining-issues list instead of continuing indefinitely.
 
+Stable same-type validation:
+
+- After the delivered project reaches the target or the 3-round limit, run a light stability check on one new page of the same type when feasible.
+- The check starts only from the initial user-style request and this skill. Do not use old project files.
+- For content/search pages, choose another search/display page and verify that request parsing, state planning, source-capture planning, and implementation strategy can proceed without extra user intervention.
+- For form pages, choose another login/register/reset-style page and verify the same workflow stability.
+- Record the stability result in `projects/{target-id}/logs/decisions.md`.
+
 ✅ **Checkpoint**:
 
 ```markdown
@@ -375,5 +425,6 @@ projects/{target-id}/evaluation/history/{timestamp}/
 - [x] Functionality/interaction/visual scores reported
 - [x] Low-score fix suggestions listed
 - [x] Fix/evaluation rounds recorded, max 3 rounds
+- [x] Same-type stability check recorded when feasible
 - [x] Replica access URL reported
 ```
