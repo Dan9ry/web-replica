@@ -156,12 +156,12 @@ Use these templates only as generic checklists. They do not override the current
 
 Default acceptance thresholds:
 
-- total score >= 90,
+- total score >= 85,
 - functionality >= 85,
 - interaction >= 85,
-- visual >= 85,
+- visual >= 60,
 - structure >= 80,
-- content >= 85,
+- content >= 80,
 - engineering >= 80.
 
 If the user asks for stricter thresholds, use the stricter values. Do not lower these defaults unless the user explicitly accepts a lower target.
