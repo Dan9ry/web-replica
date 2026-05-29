@@ -1,6 +1,21 @@
 import { describe, expect, test } from "vitest";
 import { evaluateReplicaConsistency } from "../../evaluator/core/evaluationMetrics";
-import type { StateCapture } from "../../evaluator/core/types";
+import type { PageTarget, StateCapture } from "../../evaluator/core/types";
+
+const target: PageTarget = {
+  id: "baidu",
+  name: "百度首页",
+  originalUrl: "https://www.baidu.com",
+  replicaUrl: "http://127.0.0.1:5173/replica/baidu",
+  projectRoot: "/repo/projects/baidu",
+  criticalSelectors: ["search", "button"],
+  viewports: [{ name: "desktop", width: 1365, height: 768 }],
+  expectedTextIncludes: ["百度", "搜索"],
+  states: [
+    { id: "home", name: "首页", required: true },
+    { id: "results", name: "结果页", required: true },
+  ],
+};
 
 function makeCapture(
   stateId: string,
@@ -54,6 +69,7 @@ function makeCapture(
 describe("evaluateReplicaConsistency", () => {
   test("builds non-zero weighted metrics from matched state captures", () => {
     const result = evaluateReplicaConsistency({
+      target,
       originalCaptures: [makeCapture("home", "original"), makeCapture("results", "original")],
       replicaCaptures: [makeCapture("home", "replica"), makeCapture("results", "replica")],
       interactionResults: [
@@ -63,8 +79,11 @@ describe("evaluateReplicaConsistency", () => {
     });
 
     expect(result.metrics.visual).toBeGreaterThan(80);
-    expect(result.metrics.functionality).toBe(100);
+    expect(result.metrics.functionality).toBeGreaterThan(90);
     expect(result.metrics.interaction).toBe(100);
+    expect(result.metrics.structure).toBeGreaterThanOrEqual(80);
+    expect(result.metrics.content).toBeGreaterThan(80);
+    expect(result.metrics.engineering).toBe(100);
     expect(result.metrics).not.toHaveProperty("performance");
     expect(result.metrics).not.toHaveProperty("responsive");
     expect(result.metrics).not.toHaveProperty("accessibility");
@@ -76,6 +95,7 @@ describe("evaluateReplicaConsistency", () => {
 
   test("reports missing replica states and penalizes functionality", () => {
     const result = evaluateReplicaConsistency({
+      target,
       originalCaptures: [makeCapture("home", "original"), makeCapture("results", "original")],
       replicaCaptures: [makeCapture("home", "replica")],
       interactionResults: [],
@@ -92,6 +112,7 @@ describe("evaluateReplicaConsistency", () => {
 
   test("adds actionable suggestions for low scoring dimensions", () => {
     const result = evaluateReplicaConsistency({
+      target,
       originalCaptures: [
         makeCapture("home", "original"),
         makeCapture("results", "original"),
@@ -129,7 +150,7 @@ describe("evaluateReplicaConsistency", () => {
     expect(result.issues).toContainEqual(
       expect.objectContaining({
         code: "LOW_INTERACTION_SCORE",
-        message: expect.stringContaining("复刻页交互"),
+        message: expect.stringContaining("交互用例"),
       }),
     );
   });

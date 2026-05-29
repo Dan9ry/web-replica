@@ -55,7 +55,7 @@ export function buildCaptureGateMessage(pages: PageEvaluationResult[]): string {
   lines.push("请回到素材采集阶段，补齐并确认当前复刻项目的原站截图/DOM 基线后，再重新运行：");
   lines.push("npm run eval");
   lines.push("");
-  lines.push("诊断文件：reports/latest/source-validation.json");
+  lines.push("诊断文件：当前 project/evaluation/latest/source-validation.json");
 
   return lines.join("\n");
 }

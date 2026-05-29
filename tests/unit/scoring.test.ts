@@ -7,9 +7,12 @@ describe("calculateWeightedScore", () => {
       functionality: 100,
       interaction: 90,
       visual: 80,
+      structure: 70,
+      content: 60,
+      engineering: 50,
     });
 
-    expect(result.totalScore).toBe(89.5);
+    expect(result.totalScore).toBe(81);
     expect(result.level).toBe("基本一致");
   });
 
@@ -18,10 +21,14 @@ describe("calculateWeightedScore", () => {
       functionality: 120,
       interaction: -20,
       visual: 50,
+      structure: Number.NaN,
+      content: 80,
+      engineering: 1000,
     });
 
     expect(result.metrics.functionality).toBe(100);
     expect(result.metrics.interaction).toBe(0);
-    expect(result.totalScore).toBe(55);
+    expect(result.metrics.engineering).toBe(100);
+    expect(result.totalScore).toBe(55.5);
   });
 });

@@ -1,9 +1,12 @@
 import type { ScoreMetrics, WeightedScore } from "./types.js";
 
 const weights: ScoreMetrics = {
-  functionality: 0.35,
-  interaction: 0.25,
-  visual: 0.4,
+  functionality: 0.25,
+  interaction: 0.2,
+  visual: 0.25,
+  structure: 0.1,
+  content: 0.1,
+  engineering: 0.1,
 };
 
 function clampScore(value: number): number {
@@ -35,12 +38,18 @@ export function calculateWeightedScore(metrics: ScoreMetrics): WeightedScore {
     functionality: clampScore(metrics.functionality),
     interaction: clampScore(metrics.interaction),
     visual: clampScore(metrics.visual),
+    structure: clampScore(metrics.structure),
+    content: clampScore(metrics.content),
+    engineering: clampScore(metrics.engineering),
   };
 
   const totalScore =
     normalized.functionality * weights.functionality +
     normalized.interaction * weights.interaction +
-    normalized.visual * weights.visual;
+    normalized.visual * weights.visual +
+    normalized.structure * weights.structure +
+    normalized.content * weights.content +
+    normalized.engineering * weights.engineering;
 
   const roundedTotal = Math.round(totalScore * 10) / 10;
 

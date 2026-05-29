@@ -2,7 +2,7 @@ import { describe, expect, test } from "vitest";
 import { buildMarkdownReport } from "../../evaluator/core/report";
 
 describe("buildMarkdownReport", () => {
-  test("prints capture mode and only the three agreed scoring dimensions", () => {
+  test("prints capture mode and the six scoring dimensions", () => {
     const markdown = buildMarkdownReport({
       generatedAt: "2026-05-29T12:00:00+08:00",
       pages: [
@@ -25,6 +25,9 @@ describe("buildMarkdownReport", () => {
               functionality: 100,
               interaction: 90,
               visual: 80,
+              structure: 85,
+              content: 92,
+              engineering: 88,
             },
           },
         },
@@ -33,8 +36,11 @@ describe("buildMarkdownReport", () => {
 
     expect(markdown).toContain("评估方式：实时原站采集评估");
     expect(markdown).toContain("| 功能一致性 | 100 |");
-    expect(markdown).toContain("| 交互一致性 | 90 |");
+    expect(markdown).toContain("| 交互流程一致性 | 90 |");
     expect(markdown).toContain("| 视觉一致性 | 80 |");
+    expect(markdown).toContain("| 结构/语义一致性 | 85 |");
+    expect(markdown).toContain("| 内容/数据一致性 | 92 |");
+    expect(markdown).toContain("| 工程可维护性 | 88 |");
     expect(markdown).not.toContain("可访问性一致性");
     expect(markdown).not.toContain("性能一致性");
     expect(markdown).not.toContain("响应式一致性");
@@ -69,6 +75,9 @@ describe("buildMarkdownReport", () => {
               functionality: 100,
               interaction: 90,
               visual: 80,
+              structure: 85,
+              content: 92,
+              engineering: 88,
             },
           },
         },
@@ -103,7 +112,7 @@ describe("buildMarkdownReport", () => {
       ],
     });
 
-    expect(markdown).toContain("原网页基线门禁失败");
+    expect(markdown).toContain("硬门禁失败");
     expect(markdown).toContain("缺失关键元素 #kw");
     expect(markdown).not.toContain("总分：");
   });

@@ -27,6 +27,27 @@ function renderStateResults(page: PageEvaluationResult): string[] {
   return lines;
 }
 
+function renderInteractionResults(page: PageEvaluationResult): string[] {
+  if (!page.interactionResults || page.interactionResults.length === 0) {
+    return [];
+  }
+
+  const lines = ["### 交互用例", ""];
+  lines.push("| 用例 | 结果 | 失败步骤 | 说明 |");
+  lines.push("| --- | --- | ---: | --- |");
+  for (const result of page.interactionResults) {
+    const message = result.message ?? "";
+    const expected = typeof result.expected === "undefined" ? "" : `期望：${result.expected}`;
+    const actual = typeof result.actual === "undefined" ? "" : `实际：${result.actual}`;
+    lines.push(
+      `| ${result.name} | ${result.passed ? "passed" : "failed"} | ${result.failedStep ?? ""} | ${[message, expected, actual].filter(Boolean).join("；")} |`,
+    );
+  }
+  lines.push("");
+
+  return lines;
+}
+
 function captureModeLabel(page: PageEvaluationResult): string {
   const mode =
     page.sourceValidation.captureMode ??
@@ -55,8 +76,8 @@ function renderPage(page: PageEvaluationResult): string {
   ];
 
   if (!page.sourceValidation.canScore) {
-    lines.push("### 原网页基线门禁失败", "");
-    lines.push("本页面未生成一致性总分，因为 Phase 3 原网页截图/DOM 基线未通过可信性门禁。", "");
+    lines.push("### 硬门禁失败", "");
+    lines.push("本页面未生成一致性总分，因为原站基线、复刻运行或反截图伪页面门禁未通过。", "");
     lines.push(...renderStateResults(page));
     lines.push("### 问题列表", "");
     lines.push(renderIssues(page.sourceValidation.issues));
@@ -71,18 +92,25 @@ function renderPage(page: PageEvaluationResult): string {
     lines.push("| 维度 | 分数 |");
     lines.push("| --- | ---: |");
     lines.push(`| 功能一致性 | ${page.score.metrics.functionality} |`);
-    lines.push(`| 交互一致性 | ${page.score.metrics.interaction} |`);
+    lines.push(`| 交互流程一致性 | ${page.score.metrics.interaction} |`);
     lines.push(`| 视觉一致性 | ${page.score.metrics.visual} |`);
+    lines.push(`| 结构/语义一致性 | ${page.score.metrics.structure} |`);
+    lines.push(`| 内容/数据一致性 | ${page.score.metrics.content} |`);
+    lines.push(`| 工程可维护性 | ${page.score.metrics.engineering} |`);
     lines.push("");
   }
 
   lines.push(...renderStateResults(page));
+  lines.push(...renderInteractionResults(page));
 
   if (page.artifacts?.visualDiffs && page.artifacts.visualDiffs.length > 0) {
     lines.push("### 评估产物", "");
     lines.push(`- 采集数据：${page.artifacts.captures?.original ?? "未生成"}`);
     for (const diff of page.artifacts.visualDiffs) {
       lines.push(`- 视觉差异图：${diff}`);
+    }
+    for (const diff of page.artifacts.regionDiffs ?? []) {
+      lines.push(`- 区域视觉差异图：${diff}`);
     }
     lines.push("");
   }

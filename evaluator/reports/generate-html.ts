@@ -1,10 +1,13 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { latestEvaluationDirFor } from "../core/evaluationPaths.js";
 import { buildMarkdownReport } from "../core/report.js";
 import { writeTextFile } from "../core/files.js";
+import { loadTargets } from "../core/targets.js";
 import type { EvaluationReport } from "../core/types.js";
 
-const latestDir = join(process.cwd(), "reports", "latest");
+const targets = await loadTargets();
+const latestDir = latestEvaluationDirFor(targets[0]);
 const summary = JSON.parse(
   await readFile(join(latestDir, "summary.json"), "utf8"),
 ) as EvaluationReport;
@@ -31,5 +34,4 @@ await writeTextFile(
 `,
 );
 
-console.log("评估报告已写入 reports/latest/report.md 和 reports/latest/index.html。");
-
+console.log(`评估报告已写入 ${join(latestDir, "report.md")} 和 ${join(latestDir, "index.html")}。`);

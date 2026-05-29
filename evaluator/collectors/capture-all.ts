@@ -5,7 +5,9 @@ import pixelmatch from "pixelmatch";
 import sharp from "sharp";
 import { ssim } from "ssim.js";
 import { loadTargets } from "../core/targets.js";
+import { executeBrowserAction } from "../core/assertions.js";
 import { buildCaptureGateMessage, shouldInterruptEvaluation } from "../core/captureGate.js";
+import { latestEvaluationDirFor } from "../core/evaluationPaths.js";
 import {
   normalizeTargetStates,
   validateTargetStateCaptures,
@@ -19,11 +21,10 @@ import type {
   PageStateConfig,
   PageTarget,
   PageEvaluationResult,
+  RegionVisualScore,
   SelectorCapture,
   StateCapture,
 } from "../core/types.js";
-
-const latestDir = join(process.cwd(), "reports", "latest");
 
 interface PageSession {
   page: Page;
@@ -39,6 +40,7 @@ interface CaptureEvidenceOptions {
   viewport: { name: string; width: number; height: number };
   criticalSelectors: string[];
   compareSelectors: string[];
+  reportDir: string;
   status: number | null;
   start: number;
   suffix?: "failure";
@@ -88,22 +90,17 @@ async function collectSelectors(
 async function executeSteps(page: Page, steps: BrowserActionStep[] = []): Promise<void> {
   for (const step of steps) {
     if (step.type === "fill") {
-      await page.locator(step.selector).fill(step.value, { timeout: 10_000 });
+      await executeBrowserAction(page, step);
     } else if (step.type === "click") {
-      await page.locator(step.selector).click({ timeout: 10_000 });
+      await executeBrowserAction(page, step);
     } else if (step.type === "press") {
-      await page.locator(step.selector).press(step.key, { timeout: 10_000 });
+      await executeBrowserAction(page, step);
     } else if (step.type === "waitForSelector") {
-      await page.locator(step.selector).waitFor({
-        state: "visible",
-        timeout: step.timeoutMs ?? 10_000,
-      });
+      await executeBrowserAction(page, step);
     } else if (step.type === "waitForURLIncludes") {
-      await page.waitForURL((url) => url.href.includes(step.value), {
-        timeout: step.timeoutMs ?? 10_000,
-      });
+      await executeBrowserAction(page, step);
     } else {
-      await page.waitForTimeout(step.ms);
+      await executeBrowserAction(page, step);
     }
   }
 }
@@ -115,6 +112,23 @@ async function collectDomProfile(
   return page.evaluate(
     `(selectorList) => {
     const count = (selector) => document.querySelectorAll(selector).length;
+    const viewportArea = Math.max(1, window.innerWidth * window.innerHeight);
+    const areaFor = (elements) => Array.from(elements).reduce((total, element) => {
+      const rect = element.getBoundingClientRect();
+      const width = Math.max(0, Math.min(rect.right, window.innerWidth) - Math.max(rect.left, 0));
+      const height = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
+      return total + width * height;
+    }, 0);
+    const backgroundElements = Array.from(document.querySelectorAll("body *")).filter((element) => {
+      const style = window.getComputedStyle(element);
+      return style.backgroundImage && style.backgroundImage !== "none";
+    });
+    const focusableElements = Array.from(document.querySelectorAll("button,a[href],input,select,textarea,[tabindex]:not([tabindex='-1']),[role='button'],[role='textbox']"))
+      .filter((element) => {
+        const style = window.getComputedStyle(element);
+        const rect = element.getBoundingClientRect();
+        return style.visibility !== "hidden" && style.display !== "none" && rect.width > 0 && rect.height > 0;
+      });
     const styles = {};
 
     for (const selector of selectorList) {
@@ -129,11 +143,19 @@ async function collectDomProfile(
         fontSize: computed.fontSize,
         color: computed.color,
         backgroundColor: computed.backgroundColor,
+        borderColor: computed.borderColor,
         borderRadius: computed.borderRadius,
         width: Math.round(rect.width) + "px",
         height: Math.round(rect.height) + "px",
+        x: Math.round(rect.x),
+        y: Math.round(rect.y),
+        display: computed.display,
+        fontWeight: computed.fontWeight,
+        lineHeight: computed.lineHeight,
       };
     }
+
+    const bodyText = document.body.innerText || "";
 
     return {
       landmarks: {
@@ -146,7 +168,14 @@ async function collectDomProfile(
         list: count("ul,ol,[role='list']"),
         listitem: count("li,[role='listitem']"),
       },
-      textSample: (document.body.innerText || "").slice(0, 4000),
+      textSample: bodyText.slice(0, 4000),
+      textNodeLength: bodyText.trim().length,
+      imageAreaRatio: Math.min(1, areaFor(document.querySelectorAll("img,svg image")) / viewportArea),
+      canvasAreaRatio: Math.min(1, areaFor(document.querySelectorAll("canvas")) / viewportArea),
+      backgroundImageAreaRatio: Math.min(1, areaFor(backgroundElements) / viewportArea),
+      interactiveControlCount: count("button,a[href],input,select,textarea,[role='button'],[role='textbox']"),
+      focusableControlCount: focusableElements.length,
+      base64ImageCount: Array.from(document.querySelectorAll("img")).filter((image) => image.src.startsWith("data:")).length,
       styles,
     };
   }`,
@@ -177,13 +206,14 @@ async function capturePageEvidence({
   viewport,
   criticalSelectors,
   compareSelectors,
+  reportDir,
   status,
   start,
   suffix,
   error,
   manualVerified,
 }: CaptureEvidenceOptions): Promise<StateCapture> {
-  const assetsDir = join(latestDir, "assets", target.id, state.id);
+  const assetsDir = join(reportDir, "assets", target.id, state.id);
   await mkdir(assetsDir, { recursive: true });
   const screenshotPath = join(
     assetsDir,
@@ -241,10 +271,11 @@ async function loadProjectBaselineCapture(
   target: PageTarget,
   state: PageStateConfig,
   viewportName: string,
+  reportDir: string,
 ): Promise<StateCapture> {
   const jsonPath = baselineDomPath(target, state);
   const sourceScreenshotPath = baselineScreenshotPath(target, state, viewportName);
-  const reportAssetsDir = join(latestDir, "assets", target.id, state.id);
+  const reportAssetsDir = join(reportDir, "assets", target.id, state.id);
   const reportScreenshotPath = join(reportAssetsDir, `original-${viewportName}.png`);
 
   try {
@@ -295,8 +326,9 @@ async function collectState(
   target: PageTarget,
   state: PageStateConfig,
   side: CaptureSide,
+  viewport: { name: string; width: number; height: number },
+  reportDir: string,
 ): Promise<StateCapture> {
-  const viewport = target.viewports[0] ?? { name: "desktop", width: 1365, height: 768 };
   let session: PageSession | undefined;
   let page: Page | undefined;
   const url =
@@ -305,7 +337,9 @@ async function collectState(
       : state.replicaUrl ?? target.replicaUrl;
   const steps = side === "original" ? state.originalSteps : state.replicaSteps;
   const criticalSelectors = state.criticalSelectors ?? target.criticalSelectors;
-  const compareSelectors = state.compareSelectors ?? criticalSelectors;
+  const compareSelectors = Array.from(
+    new Set([...(state.compareSelectors ?? criticalSelectors), ...(state.regions?.map((region) => region.selector) ?? [])]),
+  );
   const start = performance.now();
 
   try {
@@ -329,6 +363,7 @@ async function collectState(
       viewport,
       criticalSelectors,
       compareSelectors,
+      reportDir,
       status: response?.status() ?? null,
       start,
     });
@@ -345,6 +380,7 @@ async function collectState(
         viewport,
         criticalSelectors,
         compareSelectors,
+        reportDir,
         status: null,
         start,
         suffix: "failure",
@@ -384,9 +420,10 @@ async function collectState(
 
 async function compareScreenshots(
   target: PageTarget,
-  stateId: string,
+  state: PageStateConfig,
   original: StateCapture,
   replica: StateCapture,
+  reportDir: string,
 ): Promise<CaptureMetrics> {
   if (!original.screenshotPath || !replica.screenshotPath) {
     return {};
@@ -417,7 +454,7 @@ async function compareScreenshots(
   const diffPixels = pixelmatch(originalPixels, replicaPixels, diff, width, height, {
     threshold: 0.15,
   });
-  const assetsDir = join(latestDir, "assets", target.id, stateId);
+  const assetsDir = join(reportDir, "assets", target.id, state.id);
   const diffPath = join(assetsDir, `diff-${replica.viewport}.png`);
   await sharp(Buffer.from(diff), { raw: { width, height, channels: 4 } }).png().toFile(diffPath);
 
@@ -436,7 +473,199 @@ async function compareScreenshots(
     ...replica.metrics,
     screenshotDiffRatio: diffPixels / (width * height),
     ssim: ssimValue,
+    regionScores: await compareRegions(target, state, original, replica, reportDir),
+    layoutScore: calculateLayoutScore(state, original, replica),
+    styleScore: calculateStyleScore(state, original, replica),
   };
+}
+
+function numericStyle(value: string | number | undefined): number | undefined {
+  if (typeof value === "number") {
+    return value;
+  }
+  if (!value) {
+    return undefined;
+  }
+  const parsed = Number.parseFloat(value);
+  return Number.isFinite(parsed) ? parsed : undefined;
+}
+
+function boxScore(original: Record<string, unknown>, replica: Record<string, unknown>): number {
+  const keys = ["x", "y", "width", "height"];
+  const scores = keys.map((key) => {
+    const a = numericStyle(original[key] as string | number | undefined);
+    const b = numericStyle(replica[key] as string | number | undefined);
+    if (typeof a !== "number" || typeof b !== "number") {
+      return 0;
+    }
+    const tolerance = key === "width" || key === "height" ? Math.max(4, a * 0.05) : 4;
+    const delta = Math.abs(a - b);
+    return Math.max(0, 100 - Math.max(0, delta - tolerance) * 4);
+  });
+  return scores.reduce((total, score) => total + score, 0) / scores.length;
+}
+
+function calculateLayoutScore(
+  state: PageStateConfig,
+  original: StateCapture,
+  replica: StateCapture,
+): number {
+  const selectors = state.compareSelectors ?? state.criticalSelectors ?? [];
+  const scores = selectors.map((selector) => {
+    const originalStyle = original.domProfile?.styles[selector];
+    const replicaStyle = replica.domProfile?.styles[selector];
+    return originalStyle && replicaStyle ? boxScore(originalStyle, replicaStyle) : 0;
+  });
+  return scores.length === 0 ? 0 : scores.reduce((total, score) => total + score, 0) / scores.length;
+}
+
+function colorDistance(a: string | undefined, b: string | undefined): number {
+  const parse = (value: string | undefined) =>
+    value?.match(/\d+(\.\d+)?/g)?.slice(0, 3).map(Number) ?? [];
+  const left = parse(a);
+  const right = parse(b);
+  if (left.length < 3 || right.length < 3) {
+    return 255;
+  }
+  return Math.sqrt(
+    (left[0] - right[0]) ** 2 +
+      (left[1] - right[1]) ** 2 +
+      (left[2] - right[2]) ** 2,
+  );
+}
+
+function calculateStyleScore(
+  state: PageStateConfig,
+  original: StateCapture,
+  replica: StateCapture,
+): number {
+  const selectors = state.compareSelectors ?? state.criticalSelectors ?? [];
+  const scores = selectors.map((selector) => {
+    const originalStyle = original.domProfile?.styles[selector];
+    const replicaStyle = replica.domProfile?.styles[selector];
+    if (!originalStyle || !replicaStyle) {
+      return 0;
+    }
+
+    const fontScore = Math.max(
+      0,
+      100 - Math.abs((numericStyle(originalStyle.fontSize) ?? 0) - (numericStyle(replicaStyle.fontSize) ?? 0)) * 20,
+    );
+    const radiusScore = Math.max(
+      0,
+      100 - Math.abs((numericStyle(originalStyle.borderRadius) ?? 0) - (numericStyle(replicaStyle.borderRadius) ?? 0)) * 10,
+    );
+    const colorScore = Math.max(0, 100 - colorDistance(originalStyle.color, replicaStyle.color) * 2);
+    const backgroundScore = Math.max(
+      0,
+      100 - colorDistance(originalStyle.backgroundColor, replicaStyle.backgroundColor) * 2,
+    );
+    return fontScore * 0.3 + radiusScore * 0.2 + colorScore * 0.25 + backgroundScore * 0.25;
+  });
+  return scores.length === 0 ? 0 : scores.reduce((total, score) => total + score, 0) / scores.length;
+}
+
+async function compareRegions(
+  target: PageTarget,
+  state: PageStateConfig,
+  original: StateCapture,
+  replica: StateCapture,
+  reportDir: string,
+): Promise<RegionVisualScore[]> {
+  if (!original.screenshotPath || !replica.screenshotPath || !state.regions?.length) {
+    return [];
+  }
+
+  const regionsDir = join(reportDir, "assets", target.id, state.id, "regions");
+  await mkdir(regionsDir, { recursive: true });
+  const scores: RegionVisualScore[] = [];
+
+  for (const region of state.regions) {
+    const originalStyle = original.domProfile?.styles[region.selector];
+    const replicaStyle = replica.domProfile?.styles[region.selector];
+    const width = Math.round(Math.min(numericStyle(originalStyle?.width) ?? 0, numericStyle(replicaStyle?.width) ?? 0));
+    const height = Math.round(Math.min(numericStyle(originalStyle?.height) ?? 0, numericStyle(replicaStyle?.height) ?? 0));
+    const left = Math.round(Math.max(0, numericStyle(originalStyle?.x) ?? 0));
+    const top = Math.round(Math.max(0, numericStyle(originalStyle?.y) ?? 0));
+    const replicaLeft = Math.round(Math.max(0, numericStyle(replicaStyle?.x) ?? 0));
+    const replicaTop = Math.round(Math.max(0, numericStyle(replicaStyle?.y) ?? 0));
+
+    if (width <= 0 || height <= 0) {
+      continue;
+    }
+
+    const originalPath = join(regionsDir, `original-${region.id}-${replica.viewport}.png`);
+    const replicaPath = join(regionsDir, `replica-${region.id}-${replica.viewport}.png`);
+    const diffPath = join(regionsDir, `diff-${region.id}-${replica.viewport}.png`);
+
+    await sharp(original.screenshotPath)
+      .extract({ left, top, width, height })
+      .png()
+      .toFile(originalPath)
+      .catch(() => undefined);
+    await sharp(replica.screenshotPath)
+      .extract({ left: replicaLeft, top: replicaTop, width, height })
+      .png()
+      .toFile(replicaPath)
+      .catch(() => undefined);
+
+    const [originalImage, replicaImage] = await Promise.all([
+      sharp(originalPath).ensureAlpha().raw().toBuffer(),
+      sharp(replicaPath).ensureAlpha().raw().toBuffer(),
+    ]).catch(() => []);
+
+    if (!originalImage || !replicaImage) {
+      continue;
+    }
+
+    const originalPixels = new Uint8ClampedArray(originalImage);
+    const replicaPixels = new Uint8ClampedArray(replicaImage);
+    const diff = new Uint8ClampedArray(width * height * 4);
+    const diffPixels = pixelmatch(originalPixels, replicaPixels, diff, width, height, {
+      threshold: 0.15,
+    });
+    await sharp(Buffer.from(diff), { raw: { width, height, channels: 4 } }).png().toFile(diffPath);
+
+    const diffRatio = diffPixels / (width * height);
+    const pixelScore = Math.max(0, 100 - diffRatio * 100);
+    let ssimValue = 0;
+    try {
+      ssimValue = ssim(
+        { data: originalPixels, width, height },
+        { data: replicaPixels, width, height },
+      ).mssim;
+    } catch {
+      ssimValue = 0;
+    }
+
+    const ssimScore = Math.max(0, Math.min(100, ssimValue * 100));
+    const bboxScore = originalStyle && replicaStyle ? boxScore(originalStyle, replicaStyle) : 0;
+    const styleScore = calculateStyleScore(
+      { ...state, compareSelectors: [region.selector] },
+      original,
+      replica,
+    );
+    const score = pixelScore * 0.45 + ssimScore * 0.35 + bboxScore * 0.12 + styleScore * 0.08;
+
+    scores.push({
+      stateId: state.id,
+      regionId: region.id,
+      selector: region.selector,
+      weight: region.weight ?? 1,
+      score,
+      pixelScore,
+      ssimScore,
+      bboxScore,
+      styleScore,
+      diffRatio,
+      ssim: ssimValue,
+      originalPath,
+      replicaPath,
+      diffPath,
+    });
+  }
+
+  return scores;
 }
 
 const targets = await loadTargets();
@@ -447,37 +676,48 @@ for (const target of targets) {
   const states = normalizeTargetStates(target);
   const originalCaptures: StateCapture[] = [];
   const replicaCaptures: StateCapture[] = [];
-  const viewport = target.viewports[0] ?? { name: "desktop", width: 1365, height: 768 };
+  const viewports = target.viewports.length > 0
+    ? target.viewports
+    : [{ name: "desktop", width: 1365, height: 768 }];
+  const reportDir = latestEvaluationDirFor(target);
+  await mkdir(join(reportDir, "captures"), { recursive: true });
 
   for (const state of states) {
-    const originalCapture = await loadProjectBaselineCapture(target, state, viewport.name);
-    originalCaptures.push(originalCapture);
-    await writeJsonFile(
-      join(latestDir, "captures", `${target.id}-${state.id}-original.json`),
-      originalCapture,
-    );
+    for (const viewport of viewports) {
+      const originalCapture = await loadProjectBaselineCapture(target, state, viewport.name, reportDir);
+      originalCaptures.push(originalCapture);
+      await writeJsonFile(
+        join(reportDir, "captures", `${target.id}-${state.id}-${viewport.name}-original.json`),
+        originalCapture,
+      );
+    }
   }
 
   const validation = validateTargetStateCaptures(target, originalCaptures);
 
   if (validation.canScore) {
     for (const state of states) {
-      const replicaCapture = await collectState(target, state, "replica");
-      const originalCapture = originalCaptures.find((capture) => capture.stateId === state.id);
-      if (originalCapture) {
-        replicaCapture.metrics = await compareScreenshots(
-          target,
-          state.id,
-          originalCapture,
+      for (const viewport of viewports) {
+        const replicaCapture = await collectState(target, state, "replica", viewport, reportDir);
+        const originalCapture = originalCaptures.find(
+          (capture) => capture.stateId === state.id && capture.viewport === viewport.name,
+        );
+        if (originalCapture) {
+          replicaCapture.metrics = await compareScreenshots(
+            target,
+            state,
+            originalCapture,
+            replicaCapture,
+            reportDir,
+          );
+        }
+
+        replicaCaptures.push(replicaCapture);
+        await writeJsonFile(
+          join(reportDir, "captures", `${target.id}-${state.id}-${viewport.name}-replica.json`),
           replicaCapture,
         );
       }
-
-      replicaCaptures.push(replicaCapture);
-      await writeJsonFile(
-        join(latestDir, "captures", `${target.id}-${state.id}-replica.json`),
-        replicaCapture,
-      );
     }
   }
 
@@ -489,7 +729,7 @@ for (const target of targets) {
     sourceValidation: validation,
     stateResults: validation.stateResults,
   });
-  await writeJsonFile(join(latestDir, "captures", `${target.id}-source.json`), {
+  await writeJsonFile(join(reportDir, "captures", `${target.id}-source.json`), {
     original: originalCaptures,
     replica: replicaCaptures,
   });
@@ -499,7 +739,8 @@ for (const target of targets) {
   }
 }
 
-await writeJsonFile(join(latestDir, "source-validation.json"), {
+const reportDir = latestEvaluationDirFor(targets[0]);
+await writeJsonFile(join(reportDir, "source-validation.json"), {
   generatedAt: new Date().toISOString(),
   pages: validations,
 });

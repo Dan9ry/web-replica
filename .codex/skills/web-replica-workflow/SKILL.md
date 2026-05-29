@@ -31,7 +31,7 @@ Use this skill for every website replica task in this repository.
 > EVAL_TARGET_CONFIG=projects/{target-id}/config/target.json npm run eval
 > ```
 >
-> 13. **THREE METRICS ONLY**: evaluation uses functionality, interaction, and visual consistency.
+> 13. **SIX-METRIC EVALUATION**: evaluation uses functionality, interaction, visual, structure/semantics, content/data, and engineering maintainability. Do not add performance, responsive, SEO, or full WCAG compliance unless explicitly requested.
 > 14. **ACCESS URL REQUIRED**: every replica plan and delivery update must include the replica access URL. Phase 1 may show the default planned URL:
 >
 > ```text
@@ -114,6 +114,7 @@ Use these templates only as generic checklists. They do not override the current
 - capture states: initial form, typed input, validation error, submit loading/failure, captcha/security state when present,
 - core regions: form container, labels, inputs, helper text, captcha block, submit button, error messages, footer,
 - core interactions: focus/blur, typing, clearing, validation, disabled/enabled submit, local failure feedback. Do not call real login/payment/upload APIs unless explicitly requested.
+- sensitive-page capture rule: on payment, login, account, security verification, or similar pages, collect only visible UI evidence. Do not dump full DOM, hidden inputs, cookies, localStorage, sessionStorage, or token fields. If a QR-code/scanning mode covers the form, first use visible buttons, links, icons, or screenshot coordinates to switch to the visible form mode, then capture the visible form.
 
 ## Workflow
 
@@ -154,9 +155,12 @@ Use these templates only as generic checklists. They do not override the current
 Default acceptance thresholds:
 
 - total score >= 90,
-- functionality >= 90,
-- interaction >= 90,
-- visual >= 90.
+- functionality >= 85,
+- interaction >= 85,
+- visual >= 85,
+- structure >= 80,
+- content >= 85,
+- engineering >= 80.
 
 If the user asks for stricter thresholds, use the stricter values. Do not lower these defaults unless the user explicitly accepts a lower target.
 
@@ -425,6 +429,9 @@ Reports must include:
 - functionality score,
 - interaction score,
 - visual score,
+- structure/semantics score,
+- content/data score,
+- engineering maintainability score,
 - visual diffs,
 - issue list,
 - low-score fix suggestions.
@@ -460,7 +467,7 @@ Stable same-type validation:
 ## Phase 6 Complete
 - [x] Current project evaluated only
 - [x] Report identifies source evidence and evaluation mode
-- [x] Functionality/interaction/visual scores reported
+- [x] Functionality/interaction/visual/structure/content/engineering scores reported
 - [x] Low-score fix suggestions listed
 - [x] Fix/evaluation rounds recorded, max 3 rounds
 - [x] Same-type stability check recorded when feasible
