@@ -44,6 +44,7 @@ Use this skill for every website replica task in this repository.
 > npm run dev
 > ```
 > 15. **PROJECT-LOCAL PAGE SOURCE**: generated replica page source MUST live inside the current project folder, not under `src/pages/`. `src/` is only the shared app shell, router entry, and common infrastructure.
+> 16. **SAME-BROWSER VERIFICATION HANDOFF**: if the browser used for source capture hits CAPTCHA, security verification, login, or AI verification, hand that exact browser tab/session to the user. Do not tell the user to verify in a different browser/profile. After the user finishes, resume in the same session and re-check the target state.
 
 > [!IMPORTANT]
 > ## Communication Rule
@@ -66,7 +67,8 @@ projects/{target-id}/
 │   └── replica-prompts.md
 ├── sources/
 │   ├── user-screenshots/
-│   └── urls.md
+│   ├── urls.md
+│   └── capture-session.md
 ├── page/
 │   ├── {TargetReplica}Page.tsx
 │   └── {TargetReplica}Page.module.css
@@ -112,7 +114,7 @@ Replica page source code belongs under `projects/{target-id}/page/`. Do not gene
 - Phase 3 source capture mode,
 - Phase 6 evaluation uses existing baselines only,
 - source evidence mode,
-- verification/fallback behavior,
+- same-browser verification handoff plan,
 - required real screenshots or baselines,
 - project folder path,
 - evaluator config path,
@@ -173,6 +175,9 @@ Default: auto-proceed to Phase 3 unless the user asked to pause.
 
 **Actions for URL sources**:
 
+- choose and record the capture browser/session before opening the real site,
+- prefer `@chrome` when the task needs the user's normal Chrome profile, cookies, extensions, or visible local verification,
+- if using Playwright or another automation browser, launch a visible persistent browser/context that can be handed to the user,
 - open the real site,
 - execute state trigger steps,
 - capture page head/top, middle, footer/bottom, and viewport screenshots for every required state,
@@ -180,6 +185,25 @@ Default: auto-proceed to Phase 3 unless the user asked to pause.
 - save DOM/style summaries and interaction notes,
 - record any blocker in `logs/blockers.md`,
 - pause if access or verification fails.
+
+**Same-browser verification handoff protocol**:
+
+1. Detect verification pages by URL/title/text signals such as CAPTCHA, security verification, AI verification, access restriction, login challenge, or missing required selectors.
+2. Keep the failing tab/session open. Do not close it, recreate it, or switch to another browser profile.
+3. Bring that exact browser window/tab to the foreground or provide its live-view URL when using a remote browser session.
+4. Tell the user: "Please complete verification in this opened browser window/tab, then tell me when finished."
+5. Wait for the user confirmation.
+6. Resume capture in the same browser session and re-run the state gate.
+7. If the same session still fails, record the blocker and stop. Do not guess or use a different browser silently.
+
+Record the browser handoff in `projects/{target-id}/sources/capture-session.md`:
+
+- browser provider: `@chrome`, Playwright headed, remote live-view browser, or screenshot source,
+- profile/session path or live-view URL when available,
+- target state and URL,
+- verification signal detected,
+- user handoff time and result,
+- post-verification gate result.
 
 **Actions for screenshot sources**:
 
@@ -203,6 +227,7 @@ projects/{target-id}/baselines/{state-id}/capture-notes.md
 - head/top captured,
 - middle captured,
 - footer/bottom captured,
+- browser/session used,
 - or `no-stable-footer` with the reason and representative lower-content evidence.
 
 **Forbidden**:
