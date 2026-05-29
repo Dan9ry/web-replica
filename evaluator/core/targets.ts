@@ -12,10 +12,9 @@ const targetFiles = ["baidu.json", "wechat-pay-login.json", "third-page.json"];
 
 export async function loadTargets(rootDir = process.cwd()): Promise<PageTarget[]> {
   const targetFilter = process.env.EVAL_TARGET?.trim();
-  const evaluateAll = process.env.EVAL_ALL === "1";
 
-  if (!targetFilter && !evaluateAll) {
-    throw new Error("必须通过 EVAL_TARGET 指定页面，或通过 EVAL_ALL=1 明确评估全部页面。");
+  if (!targetFilter) {
+    throw new Error("必须通过 EVAL_TARGET 指定当前复刻项目。评估器不支持评估全部页面。");
   }
 
   const targets = await Promise.all(
@@ -29,10 +28,6 @@ export async function loadTargets(rootDir = process.cwd()): Promise<PageTarget[]
   return targets.filter((target) => {
     if (target.originalUrl.trim().length === 0) {
       return false;
-    }
-
-    if (evaluateAll) {
-      return true;
     }
 
     return target.id === targetFilter;

@@ -15,8 +15,6 @@
     "eval:report": "node .evaluator-dist/evaluator/reports/generate-html.js",
     "eval": "npm run eval:build && node .evaluator-dist/evaluator/collectors/capture-all.js && node .evaluator-dist/evaluator/run-evaluation.js && node .evaluator-dist/evaluator/reports/generate-html.js",
     "eval:interactive": "npm run eval:build && EVAL_INTERACTIVE=1 node .evaluator-dist/evaluator/collectors/capture-all.js && node .evaluator-dist/evaluator/run-evaluation.js && node .evaluator-dist/evaluator/reports/generate-html.js",
-    "eval:all": "npm run eval:build && EVAL_ALL=1 node .evaluator-dist/evaluator/collectors/capture-all.js && node .evaluator-dist/evaluator/run-evaluation.js && node .evaluator-dist/evaluator/reports/generate-html.js",
-    "eval:all:interactive": "npm run eval:build && EVAL_ALL=1 EVAL_INTERACTIVE=1 node .evaluator-dist/evaluator/collectors/capture-all.js && node .evaluator-dist/evaluator/run-evaluation.js && node .evaluator-dist/evaluator/reports/generate-html.js",
     "eval:baidu": "npm run eval:build && EVAL_TARGET=baidu node .evaluator-dist/evaluator/collectors/capture-all.js && node .evaluator-dist/evaluator/run-evaluation.js && node .evaluator-dist/evaluator/reports/generate-html.js",
     "eval:baidu:interactive": "npm run eval:build && EVAL_TARGET=baidu EVAL_INTERACTIVE=1 node .evaluator-dist/evaluator/collectors/capture-all.js && node .evaluator-dist/evaluator/run-evaluation.js && node .evaluator-dist/evaluator/reports/generate-html.js"
   },

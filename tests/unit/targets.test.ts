@@ -5,7 +5,6 @@ import { afterEach, describe, expect, test } from "vitest";
 import { loadTargets } from "../../evaluator/core/targets";
 
 const previousTarget = process.env.EVAL_TARGET;
-const previousAll = process.env.EVAL_ALL;
 
 async function writeTarget(rootDir: string, fileName: string, id: string, originalUrl: string) {
   await writeFile(
@@ -47,41 +46,36 @@ afterEach(() => {
     process.env.EVAL_TARGET = previousTarget;
   }
 
-  if (previousAll === undefined) {
-    delete process.env.EVAL_ALL;
-  } else {
-    process.env.EVAL_ALL = previousAll;
-  }
+  delete process.env.EVAL_ALL;
 });
 
 describe("loadTargets", () => {
   test("filters targets by EVAL_TARGET when provided", async () => {
     const rootDir = await createTargetsFixture();
     process.env.EVAL_TARGET = "baidu";
-    delete process.env.EVAL_ALL;
 
     const targets = await loadTargets(rootDir);
 
     expect(targets.map((target) => target.id)).toEqual(["baidu"]);
   });
 
-  test("loads all configured targets when EVAL_ALL is provided", async () => {
+  test("does not support all-target evaluation", async () => {
     const rootDir = await createTargetsFixture();
     delete process.env.EVAL_TARGET;
     process.env.EVAL_ALL = "1";
 
-    const targets = await loadTargets(rootDir);
-
-    expect(targets.map((target) => target.id)).toEqual(["baidu", "wechat-pay-login"]);
+    await expect(loadTargets(rootDir)).rejects.toThrow(
+      "必须通过 EVAL_TARGET 指定当前复刻项目",
+    );
   });
 
-  test("requires an explicit target or all-target opt-in", async () => {
+  test("requires an explicit current project target", async () => {
     const rootDir = await createTargetsFixture();
     delete process.env.EVAL_TARGET;
     delete process.env.EVAL_ALL;
 
     await expect(loadTargets(rootDir)).rejects.toThrow(
-      "必须通过 EVAL_TARGET 指定页面，或通过 EVAL_ALL=1 明确评估全部页面",
+      "必须通过 EVAL_TARGET 指定当前复刻项目",
     );
   });
 });
