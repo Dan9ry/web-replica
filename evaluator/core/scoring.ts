@@ -1,6 +1,6 @@
 import type { ScoreMetrics, WeightedScore } from "./types.js";
 
-const weights: ScoreMetrics = {
+export const scoreWeights: ScoreMetrics = {
   functionality: 0.25,
   interaction: 0.2,
   visual: 0.25,
@@ -44,12 +44,12 @@ export function calculateWeightedScore(metrics: ScoreMetrics): WeightedScore {
   };
 
   const totalScore =
-    normalized.functionality * weights.functionality +
-    normalized.interaction * weights.interaction +
-    normalized.visual * weights.visual +
-    normalized.structure * weights.structure +
-    normalized.content * weights.content +
-    normalized.engineering * weights.engineering;
+    normalized.functionality * scoreWeights.functionality +
+    normalized.interaction * scoreWeights.interaction +
+    normalized.visual * scoreWeights.visual +
+    normalized.structure * scoreWeights.structure +
+    normalized.content * scoreWeights.content +
+    normalized.engineering * scoreWeights.engineering;
 
   const roundedTotal = Math.round(totalScore * 10) / 10;
 

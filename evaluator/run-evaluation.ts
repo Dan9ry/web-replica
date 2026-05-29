@@ -4,6 +4,7 @@ import { validateAntiCheatGate } from "./core/antiCheatGate.js";
 import { evaluateReplicaConsistency } from "./core/evaluationMetrics.js";
 import { latestEvaluationDirFor } from "./core/evaluationPaths.js";
 import { writeJsonFile } from "./core/files.js";
+import { buildSixDimensionalReport } from "./core/reportModel.js";
 import { runInteractionChecks } from "./core/interactionRunner.js";
 import { loadTargets } from "./core/targets.js";
 import type {
@@ -26,7 +27,7 @@ async function readStateCaptures(
   ) as { original: StateCapture[]; replica: StateCapture[] };
 }
 
-const report: EvaluationReport = {
+const evaluationReport: EvaluationReport = {
   generatedAt: new Date().toISOString(),
   pages: await Promise.all(sourceValidation.pages.map(async (page) => {
     const target = targets.find((item) => item.id === page.pageId) ?? targets[0];
@@ -86,5 +87,12 @@ const report: EvaluationReport = {
   })),
 };
 
-await writeJsonFile(join(latestDir, "summary.json"), report);
+const richReport = buildSixDimensionalReport(evaluationReport, {
+  targets,
+  targetConfig: process.env.EVAL_TARGET_CONFIG ?? "evaluator/config/targets.json",
+});
+
+await writeJsonFile(join(latestDir, "summary.json"), richReport.summary);
+await writeJsonFile(join(latestDir, "details.json"), richReport);
+await writeJsonFile(join(latestDir, "artifacts-index.json"), richReport.artifacts);
 console.log(`评估汇总已写入 ${join(latestDir, "summary.json")}。`);

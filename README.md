@@ -81,7 +81,7 @@ npm run build
 npm run test:e2e
 ```
 
-环境依赖说明见 [环境依赖](docs/环境依赖.md)。
+环境依赖说明见 [环境依赖](docs/环境依赖.md)，报告体系说明见 [六维评估报告体系](docs/六维评估报告体系.md)。
 
 ## 常用命令
 
@@ -105,6 +105,13 @@ EVAL_TARGET_CONFIG=projects/{target-id}/config/target.json npm run eval
 
 ```text
 projects/{target-id}/evaluation/latest/
+├── summary.json          # 六维汇总，供 CI 或自动化读取
+├── details.json          # 页面、状态、维度、问题、证据的完整详情
+├── artifacts-index.json  # 截图、diff、交互失败证据等产物索引
+├── report.md             # 六维 Markdown 报告
+├── index.html            # 六维 Dashboard 报告
+├── captures/             # 原站基线与复刻采集 JSON
+└── assets/               # 截图、整页 diff、区域 diff、失败步骤截图
 projects/{target-id}/evaluation/history/{timestamp}/
 ```
 
@@ -126,7 +133,7 @@ projects/{target-id}/evaluation/history/{timestamp}/
 
 - `Phase 3 截图/DOM 基线评估`：评估阶段使用素材采集阶段已经确认的原站截图、DOM、关键 selector 和页面文本，不再访问原站。
 
-报告会对低分项给出修改建议，例如功能分偏低时提示补齐缺失状态和断言，交互分偏低时提示检查具体失败步骤，视觉分偏低时提示查看区域差异图并修复布局、间距、颜色和组件尺寸。若发现截图伪页面、透明热区、整页图片或核心文本只存在于图片中，评估会直接不通过。
+报告会按“总览 -> 页面 × 六维矩阵 -> 状态矩阵 -> 六维详情 -> 问题中心 -> 证据中心”的结构展开。每个问题都会归因到六个维度之一，并附带影响分、置信度、证据链接和修复建议。若发现截图伪页面、透明热区、整页图片或核心文本只存在于图片中，评估会直接不通过。
 
 ## 评估指标
 
@@ -159,7 +166,7 @@ projects/{target-id}/evaluation/history/{timestamp}/
 | 复刻页可运行 | 本地服务和目标路由可访问，核心状态可触发 |
 | 无阻断错误 | 页面加载和核心交互无白屏、死循环、uncaught exception |
 | 禁止截图伪页面 | 主体 UI 不能由整页截图、大区域截图、canvas 截图、图片热区或截图背景伪装 |
-| 报告证据完整 | 输出 summary、report、截图、diff、交互失败证据和问题列表 |
+| 报告证据完整 | 输出 summary、details、artifacts-index、report、HTML Dashboard、截图、diff、交互失败证据和问题列表 |
 
 分项阈值：
 

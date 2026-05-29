@@ -428,6 +428,11 @@ EVAL_TARGET_CONFIG=projects/{target-id}/config/target.json npm run eval
 
 评估报告必须包含：
 
+- `summary.json`：供自动化/CI 读取的六维汇总。
+- `details.json`：页面、状态、视口、维度、问题和证据详情。
+- `artifacts-index.json`：按维度和页面索引的截图、diff、交互失败截图、采集数据和报告产物。
+- `report.md`：可读的六维 Markdown 报告。
+- `index.html`：六维 Dashboard，包含总览卡片、页面矩阵、状态矩阵、问题中心、维度详情、证据中心和历史对比入口。
 - 已锁定的评估模式。
 - 实际使用的原站证据。
 - 是否使用阶段三截图基线评估。

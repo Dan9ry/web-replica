@@ -424,6 +424,11 @@ Evaluation source rule:
 
 Reports must include:
 
+- `summary.json`: six-dimensional run summary for automation/CI,
+- `details.json`: page/state/viewport/dimension/issue/evidence details,
+- `artifacts-index.json`: screenshots, diffs, interaction failure screenshots, captures, and report artifacts indexed by dimension and page,
+- `report.md`: readable six-dimensional Markdown report,
+- `index.html`: six-dimensional dashboard with overview cards, page matrix, state matrix, issue center, dimension details, evidence center, and history placeholder,
 - locked evaluation mode,
 - actual source evidence,
 - whether evaluation used Phase 3 baseline screenshots,
