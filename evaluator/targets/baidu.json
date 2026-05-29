@@ -6,9 +6,75 @@
   "expectedTitleIncludes": ["百度"],
   "expectedUrlIncludes": ["baidu.com"],
   "expectedTextIncludes": ["百度一下"],
-  "criticalSelectors": ["#kw", "#su"],
+  "criticalSelectors": ["#chat-textarea", "#chat-submit-button"],
   "viewports": [
     { "name": "desktop", "width": 1365, "height": 768 },
     { "name": "mobile", "width": 390, "height": 844 }
+  ],
+  "states": [
+    {
+      "id": "home",
+      "name": "首页初始态",
+      "criticalSelectors": ["#chat-textarea", "#chat-submit-button"],
+      "expectedTextIncludes": ["百度一下", "百度热搜"],
+      "compareSelectors": ["#chat-textarea", "#chat-submit-button", "nav"]
+    },
+    {
+      "id": "results",
+      "name": "搜索结果页",
+      "criticalSelectors": ["#content_left", "#chat-textarea", "#chat-submit-button"],
+      "expectedTextIncludes": ["搜索工具"],
+      "compareSelectors": ["#content_left", "#chat-textarea", "#chat-submit-button", "#page"],
+      "originalSteps": [
+        { "type": "fill", "selector": "#chat-textarea", "value": "微信支付" },
+        { "type": "click", "selector": "#chat-submit-button" },
+        { "type": "wait", "ms": 500 },
+        { "type": "press", "selector": "body", "key": "Enter" },
+        { "type": "waitForSelector", "selector": "#content_left", "timeoutMs": 15000 }
+      ],
+      "replicaSteps": [
+        { "type": "fill", "selector": "[aria-label='百度搜索']", "value": "微信支付" },
+        { "type": "press", "selector": "[aria-label='百度搜索']", "key": "Enter" },
+        { "type": "waitForSelector", "selector": "[data-testid='result-list']", "timeoutMs": 5000 }
+      ]
+    },
+    {
+      "id": "results-page-2",
+      "name": "搜索结果分页态",
+      "criticalSelectors": ["#content_left", "#page"],
+      "expectedTextIncludes": ["搜索工具"],
+      "compareSelectors": ["#content_left", "#page"],
+      "originalSteps": [
+        { "type": "fill", "selector": "#chat-textarea", "value": "微信支付" },
+        { "type": "click", "selector": "#chat-submit-button" },
+        { "type": "wait", "ms": 500 },
+        { "type": "press", "selector": "body", "key": "Enter" },
+        { "type": "waitForSelector", "selector": "#content_left", "timeoutMs": 15000 },
+        { "type": "click", "selector": "#page a:has-text('2')" },
+        { "type": "waitForSelector", "selector": "#content_left", "timeoutMs": 15000 }
+      ],
+      "replicaSteps": [
+        { "type": "fill", "selector": "[aria-label='百度搜索']", "value": "微信支付" },
+        { "type": "press", "selector": "[aria-label='百度搜索']", "key": "Enter" },
+        { "type": "waitForSelector", "selector": "[data-testid='result-list']", "timeoutMs": 5000 },
+        { "type": "click", "selector": "button[aria-label='第 2 页']" },
+        { "type": "waitForSelector", "selector": "[data-testid='result-list']", "timeoutMs": 5000 }
+      ]
+    },
+    {
+      "id": "empty-query",
+      "name": "空输入行为态",
+      "criticalSelectors": ["#chat-textarea", "#chat-submit-button"],
+      "expectedTextIncludes": ["百度一下"],
+      "compareSelectors": ["#chat-textarea", "#chat-submit-button"],
+      "originalSteps": [
+        { "type": "click", "selector": "#chat-submit-button" },
+        { "type": "wait", "ms": 500 }
+      ],
+      "replicaSteps": [
+        { "type": "click", "selector": "button:has-text('百度一下')" },
+        { "type": "wait", "ms": 500 }
+      ]
+    }
   ]
 }

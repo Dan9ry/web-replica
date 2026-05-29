@@ -11,6 +11,22 @@ function renderIssues(issues: ValidationIssue[]): string {
     .concat("\n");
 }
 
+function renderStateResults(page: PageEvaluationResult): string[] {
+  if (!page.stateResults || page.stateResults.length === 0) {
+    return [];
+  }
+
+  const lines = ["### 原站状态门禁", ""];
+  lines.push("| 状态 | 结果 | 最终 URL |");
+  lines.push("| --- | --- | --- |");
+  for (const state of page.stateResults) {
+    lines.push(`| ${state.name} \`${state.stateId}\` | ${state.status} | ${state.finalUrl || "未获取"} |`);
+  }
+  lines.push("");
+
+  return lines;
+}
+
 function renderPage(page: PageEvaluationResult): string {
   const lines = [
     `## ${page.name}`,
@@ -26,6 +42,7 @@ function renderPage(page: PageEvaluationResult): string {
   if (!page.sourceValidation.canScore) {
     lines.push("### 原网页采集失败", "");
     lines.push("本页面未生成一致性总分，因为原网页采集未通过可信性门禁。", "");
+    lines.push(...renderStateResults(page));
     lines.push("### 问题列表", "");
     lines.push(renderIssues(page.sourceValidation.issues));
     return lines.join("\n");
@@ -47,6 +64,17 @@ function renderPage(page: PageEvaluationResult): string {
     lines.push("");
   }
 
+  lines.push(...renderStateResults(page));
+
+  if (page.artifacts?.visualDiffs && page.artifacts.visualDiffs.length > 0) {
+    lines.push("### 评估产物", "");
+    lines.push(`- 采集数据：${page.artifacts.captures?.original ?? "未生成"}`);
+    for (const diff of page.artifacts.visualDiffs) {
+      lines.push(`- 视觉差异图：${diff}`);
+    }
+    lines.push("");
+  }
+
   lines.push("### 问题列表", "");
   lines.push(renderIssues(page.issues ?? []));
   return lines.join("\n");
@@ -62,4 +90,3 @@ export function buildMarkdownReport(report: EvaluationReport): string {
     "",
   ].join("\n");
 }
-
