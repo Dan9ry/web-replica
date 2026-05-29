@@ -157,3 +157,4 @@ npm run eval:baidu:interactive # 只用交互模式评估百度目标
 - [题目原文](docs/微信支付后台开发实习岗-基于%20AI%20工具的网页复刻与一致性评估.md)
 - [实施方案](docs/网页复刻与一致性评估实施方案.md)
 - [网页复刻六阶段流程](docs/网页复刻六阶段流程.md)
+- [项目级网页复刻 Skill](.codex/skills/web-replica-workflow/SKILL.md)
