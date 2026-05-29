@@ -21,15 +21,18 @@ Use this skill for every website replica task in this repository.
 > 5. **NO CROSS-PHASE BUNDLING**: do not combine request parsing, project creation, source capture, implementation, and evaluation in one unconfirmed run.
 > 6. **NO SPECULATIVE EXECUTION**: do not pre-create project files, target config, source files, baselines, or implementation before their phase gate is satisfied.
 > 7. **SOURCE CAPTURE FAILS CLOSED**: if the original page cannot be verified, shows captcha/security verification, requires login, returns an error page, or misses a required state, pause and ask the user to intervene. Do not guess.
-> 8. **CURRENT PROJECT ONLY**: evaluation is always for the current replica project. Do not evaluate all projects.
-> 9. **GENERIC EVALUATOR ONLY**: the evaluator does not own fixed targets. Invoke it with the current project config:
+> 8. **HEAD / MIDDLE / FOOTER COVERAGE**: interactive source capture MUST collect the page head, middle, and footer for every required state. If the site has no stable footer because infinite scrolling keeps loading new content, document that exception and capture representative lower loaded content instead.
+> 9. **SCREENSHOTS WITH STRATEGY**: Phase 4 MUST present source screenshots/baselines together with the replica strategy. Text-only strategy confirmation is forbidden.
+> 10. **NO SOURCE RE-CAPTURE DURING EVALUATION**: Phase 6 evaluation MUST use the screenshots/baselines captured in Phase 3 as original evidence. Do not run interactive source capture again during evaluation. If baselines are missing or stale, return to Phase 3.
+> 11. **CURRENT PROJECT ONLY**: evaluation is always for the current replica project. Do not evaluate all projects.
+> 12. **GENERIC EVALUATOR ONLY**: the evaluator does not own fixed targets. Invoke it with the current project config:
 >
 > ```bash
 > EVAL_TARGET_CONFIG=projects/{target-id}/config/target.json npm run eval
 > ```
 >
-> 10. **THREE METRICS ONLY**: evaluation uses functionality, interaction, and visual consistency.
-> 11. **ACCESS URL REQUIRED**: every replica plan and delivery update must include:
+> 13. **THREE METRICS ONLY**: evaluation uses functionality, interaction, and visual consistency.
+> 14. **ACCESS URL REQUIRED**: every replica plan and delivery update must include:
 >
 > ```text
 > http://127.0.0.1:5173/replica/{target}
@@ -102,7 +105,8 @@ Page source code may be generated under `src/pages/{TargetReplica}/`, but reques
 - state scope,
 - function scope,
 - explicit non-goals,
-- evaluation mode,
+- Phase 3 source capture mode,
+- Phase 6 evaluation uses existing baselines only,
 - source evidence mode,
 - verification/fallback behavior,
 - required real screenshots or baselines,
@@ -110,11 +114,13 @@ Page source code may be generated under `src/pages/{TargetReplica}/`, but reques
 - evaluator config path,
 - acceptance thresholds.
 
-**Evaluation modes**:
+**Phase 3 source capture modes**:
 
-- `普通自动评估`: realtime source capture; configured fallback may use the latest verified screenshot/DOM baseline.
-- `交互辅助评估`: visible browser; pause for user verification when needed.
-- `截图来源评估`: use user screenshots or confirmed baselines; do not infer states outside screenshots.
+- `普通自动采集`: realtime source capture; configured fallback may use the latest verified screenshot/DOM baseline.
+- `交互辅助采集`: visible browser during Phase 3 only; pause for user verification when needed.
+- `截图来源采集`: use user screenshots or confirmed baselines; do not infer states outside screenshots.
+
+Phase 6 evaluation must not use interactive source capture; it evaluates against the Phase 3 baselines.
 
 ✅ **Checkpoint**:
 
@@ -163,7 +169,8 @@ Default: auto-proceed to Phase 3 unless the user asked to pause.
 
 - open the real site,
 - execute state trigger steps,
-- capture top, middle, bottom, and viewport screenshots for scrollable pages,
+- capture page head/top, middle, footer/bottom, and viewport screenshots for every required state,
+- if the page uses infinite scroll and has no stable footer, capture a representative lower loaded region and document why no footer exists,
 - save DOM/style summaries and interaction notes,
 - record any blocker in `logs/blockers.md`,
 - pause if access or verification fails.
@@ -185,10 +192,18 @@ projects/{target-id}/baselines/{state-id}/original-dom.json
 projects/{target-id}/baselines/{state-id}/capture-notes.md
 ```
 
+`capture-notes.md` MUST explicitly mark:
+
+- head/top captured,
+- middle captured,
+- footer/bottom captured,
+- or `no-stable-footer` with the reason and representative lower-content evidence.
+
 **Forbidden**:
 
 - do not treat blank/error/captcha/security pages as original baselines,
 - do not guess missing middle/bottom/page states,
+- do not proceed if head, middle, and footer coverage has not been checked for every required state,
 - do not start implementation if any required state is unverified.
 
 ✅ **Checkpoint**:
@@ -196,6 +211,7 @@ projects/{target-id}/baselines/{state-id}/capture-notes.md
 ```markdown
 ## Phase 3 Complete
 - [x] Required original states captured or screenshot baselines labeled
+- [x] Head/middle/footer coverage checked for every required state
 - [x] DOM/style summaries saved where available
 - [x] Capture notes written
 - [ ] Next: proceed to Phase 4 spec confirmation
@@ -211,8 +227,9 @@ Default: auto-proceed to Phase 4 unless source capture failed or the user asked 
 
 1. Create `projects/{target-id}/spec.md`.
 2. Map each required state to its source evidence.
-3. Propose the implementation strategy.
-4. Present the strategy and stop for user confirmation.
+3. Embed or link the captured source screenshots for every required state, including head/middle/footer evidence.
+4. Propose the implementation strategy.
+5. Present the screenshots and strategy together, then stop for user confirmation.
 
 **Spec confirmation must cover**:
 
@@ -221,9 +238,10 @@ Default: auto-proceed to Phase 4 unless source capture failed or the user asked 
 - function scope,
 - explicit non-goals,
 - visual priorities for header/body/footer/popups/forms/lists,
+- screenshot evidence for header/body/footer or documented no-footer exception,
 - component split,
 - route and replica access URL,
-- evaluation mode and fallback behavior,
+- Phase 3 source capture mode and Phase 6 baseline-only evaluation behavior,
 - acceptance thresholds.
 
 ✅ **Checkpoint**:
@@ -232,7 +250,7 @@ Default: auto-proceed to Phase 4 unless source capture failed or the user asked 
 ## Phase 4 Complete
 - [x] spec.md drafted
 - [x] State-to-baseline mapping complete
-- [x] Implementation strategy presented
+- [x] Source screenshots/baselines shown together with implementation strategy
 - [ ] BLOCKING: waiting for explicit user confirmation before implementation
 ```
 
@@ -271,7 +289,7 @@ Default: auto-proceed to Phase 6 unless the user asked to pause.
 
 ### Phase 6: Evaluation Iteration And Delivery
 
-🚧 **GATE**: Phase 5 complete; the replica page is runnable locally; `config/target.json` points to the current project.
+🚧 **GATE**: Phase 5 complete; the replica page is runnable locally; `config/target.json` points to the current project; Phase 3 baselines exist for all required states.
 
 Run only the current project:
 
@@ -279,16 +297,18 @@ Run only the current project:
 EVAL_TARGET_CONFIG=projects/{target-id}/config/target.json npm run eval
 ```
 
-For interaction-assisted evaluation:
+Evaluation source rule:
 
-```bash
-EVAL_TARGET_CONFIG=projects/{target-id}/config/target.json npm run eval:interactive
-```
+- use Phase 3 screenshots/baselines as the original evidence,
+- do not open the original website interactively during evaluation,
+- do not ask the user to solve captcha/security verification during evaluation,
+- if original baselines are missing, incomplete, or stale, stop and return to Phase 3 source capture before evaluating.
 
 Reports must include:
 
 - locked evaluation mode,
 - actual source evidence,
+- whether evaluation used Phase 3 baseline screenshots,
 - total score,
 - functionality score,
 - interaction score,
