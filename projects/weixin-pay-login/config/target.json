@@ -20,6 +20,38 @@
   "expectedTextIncludes": [
     "登录"
   ],
+  "structureSelectors": [
+    {
+      "selector": "form",
+      "purpose": "functional",
+      "expectedCount": 1,
+      "weight": 3
+    },
+    {
+      "selector": "input[placeholder='登录账号']",
+      "purpose": "functional",
+      "expectedCount": 1,
+      "weight": 4
+    },
+    {
+      "selector": "input[placeholder='登录密码']",
+      "purpose": "functional",
+      "expectedCount": 1,
+      "weight": 4
+    },
+    {
+      "selector": "input[placeholder='验证码']",
+      "purpose": "functional",
+      "expectedCount": 1,
+      "weight": 3
+    },
+    {
+      "selector": "body",
+      "purpose": "visual",
+      "expectedCount": 1,
+      "weight": 0.2
+    }
+  ],
   "states": [
     {
       "id": "login-initial",
@@ -44,6 +76,38 @@
         "input[placeholder='登录账号']",
         "input[placeholder='登录密码']",
         "input[placeholder='验证码']"
+      ],
+      "structureSelectors": [
+        {
+          "selector": "form",
+          "purpose": "functional",
+          "expectedCount": 1,
+          "weight": 3
+        },
+        {
+          "selector": "input[placeholder='登录账号']",
+          "purpose": "functional",
+          "expectedCount": 1,
+          "weight": 4
+        },
+        {
+          "selector": "input[placeholder='登录密码']",
+          "purpose": "functional",
+          "expectedCount": 1,
+          "weight": 4
+        },
+        {
+          "selector": "input[placeholder='验证码']",
+          "purpose": "functional",
+          "expectedCount": 1,
+          "weight": 3
+        },
+        {
+          "selector": "body",
+          "purpose": "visual",
+          "expectedCount": 1,
+          "weight": 0.2
+        }
       ]
     },
     {
@@ -70,6 +134,38 @@
         "input[placeholder='登录账号']",
         "input[placeholder='登录密码']",
         "input[placeholder='验证码']"
+      ],
+      "structureSelectors": [
+        {
+          "selector": "form",
+          "purpose": "functional",
+          "expectedCount": 1,
+          "weight": 3
+        },
+        {
+          "selector": "input[placeholder='登录账号']",
+          "purpose": "functional",
+          "expectedCount": 1,
+          "weight": 4
+        },
+        {
+          "selector": "input[placeholder='登录密码']",
+          "purpose": "functional",
+          "expectedCount": 1,
+          "weight": 4
+        },
+        {
+          "selector": "input[placeholder='验证码']",
+          "purpose": "functional",
+          "expectedCount": 1,
+          "weight": 3
+        },
+        {
+          "selector": "body",
+          "purpose": "visual",
+          "expectedCount": 1,
+          "weight": 0.2
+        }
       ]
     }
   ]

@@ -22,6 +22,7 @@ export interface PageTarget {
   expectedUrlIncludes?: string[];
   expectedTextIncludes?: string[];
   compareSelectors?: string[];
+  structureSelectors?: StructureSelectorConfig[];
   pageWeight?: number;
   interactions?: InteractionCaseConfig[];
   masks?: MaskConfig[];
@@ -137,6 +138,18 @@ export interface RegionConfig {
   weight?: number;
 }
 
+export interface StructureSelectorConfig {
+  selector: string;
+  purpose?: "functional" | "visual" | "content" | "structural";
+  interactionRequired?: boolean;
+  weight?: number;
+  expectedCount?: number;
+  minCount?: number;
+  maxCount?: number;
+  required?: boolean;
+  tolerance?: number;
+}
+
 export interface MaskConfig {
   selector: string;
   reason: string;
@@ -162,6 +175,7 @@ export interface PageStateConfig {
   expectedUrlIncludes?: string[];
   expectedTextIncludes?: string[];
   compareSelectors?: string[];
+  structureSelectors?: StructureSelectorConfig[];
   expectations?: AssertionStep[];
   regions?: RegionConfig[];
   masks?: MaskConfig[];

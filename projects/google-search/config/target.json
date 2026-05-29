@@ -23,6 +23,38 @@
   "expectedTextIncludes": [
     "Google"
   ],
+  "structureSelectors": [
+    {
+      "selector": "textarea[name='q'],input[name='q']",
+      "purpose": "functional",
+      "expectedCount": 1,
+      "weight": 4
+    },
+    {
+      "selector": "form",
+      "purpose": "functional",
+      "minCount": 1,
+      "weight": 2
+    },
+    {
+      "selector": "#search",
+      "purpose": "content",
+      "minCount": 1,
+      "weight": 3
+    },
+    {
+      "selector": "#result-stats",
+      "purpose": "content",
+      "maxCount": 1,
+      "weight": 1
+    },
+    {
+      "selector": "a",
+      "purpose": "visual",
+      "minCount": 8,
+      "weight": 0.5
+    }
+  ],
   "states": [
     {
       "id": "home",
@@ -43,6 +75,32 @@
         "body",
         "form",
         "textarea[name='q'],input[name='q']"
+      ],
+      "structureSelectors": [
+        {
+          "selector": "textarea[name='q'],input[name='q']",
+          "purpose": "functional",
+          "expectedCount": 1,
+          "weight": 4
+        },
+        {
+          "selector": "form",
+          "purpose": "functional",
+          "expectedCount": 1,
+          "weight": 2
+        },
+        {
+          "selector": "a",
+          "purpose": "visual",
+          "minCount": 2,
+          "weight": 0.4
+        },
+        {
+          "selector": "body",
+          "purpose": "visual",
+          "expectedCount": 1,
+          "weight": 0.2
+        }
       ]
     },
     {
@@ -66,6 +124,32 @@
         "textarea[name='q'],input[name='q']",
         "#search",
         "#result-stats"
+      ],
+      "structureSelectors": [
+        {
+          "selector": "textarea[name='q'],input[name='q']",
+          "purpose": "functional",
+          "expectedCount": 1,
+          "weight": 4
+        },
+        {
+          "selector": "#search",
+          "purpose": "content",
+          "expectedCount": 1,
+          "weight": 4
+        },
+        {
+          "selector": "#result-stats",
+          "purpose": "content",
+          "expectedCount": 1,
+          "weight": 1
+        },
+        {
+          "selector": "a",
+          "purpose": "visual",
+          "minCount": 8,
+          "weight": 0.5
+        }
       ]
     },
     {
@@ -87,6 +171,26 @@
         "body",
         "textarea[name='q'],input[name='q']",
         "#search"
+      ],
+      "structureSelectors": [
+        {
+          "selector": "textarea[name='q'],input[name='q']",
+          "purpose": "functional",
+          "expectedCount": 1,
+          "weight": 4
+        },
+        {
+          "selector": "#search",
+          "purpose": "content",
+          "expectedCount": 1,
+          "weight": 4
+        },
+        {
+          "selector": "a",
+          "purpose": "visual",
+          "minCount": 8,
+          "weight": 0.5
+        }
       ]
     }
   ]

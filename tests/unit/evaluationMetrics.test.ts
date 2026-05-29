@@ -154,4 +154,52 @@ describe("evaluateReplicaConsistency", () => {
       }),
     );
   });
+
+  test("scores structure against requested scope instead of all original controls", () => {
+    const scopedTarget: PageTarget = {
+      ...target,
+      structureSelectors: [
+        { selector: ".result-link", purpose: "content", interactionRequired: false, expectedCount: 8, weight: 4 },
+        { selector: "input[name='q']", purpose: "functional", expectedCount: 1 },
+      ],
+    };
+    const original = makeCapture("results", "original", {
+      selectors: {
+        ".result-link": { count: 10, visibleCount: 10 },
+        "input[name='q']": { count: 1, visibleCount: 1 },
+      },
+      domProfile: {
+        landmarks: { main: 1, form: 1, link: 10, input: 1, list: 1, listitem: 10 },
+        textSample: "Tencent results",
+        textNodeLength: 900,
+        interactiveControlCount: 11,
+        focusableControlCount: 11,
+        styles: {},
+      },
+    });
+    const replica = makeCapture("results", "replica", {
+      selectors: {
+        ".result-link": { count: 5, visibleCount: 5 },
+        "input[name='q']": { count: 1, visibleCount: 1 },
+      },
+      domProfile: {
+        landmarks: { main: 1, form: 1, link: 5, input: 1, list: 1, listitem: 5 },
+        textSample: "Tencent results",
+        textNodeLength: 700,
+        interactiveControlCount: 6,
+        focusableControlCount: 6,
+        styles: {},
+      },
+    });
+
+    const result = evaluateReplicaConsistency({
+      target: scopedTarget,
+      originalCaptures: [original],
+      replicaCaptures: [replica],
+      interactionResults: [{ stateId: "results", name: "结果页", passed: true }],
+    });
+
+    expect(result.metrics.structure).toBeGreaterThan(60);
+    expect(result.metrics.structure).toBeLessThan(85);
+  });
 });

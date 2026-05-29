@@ -319,9 +319,20 @@ Default: auto-proceed to Phase 4 unless source capture failed or the user asked 
 - key elements,
 - visual requirements,
 - interaction requirements,
+- evaluation role: `functional`, `content`, `structural`, or `visual`,
+- suggested `structureSelectors` selector/count/weight,
 - implementation component/file.
 
 Every in-scope header, body section, footer, form, list, pagination control, popup, and empty/loading/error state must appear in the table. Each row must reference real Phase 3 evidence. Do not invent any region without source evidence.
+
+Evaluation scope is layered:
+
+- `functional`: user-requested interactive controls. These carry high structure weight and must be covered by functionality/interaction tests.
+- `content`: user-requested visible data or copy. These carry high-to-medium structure/content weight.
+- `structural`: containers needed for the page shape, such as forms, lists, pagination, header/footer containers.
+- `visual`: regions needed for visual fidelity but not requested as functional features, such as account links, app launcher icons, or footer links. These still count for visual/content/basic structure fidelity, but do not need functional interaction tests unless the user requested them.
+
+Do not mark visual-only regions as "out of scoring" merely because their functionality is out of scope. If they affect the screenshot, they remain in visual scoring.
 
 **Spec confirmation must cover**:
 

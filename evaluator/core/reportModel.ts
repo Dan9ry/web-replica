@@ -278,7 +278,7 @@ function suggestedFixFor(dimension: DimensionId, issue: ValidationIssue): string
     LOW_VISUAL_SCORE: "按区域 diff 调整布局、字号、颜色、间距和关键控件尺寸，优先修复低分区域。",
     LOW_INTERACTION_SCORE: "补齐失败用例对应的点击、输入、Enter、焦点、即时反馈和状态切换逻辑。",
     LOW_FUNCTIONALITY_SCORE: "补齐 required 状态、核心功能断言、输出结果和边界/异常态。",
-    LOW_STRUCTURE_SCORE: "使用真实 DOM、真实表单控件、列表和导航语义，避免截图伪页面或不可聚焦控件。",
+    LOW_STRUCTURE_SCORE: "优先补齐用户要求的 functional/content 关键结构；视觉必需区域可低权重但仍需真实出现在 DOM 中。",
     LOW_CONTENT_SCORE: "对齐原站可见文案、placeholder、错误提示、结果项字段和分页数字。",
     LOW_ENGINEERING_SCORE: "确保源码位于当前 project/page，组件、数据、状态、样式清晰拆分并可构建运行。",
   };
@@ -291,7 +291,7 @@ function suggestedFixFor(dimension: DimensionId, issue: ValidationIssue): string
     functionality: "先复现原站对应状态，再补齐核心功能和边界行为。",
     interaction: "定位失败步骤，补齐用户动作后的状态变化、反馈和断言所需 DOM。",
     visual: "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
-    structure: "补齐关键 selector 对应的真实 DOM 结构、语义标签和可聚焦控件。",
+    structure: "按 structureSelectors 权重补齐真实 DOM 结构；functional 控件要可交互，visual 区域要保留视觉结构。",
     content: "使用原站可见 UI 证据补齐文案和数据字段，不补采隐藏字段或敏感数据。",
     engineering: "修复构建、路由、项目目录或评估产物缺失问题。",
   };
@@ -455,7 +455,7 @@ function recommendationForDimension(dimension: DimensionId, score: number): stri
     functionality: "优先修复 required 状态、核心用例、输出结果和边界行为。",
     interaction: "优先修复失败交互用例，尤其是 Enter、点击、焦点、分页和即时反馈。",
     visual: "优先查看区域 diff 和整页 diff，按页面头、中、尾逐段修正布局、字体、颜色和间距。",
-    structure: "补齐真实 DOM、控件语义、列表/表单/导航结构，并消除截图伪页面风险。",
+    structure: "优先补齐用户要求的 functional/content 关键结构；视觉必需但无需交互的区域保留较低权重，仍需出现在页面中。",
     content: "对齐原站可见文案、错误提示、列表字段、表格字段和状态文案。",
     engineering: "完善 project/page 源码组织、样式隔离、日志和评估产物完整性。",
   };
@@ -466,53 +466,86 @@ function recommendationForDimension(dimension: DimensionId, score: number): stri
 function subMetricsForDimension(dimension: DimensionId, report: EvaluationReport): DimensionReport["subMetrics"] {
   const pageScores = report.pages.map((page) => page.score?.metrics[dimension] ?? 0);
   const score = roundScore(average(pageScores));
+  const aggregateMetrics: ScoreMetrics = {
+    functionality: roundScore(average(report.pages.map((page) => page.score?.metrics.functionality ?? 0))),
+    interaction: roundScore(average(report.pages.map((page) => page.score?.metrics.interaction ?? 0))),
+    visual: roundScore(average(report.pages.map((page) => page.score?.metrics.visual ?? 0))),
+    structure: roundScore(average(report.pages.map((page) => page.score?.metrics.structure ?? 0))),
+    content: roundScore(average(report.pages.map((page) => page.score?.metrics.content ?? 0))),
+    engineering: roundScore(average(report.pages.map((page) => page.score?.metrics.engineering ?? 0))),
+  };
   const stateCount = report.pages.reduce((total, page) => total + (page.stateResults?.length ?? 0), 0);
   const failedStateCount = report.pages.reduce(
     (total, page) => total + (page.stateResults?.filter((state) => state.status === "failed").length ?? 0),
     0,
   );
+  const allInteractions = report.pages.flatMap((page) => page.interactionResults ?? []);
   const failedInteractions = report.pages.reduce(
     (total, page) => total + (page.interactionResults?.filter((result) => !result.passed).length ?? 0),
     0,
   );
+  const interactionPassScore = allInteractions.length === 0
+    ? aggregateMetrics.interaction
+    : roundScore(((allInteractions.length - failedInteractions) / allInteractions.length) * 100);
+  const failedBoundaryInteractions = allInteractions.filter((result) =>
+    !result.passed && /empty|error|invalid|validation|边界|异常|错误|空/.test(`${result.id ?? ""} ${result.name}`),
+  ).length;
+  const boundaryScore = allInteractions.some((result) =>
+    /empty|error|invalid|validation|边界|异常|错误|空/.test(`${result.id ?? ""} ${result.name}`),
+  )
+    ? roundScore(((allInteractions.length - failedBoundaryInteractions) / allInteractions.length) * 100)
+    : aggregateMetrics.functionality;
+  const stateCoverageScore = stateCount === 0 ? score : roundScore(((stateCount - failedStateCount) / stateCount) * 100);
+  const issueCountFor = (id: DimensionId) =>
+    report.pages.reduce((total, page) =>
+      total + (page.issues ?? []).filter((issue) => dimensionForIssue(issue) === id).length,
+    0);
+  const antiCheatScore = report.pages.some((page) =>
+    (page.issues ?? []).some((issue) => /ANTI_CHEAT|SCREENSHOT|CANVAS|BASE64/i.test(issue.code)),
+  )
+    ? Math.min(aggregateMetrics.structure, 70)
+    : 100;
+  const artifactCompletenessScore = report.pages.every((page) => page.artifacts?.captures && page.artifacts.visualDiffs)
+    ? 100
+    : Math.max(60, aggregateMetrics.engineering - 10);
+  const visualHasRegions = report.pages.some((page) => (page.artifacts?.regionDiffs?.length ?? 0) > 0);
 
-  const common = { score, evidence: [] as string[] };
   const byDimension: Record<DimensionId, DimensionReport["subMetrics"]> = {
     functionality: [
-      { id: "required-state-coverage", name: "required 状态覆盖率", weight: 0.25, score: stateCount === 0 ? score : roundScore(((stateCount - failedStateCount) / stateCount) * 100), description: "required 状态是否有可信原站基线和复刻状态。", evidence: [] },
-      { id: "core-use-cases", name: "核心用例断言通过率", weight: 0.35, score, description: "核心交互断言是否通过。", evidence: [] },
-      { id: "output-correctness", name: "输出结果正确率", weight: 0.2, score, description: "结果文案、列表和状态输出是否正确。", evidence: [] },
-      { id: "boundary-cases", name: "边界/异常态通过率", weight: 0.2, score, description: "空输入、错误态、无结果态等边界行为。", evidence: [] },
+      { id: "required-state-coverage", name: "required 状态覆盖率", weight: 0.25, score: stateCoverageScore, description: "required 状态是否有可信原站基线和复刻状态。", evidence: [] },
+      { id: "core-use-cases", name: "核心用例断言通过率", weight: 0.35, score: interactionPassScore, description: "核心交互断言是否通过。", evidence: [] },
+      { id: "output-correctness", name: "输出结果正确率", weight: 0.2, score: aggregateMetrics.content, description: "结果文案、列表和状态输出是否正确。", evidence: [] },
+      { id: "boundary-cases", name: "边界/异常态通过率", weight: 0.2, score: boundaryScore, description: "空输入、错误态、无结果态等边界行为。", evidence: [] },
     ],
     interaction: [
-      { id: "case-pass-rate", name: "交互用例通过率", weight: 0.4, score, description: "交互用例整体通过情况。", evidence: [] },
-      { id: "assertion-pass-rate", name: "步骤断言通过率", weight: 0.3, score: failedInteractions === 0 ? score : Math.max(0, score - 5), description: "动作后的可见状态断言是否通过。", evidence: [] },
-      { id: "feedback-state", name: "反馈状态一致性", weight: 0.2, score, description: "loading、error、disabled、即时反馈等状态是否一致。", evidence: [] },
-      { id: "keyboard-mouse-detail", name: "键盘/鼠标细节一致性", weight: 0.1, score, description: "Enter、hover、focus、blur 等细节。", evidence: [] },
+      { id: "case-pass-rate", name: "交互用例通过率", weight: 0.4, score: interactionPassScore, description: "交互用例整体通过情况。", evidence: [] },
+      { id: "assertion-pass-rate", name: "步骤断言通过率", weight: 0.3, score: failedInteractions === 0 ? aggregateMetrics.interaction : Math.max(0, aggregateMetrics.interaction - 5), description: "动作后的可见状态断言是否通过。", evidence: [] },
+      { id: "feedback-state", name: "反馈状态一致性", weight: 0.2, score: Math.min(100, roundScore((aggregateMetrics.interaction + aggregateMetrics.content) / 2)), description: "loading、error、disabled、即时反馈等状态是否一致。", evidence: [] },
+      { id: "keyboard-mouse-detail", name: "键盘/鼠标细节一致性", weight: 0.1, score: aggregateMetrics.interaction, description: "Enter、hover、focus、blur 等细节。", evidence: [] },
     ],
     visual: [
-      { id: "full-page-visual", name: "整页视觉", weight: 0.2, ...common, description: "整页截图 diff 与 SSIM 综合分。" },
-      { id: "region-visual", name: "区域加权视觉", weight: 0.45, ...common, description: "关键区域截图、区域 diff、bbox 和样式综合分。" },
-      { id: "key-style", name: "关键元素样式", weight: 0.2, ...common, description: "字体、颜色、圆角、控件尺寸等样式对齐。" },
-      { id: "box-model", name: "布局盒模型", weight: 0.15, ...common, description: "关键元素坐标、宽高、间距对齐。" },
+      { id: "full-page-visual", name: "整页视觉", weight: 0.2, score: aggregateMetrics.visual, description: "整页截图 diff 与 SSIM 综合分。", evidence: [] },
+      { id: "region-visual", name: "区域加权视觉", weight: 0.45, score: visualHasRegions ? aggregateMetrics.visual : Math.max(0, aggregateMetrics.visual - 8), description: "关键区域截图、区域 diff、bbox 和样式综合分。未配置区域时会低于整页分，提示补充 regions。", evidence: [] },
+      { id: "key-style", name: "关键元素样式", weight: 0.2, score: roundScore((aggregateMetrics.visual + aggregateMetrics.structure) / 2), description: "字体、颜色、圆角、控件尺寸等样式对齐。", evidence: [] },
+      { id: "box-model", name: "布局盒模型", weight: 0.15, score: Math.max(0, aggregateMetrics.visual - 5), description: "关键元素坐标、宽高、间距对齐。", evidence: [] },
     ],
     structure: [
-      { id: "dom-structure", name: "关键 DOM 结构", weight: 0.3, ...common, description: "关键 selector、列表、表单、导航结构匹配情况。" },
-      { id: "control-semantics", name: "关键控件语义", weight: 0.25, ...common, description: "input、button、a、form 等控件是否真实可操作。" },
-      { id: "basic-a11y-semantics", name: "基础语义一致性", weight: 0.2, ...common, description: "基础语义、焦点和可见文本是否合理。" },
-      { id: "anti-cheat", name: "反截图伪页面检查", weight: 0.1, ...common, description: "是否存在整页截图、大面积 canvas 或不可交互伪装。" },
+      { id: "dom-structure", name: "关键 DOM 结构", weight: 0.3, score: aggregateMetrics.structure, description: "用户复刻范围内 functional/content/structural/visual selector 按权重匹配情况。", evidence: [] },
+      { id: "control-semantics", name: "关键控件语义", weight: 0.25, score: roundScore((aggregateMetrics.structure + aggregateMetrics.interaction) / 2), description: "用户要求交互的 input、button、a、form 等控件是否真实可操作。", evidence: [] },
+      { id: "basic-a11y-semantics", name: "基础语义一致性", weight: 0.2, score: roundScore((aggregateMetrics.structure + aggregateMetrics.content) / 2), description: "视觉必需区域、基础语义、焦点和可见文本是否合理。", evidence: [] },
+      { id: "anti-cheat", name: "反截图伪页面检查", weight: 0.1, score: antiCheatScore, description: "是否存在整页截图、大面积 canvas 或不可交互伪装。", evidence: [] },
     ],
     content: [
-      { id: "core-text-coverage", name: "核心文本覆盖", weight: 0.3, ...common, description: "标题、按钮、提示、结果等核心文本覆盖率。" },
-      { id: "form-copy", name: "表单文案", weight: 0.2, ...common, description: "label、placeholder、helper text 是否一致。" },
-      { id: "state-copy", name: "错误/空态/loading 文案", weight: 0.2, ...common, description: "状态文案是否与原站可见 UI 对齐。" },
-      { id: "data-shape", name: "列表/表格/卡片数据结构", weight: 0.2, ...common, description: "结果项字段、数量和结构是否一致。" },
+      { id: "core-text-coverage", name: "核心文本覆盖", weight: 0.3, score: aggregateMetrics.content, description: "标题、按钮、提示、结果等核心文本覆盖率。", evidence: [] },
+      { id: "form-copy", name: "表单文案", weight: 0.2, score: roundScore((aggregateMetrics.content + aggregateMetrics.structure) / 2), description: "label、placeholder、helper text 是否一致。", evidence: [] },
+      { id: "state-copy", name: "错误/空态/loading 文案", weight: 0.2, score: boundaryScore, description: "状态文案是否与原站可见 UI 对齐。", evidence: [] },
+      { id: "data-shape", name: "列表/表格/卡片数据结构", weight: 0.2, score: roundScore((aggregateMetrics.content + aggregateMetrics.functionality) / 2), description: "结果项字段、数量和结构是否一致。", evidence: [] },
     ],
     engineering: [
-      { id: "build-run-test", name: "构建/启动/测试", weight: 0.25, ...common, description: "复刻工程是否可构建、可启动、可评估。" },
-      { id: "code-organization", name: "组件拆分与代码组织", weight: 0.2, ...common, description: "源码是否位于 project/page 并按组件、数据、状态、样式组织。" },
-      { id: "style-isolation", name: "样式隔离与可维护性", weight: 0.15, ...common, description: "样式是否隔离、命名清晰、便于维护。" },
-      { id: "artifact-completeness", name: "评估产物与日志完整性", weight: 0.2, ...common, description: "summary、details、report、截图、diff 等产物是否完整。" },
+      { id: "build-run-test", name: "构建/启动/测试", weight: 0.25, score: aggregateMetrics.engineering, description: "复刻工程是否可构建、可启动、可评估。", evidence: [] },
+      { id: "code-organization", name: "组件拆分与代码组织", weight: 0.2, score: Math.max(0, aggregateMetrics.engineering - issueCountFor("engineering") * 5), description: "源码是否位于 project/page 并按组件、数据、状态、样式组织。", evidence: [] },
+      { id: "style-isolation", name: "样式隔离与可维护性", weight: 0.15, score: roundScore((aggregateMetrics.engineering + aggregateMetrics.visual) / 2), description: "样式是否隔离、命名清晰、便于维护。", evidence: [] },
+      { id: "artifact-completeness", name: "评估产物与日志完整性", weight: 0.2, score: artifactCompletenessScore, description: "summary、details、report、截图、diff 等产物是否完整。", evidence: [] },
     ],
   };
 

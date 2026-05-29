@@ -1,10 +1,13 @@
 import { calculateWeightedScore } from "./scoring.js";
+import { normalizeTargetStates } from "./stateValidation.js";
 import type {
   ConsistencyEvaluationResult,
   InteractionCheckResult,
   PageTarget,
+  PageStateConfig,
   ScoreMetrics,
   StateCapture,
+  StructureSelectorConfig,
   ValidationIssue,
 } from "./types.js";
 
@@ -64,6 +67,37 @@ function similarityRatio(a: number, b: number): number {
 
   const max = Math.max(Math.abs(a), Math.abs(b), 1);
   return Math.max(0, 100 - (Math.abs(a - b) / max) * 100);
+}
+
+function countCoverageScore(actual: number, expected: number): number {
+  if (expected <= 0) {
+    return actual === 0 ? 100 : 85;
+  }
+
+  if (actual <= expected) {
+    return Math.max(0, Math.min(100, (actual / expected) * 100));
+  }
+
+  // Extra scoped elements are less harmful than missing requested elements.
+  return Math.max(75, 100 - ((actual - expected) / Math.max(expected, 1)) * 25);
+}
+
+function rangedCountScore(actual: number, min: number, max: number): number {
+  if (actual >= min && actual <= max) {
+    return 100;
+  }
+
+  if (actual < min) {
+    return countCoverageScore(actual, min);
+  }
+
+  return Math.max(75, 100 - ((actual - max) / Math.max(max, 1)) * 25);
+}
+
+function countWithToleranceScore(actual: number, expected: number, tolerance: number): number {
+  const min = Math.max(0, expected - tolerance);
+  const max = expected + tolerance;
+  return rangedCountScore(actual, min, max);
 }
 
 function expectedTextCoverage(target: PageTarget, captures: StateCapture[]): number {
@@ -152,26 +186,146 @@ function addLowScoreSuggestions(metrics: ScoreMetrics, issues: ValidationIssue[]
   }
 }
 
-function structureScoreFor(original: StateCapture, replica: StateCapture): number {
+function configuredStructureSelectors(
+  target: PageTarget,
+  state: PageStateConfig | undefined,
+): StructureSelectorConfig[] {
+  const configured = state?.structureSelectors ?? target.structureSelectors;
+  if (configured && configured.length > 0) {
+    return configured;
+  }
+
+  const selectors = state?.compareSelectors ??
+    state?.criticalSelectors ??
+    target.compareSelectors ??
+    target.criticalSelectors;
+
+  return Array.from(new Set(selectors)).map((selector) => ({
+    selector,
+    purpose: inferSelectorPurpose(selector),
+  }));
+}
+
+function inferSelectorPurpose(selector: string): StructureSelectorConfig["purpose"] {
+  if (/^body$|footer|header|logo|avatar|account|apps|copyright/i.test(selector)) {
+    return "visual";
+  }
+
+  if (/input|textarea|select|button|form|\[role=['"]?(button|textbox|search|form)/i.test(selector)) {
+    return "functional";
+  }
+
+  if (/result|list|item|card|table|pagination|pager|search/i.test(selector)) {
+    return "structural";
+  }
+
+  if (/^a$|link|\[role=['"]?link/i.test(selector)) {
+    return "visual";
+  }
+
+  return "structural";
+}
+
+function structureSelectorWeight(config: StructureSelectorConfig): number {
+  if (typeof config.weight === "number") {
+    return config.weight;
+  }
+
+  if (config.purpose === "functional") {
+    return 3;
+  }
+
+  if (config.purpose === "structural" || config.purpose === "content") {
+    return 1.5;
+  }
+
+  return 0.5;
+}
+
+function selectorStructureScore(
+  original: StateCapture,
+  replica: StateCapture,
+  selectors: StructureSelectorConfig[],
+): number {
+  return weightedAverage(
+    selectors,
+    (config) => {
+      const originalCount = original.selectors[config.selector]?.visibleCount ??
+        original.selectors[config.selector]?.count ??
+        0;
+      const replicaCount = replica.selectors[config.selector]?.visibleCount ??
+        replica.selectors[config.selector]?.count ??
+        0;
+
+      if (typeof config.minCount === "number" || typeof config.maxCount === "number") {
+        const min = config.minCount ?? config.expectedCount ?? originalCount;
+        const max = config.maxCount ?? config.expectedCount ?? originalCount;
+        return rangedCountScore(replicaCount, min, max);
+      }
+
+      if (typeof config.expectedCount === "number") {
+        return countWithToleranceScore(replicaCount, config.expectedCount, config.tolerance ?? 0);
+      }
+
+      if (config.required === false && replicaCount === 0) {
+        return 100;
+      }
+
+      return countWithToleranceScore(replicaCount, originalCount, config.tolerance ?? Math.ceil(originalCount * 0.15));
+    },
+    structureSelectorWeight,
+  );
+}
+
+function structureScoreFor(
+  target: PageTarget,
+  state: PageStateConfig | undefined,
+  original: StateCapture,
+  replica: StateCapture,
+): number {
   const originalLandmarks = original.domProfile?.landmarks ?? {};
   const replicaLandmarks = replica.domProfile?.landmarks ?? {};
-  const landmarkKeys = ["nav", "main", "form", "button", "link", "input", "list", "listitem"];
-  const landmarkScore = average(
-    landmarkKeys.map((key) => similarityRatio(originalLandmarks[key] ?? 0, replicaLandmarks[key] ?? 0)),
+  const structureSelectors = configuredStructureSelectors(target, state);
+  const scopedSelectorScore = selectorStructureScore(original, replica, structureSelectors);
+  const landmarkKeys = ["nav", "main", "form", "list", "listitem"];
+  const landmarkScore = average(landmarkKeys.map((key) => {
+    const originalCount = originalLandmarks[key] ?? 0;
+    const replicaCount = replicaLandmarks[key] ?? 0;
+    return countWithToleranceScore(replicaCount, originalCount, Math.ceil(originalCount * 0.25));
+  }));
+  const controlSelectors = structureSelectors.filter((config) =>
+    config.interactionRequired !== false &&
+    config.purpose !== "visual" &&
+    config.purpose !== "content" &&
+    (
+      config.purpose === "functional" ||
+      /button|input|textarea|select|a\b|\[role=['"]?(button|textbox|link)/.test(config.selector)
+    ),
   );
-  const originalControls =
-    original.domProfile?.interactiveControlCount ??
-    ((originalLandmarks.button ?? 0) + (originalLandmarks.input ?? 0));
-  const replicaControls =
-    replica.domProfile?.interactiveControlCount ??
-    ((replicaLandmarks.button ?? 0) + (replicaLandmarks.input ?? 0));
-  const controlScore = similarityRatio(originalControls, replicaControls);
+  const scopedExpectedControls = controlSelectors.reduce((total, config) => {
+    if (typeof config.expectedCount === "number") {
+      return total + config.expectedCount;
+    }
+    if (typeof config.minCount === "number") {
+      return total + config.minCount;
+    }
+    return total + (original.selectors[config.selector]?.visibleCount ?? original.selectors[config.selector]?.count ?? 0);
+  }, 0);
+  const scopedReplicaControls = controlSelectors.reduce(
+    (total, config) => total + (replica.selectors[config.selector]?.visibleCount ?? replica.selectors[config.selector]?.count ?? 0),
+    0,
+  );
+  const controlScore = controlSelectors.length > 0
+    ? countCoverageScore(scopedReplicaControls, scopedExpectedControls)
+    : scopedSelectorScore;
+  const replicaControls = replica.domProfile?.interactiveControlCount ??
+    ((replicaLandmarks.button ?? 0) + (replicaLandmarks.input ?? 0) + (replicaLandmarks.link ?? 0));
   const focusScore = replicaControls > 0
-    ? Math.min(100, ((replica.domProfile?.focusableControlCount ?? 0) / replicaControls) * 100)
+    ? Math.min(100, ((replica.domProfile?.focusableControlCount ?? replicaControls) / replicaControls) * 100)
     : 100;
   const textScore = (replica.domProfile?.textNodeLength ?? replica.bodyTextSample.length) > 0 ? 100 : 0;
 
-  return landmarkScore * 0.35 + controlScore * 0.25 + focusScore * 0.2 + textScore * 0.2;
+  return scopedSelectorScore * 0.8 + landmarkScore * 0.1 + controlScore * 0.04 + focusScore * 0.03 + textScore * 0.03;
 }
 
 function visualScoreFor(replica: StateCapture): number {
@@ -201,6 +355,7 @@ export function evaluateReplicaConsistency({
   replicaCaptures,
   interactionResults,
 }: EvaluationInput): ConsistencyEvaluationResult {
+  const statesById = new Map(normalizeTargetStates(target).map((state) => [state.id, state]));
   const replicaByState = new Map(
     replicaCaptures.map((capture) => [captureKey(capture), capture]),
   );
@@ -266,7 +421,9 @@ export function evaluateReplicaConsistency({
     functionality: Math.round(functionalityScore * 10) / 10,
     interaction: Math.round(interactionScore * 10) / 10,
     visual: Math.round(average(matchedPairs.map(({ replica }) => visualScoreFor(replica))) * 10) / 10,
-    structure: Math.round(average(matchedPairs.map(({ original, replica }) => structureScoreFor(original, replica))) * 10) / 10,
+    structure: Math.round(average(matchedPairs.map(({ original, replica }) =>
+      structureScoreFor(target, statesById.get(original.stateId), original, replica),
+    )) * 10) / 10,
     content: Math.round(contentScore * 10) / 10,
     engineering: Math.round(engineeringScore * 10) / 10,
   };

@@ -468,7 +468,7 @@ function buildHtmlReportBody(report: SixDimensionalEvaluationReport): string {
 
     <section class="dimension-stack">
       <h2>六维详情</h2>
-      ${dimensionDetails}
+      ${dimensionDetails.trim()}
     </section>
 
     <section class="panel">

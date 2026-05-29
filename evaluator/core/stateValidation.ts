@@ -20,6 +20,7 @@ export function normalizeTargetStates(target: PageTarget): PageStateConfig[] {
       expectedTextIncludes:
         state.expectedTextIncludes ?? target.expectedTextIncludes,
       compareSelectors: state.compareSelectors ?? target.compareSelectors,
+      structureSelectors: state.structureSelectors ?? target.structureSelectors,
       masks: state.masks ?? target.masks,
     }));
   }
