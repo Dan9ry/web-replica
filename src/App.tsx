@@ -1,4 +1,6 @@
 import { Route, Routes } from "react-router-dom";
+import GoogleSearchReplicaPage from "../projects/google-search/page/GoogleSearchReplicaPage";
+import WeixinPayLoginReplicaPage from "../projects/weixin-pay-login/page/WeixinPayLoginReplicaPage";
 import styles from "./App.module.css";
 
 function HomePage() {
@@ -33,6 +35,8 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/replica/google-search" element={<GoogleSearchReplicaPage />} />
+      <Route path="/replica/weixin-pay-login" element={<WeixinPayLoginReplicaPage />} />
     </Routes>
   );
 }

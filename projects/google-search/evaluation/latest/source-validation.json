@@ -1,0 +1,143 @@
+{
+  "generatedAt": "2026-05-29T12:34:25.348Z",
+  "pages": [
+    {
+      "pageId": "google-search",
+      "name": "Google Search Replica",
+      "originalUrl": "https://www.google.com/",
+      "replicaUrl": "http://127.0.0.1:5173/replica/google-search",
+      "sourceValidation": {
+        "status": "passed",
+        "canScore": true,
+        "finalUrl": "https://www.google.com/",
+        "issues": [
+          {
+            "severity": "info",
+            "code": "PROJECT_BASELINE_SOURCE",
+            "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/google-search/baselines/home/original-dom.json"
+          },
+          {
+            "severity": "info",
+            "code": "PROJECT_BASELINE_SOURCE",
+            "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/google-search/baselines/results-page-1/original-dom.json"
+          },
+          {
+            "severity": "warning",
+            "code": "HIDDEN_CRITICAL_SELECTOR",
+            "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#result-stats"
+          },
+          {
+            "severity": "info",
+            "code": "PROJECT_BASELINE_SOURCE",
+            "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/google-search/baselines/results-page-2/original-dom.json"
+          }
+        ],
+        "captureMode": "baseline",
+        "stateResults": [
+          {
+            "stateId": "home",
+            "name": "Initial search home",
+            "status": "passed",
+            "canScore": true,
+            "finalUrl": "https://www.google.com/",
+            "issues": [
+              {
+                "severity": "info",
+                "code": "PROJECT_BASELINE_SOURCE",
+                "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/google-search/baselines/home/original-dom.json"
+              }
+            ],
+            "captureMode": "baseline"
+          },
+          {
+            "stateId": "results-page-1",
+            "name": "Search results page one",
+            "status": "passed",
+            "canScore": true,
+            "finalUrl": "https://www.google.com/search?q=tencent",
+            "issues": [
+              {
+                "severity": "info",
+                "code": "PROJECT_BASELINE_SOURCE",
+                "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/google-search/baselines/results-page-1/original-dom.json"
+              },
+              {
+                "severity": "warning",
+                "code": "HIDDEN_CRITICAL_SELECTOR",
+                "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#result-stats"
+              }
+            ],
+            "captureMode": "baseline"
+          },
+          {
+            "stateId": "results-page-2",
+            "name": "Search results pagination",
+            "status": "passed",
+            "canScore": true,
+            "finalUrl": "https://www.google.com/search?q=tencent&start=10",
+            "issues": [
+              {
+                "severity": "info",
+                "code": "PROJECT_BASELINE_SOURCE",
+                "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/google-search/baselines/results-page-2/original-dom.json"
+              }
+            ],
+            "captureMode": "baseline"
+          }
+        ]
+      },
+      "stateResults": [
+        {
+          "stateId": "home",
+          "name": "Initial search home",
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://www.google.com/",
+          "issues": [
+            {
+              "severity": "info",
+              "code": "PROJECT_BASELINE_SOURCE",
+              "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/google-search/baselines/home/original-dom.json"
+            }
+          ],
+          "captureMode": "baseline"
+        },
+        {
+          "stateId": "results-page-1",
+          "name": "Search results page one",
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://www.google.com/search?q=tencent",
+          "issues": [
+            {
+              "severity": "info",
+              "code": "PROJECT_BASELINE_SOURCE",
+              "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/google-search/baselines/results-page-1/original-dom.json"
+            },
+            {
+              "severity": "warning",
+              "code": "HIDDEN_CRITICAL_SELECTOR",
+              "message": "关键元素存在，但自动可见性检测为不可见，后续需结合截图或 Chrome 实操复核：#result-stats"
+            }
+          ],
+          "captureMode": "baseline"
+        },
+        {
+          "stateId": "results-page-2",
+          "name": "Search results pagination",
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://www.google.com/search?q=tencent&start=10",
+          "issues": [
+            {
+              "severity": "info",
+              "code": "PROJECT_BASELINE_SOURCE",
+              "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/google-search/baselines/results-page-2/original-dom.json"
+            }
+          ],
+          "captureMode": "baseline"
+        }
+      ]
+    }
+  ]
+}

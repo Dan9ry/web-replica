@@ -1,0 +1,76 @@
+{
+  "id": "weixin-pay-login",
+  "name": "Weixin Pay Login Replica",
+  "originalUrl": "https://pay.weixin.qq.com/index.php/core/home/login",
+  "replicaUrl": "http://127.0.0.1:5173/replica/weixin-pay-login",
+  "criticalSelectors": [
+    "body",
+    "form",
+    "input[placeholder='登录账号']",
+    "input[placeholder='登录密码']",
+    "input[placeholder='验证码']"
+  ],
+  "viewports": [
+    {
+      "name": "desktop",
+      "width": 1365,
+      "height": 768
+    }
+  ],
+  "expectedTextIncludes": [
+    "登录"
+  ],
+  "states": [
+    {
+      "id": "login-initial",
+      "name": "Login form initial state",
+      "required": true,
+      "originalUrl": "https://pay.weixin.qq.com/index.php/core/home/login",
+      "replicaUrl": "http://127.0.0.1:5173/replica/weixin-pay-login",
+      "criticalSelectors": [
+        "body",
+        "form",
+        "input[placeholder='登录账号']",
+        "input[placeholder='登录密码']",
+        "input[placeholder='验证码']"
+      ],
+      "expectedTextIncludes": [
+        "账号密码登录",
+        "登录"
+      ],
+      "compareSelectors": [
+        "body",
+        "form",
+        "input[placeholder='登录账号']",
+        "input[placeholder='登录密码']",
+        "input[placeholder='验证码']"
+      ]
+    },
+    {
+      "id": "login-validation",
+      "name": "Login button validation state",
+      "required": true,
+      "originalUrl": "https://pay.weixin.qq.com/index.php/core/home/login",
+      "replicaUrl": "http://127.0.0.1:5173/replica/weixin-pay-login?state=validation",
+      "criticalSelectors": [
+        "body",
+        "form",
+        "input[placeholder='登录账号']",
+        "input[placeholder='登录密码']",
+        "input[placeholder='验证码']"
+      ],
+      "expectedTextIncludes": [
+        "账号密码登录",
+        "请输入账号和密码",
+        "登录"
+      ],
+      "compareSelectors": [
+        "body",
+        "form",
+        "input[placeholder='登录账号']",
+        "input[placeholder='登录密码']",
+        "input[placeholder='验证码']"
+      ]
+    }
+  ]
+}

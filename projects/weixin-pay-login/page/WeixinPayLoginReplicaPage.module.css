@@ -1,0 +1,481 @@
+.page {
+  min-height: 100vh;
+  background: #ffffff;
+  color: #262626;
+  font-family: Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  letter-spacing: 0;
+}
+
+.topBar {
+  height: 35px;
+  background: #262626;
+  color: #a9a9a9;
+}
+
+.topInner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 1120px;
+  max-width: calc(100vw - 48px);
+  height: 35px;
+  margin: 0 auto;
+  font-size: 14px;
+}
+
+.topInner a {
+  color: #a9a9a9;
+  text-decoration: none;
+}
+
+.topInner .activeTopLink {
+  color: #00c250;
+}
+
+.topInner span {
+  width: 1px;
+  height: 13px;
+  background: #3f3f3f;
+}
+
+.mainNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 88px;
+  padding: 0 calc((100vw - 1120px) / 2);
+  border-bottom: 1px solid #f1f1f1;
+  background: #ffffff;
+}
+
+.brand,
+.navLinks {
+  display: flex;
+  align-items: center;
+}
+
+.brand {
+  text-decoration: none;
+}
+
+.brand img {
+  width: 264px;
+  height: 34px;
+  display: block;
+}
+
+.navLinks {
+  gap: 42px;
+  font-size: 15px;
+}
+
+.navLinks a {
+  display: flex;
+  align-items: center;
+  height: 88px;
+  color: #222222;
+  text-decoration: none;
+}
+
+.navLinks .activeNav {
+  border-bottom: 3px solid #00c250;
+  color: #00b84d;
+}
+
+.navLinks .joinButton {
+  width: 134px;
+  height: 38px;
+  justify-content: center;
+  border-radius: 3px;
+  background: #00c250;
+  color: #ffffff;
+}
+
+.hero {
+  position: relative;
+  min-height: 508px;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.82) 28%, rgba(255, 255, 255, 0.2) 62%, rgba(232, 238, 232, 0.75) 100%),
+    linear-gradient(115deg, #f8fbf8 0%, #ffffff 36%, #e7efe8 72%, #c8d0c7 100%);
+}
+
+.hero::before {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 7% 88%, rgba(16, 16, 16, 0.62), transparent 20%),
+    radial-gradient(ellipse at 47% 78%, rgba(206, 132, 75, 0.58), transparent 19%),
+    radial-gradient(ellipse at 92% 74%, rgba(132, 137, 129, 0.44), transparent 25%);
+  content: "";
+  filter: blur(8px);
+}
+
+.hero::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 210px;
+  background:
+    radial-gradient(ellipse at 43% 62%, rgba(159, 88, 50, 0.42), transparent 17%),
+    radial-gradient(ellipse at 52% 65%, rgba(219, 153, 97, 0.5), transparent 20%),
+    radial-gradient(ellipse at 7% 74%, rgba(24, 24, 24, 0.64), transparent 18%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.18), transparent 30%, transparent 62%, rgba(106, 111, 105, 0.22));
+  content: "";
+  filter: blur(7px);
+}
+
+.heroCopy {
+  position: relative;
+  z-index: 2;
+  width: 500px;
+  padding-top: 98px;
+  margin-left: calc((100vw - 1120px) / 2 - 120px);
+}
+
+.heroCopy h2 {
+  margin: 0 0 20px;
+  color: #262626;
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.heroCopy p {
+  margin: 0 0 24px;
+  color: #333333;
+  font-size: 28px;
+  line-height: 1.4;
+}
+
+.smallQr {
+  display: grid;
+  place-items: center;
+  width: 122px;
+  height: 122px;
+  background:
+    linear-gradient(90deg, #111 8px, transparent 8px) 0 0 / 16px 16px,
+    linear-gradient(#111 8px, transparent 8px) 0 0 / 16px 16px,
+    #ffffff;
+  border: 8px solid #ffffff;
+  box-shadow: 0 20px 34px rgba(0, 0, 0, 0.12);
+}
+
+.smallQr span {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  background: #13bf5b;
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.phoneMock {
+  position: absolute;
+  z-index: 2;
+  left: 42%;
+  top: 62px;
+  width: 154px;
+  height: 380px;
+  border: 12px solid #262626;
+  border-radius: 32px;
+  background: #f6f7f8;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  transform: rotate(11deg);
+}
+
+.phoneMock::before {
+  position: absolute;
+  top: -5px;
+  left: 42px;
+  width: 70px;
+  height: 13px;
+  border-radius: 0 0 12px 12px;
+  background: #252525;
+  content: "";
+}
+
+.phoneScreen {
+  padding: 48px 16px 0;
+  color: #333333;
+  font-size: 11px;
+}
+
+.phoneScreen span {
+  display: block;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.phoneScreen p {
+  margin: 8px 0;
+}
+
+.loginCard {
+  position: absolute;
+  z-index: 2;
+  top: 55px;
+  right: calc((100vw - 1120px) / 2);
+  width: 321px;
+  min-height: 335px;
+  padding: 20px 32px 22px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 8px 28px rgba(36, 48, 44, 0.08);
+}
+
+.cornerMark {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 62px;
+  height: 62px;
+  object-fit: contain;
+}
+
+.loginCard h1 {
+  margin: 0 0 16px;
+  text-align: center;
+  color: #202020;
+  font-size: 19px;
+  line-height: 1.5;
+}
+
+.loginCard form {
+  margin: 0;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  margin-bottom: 15px;
+  border: 1px solid #e5e5e5;
+  background: #ffffff;
+}
+
+.fieldIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 33px;
+  color: #d0d0d0;
+}
+
+.field input,
+.captchaRow input {
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #333333;
+  font-size: 14px;
+}
+
+.field input {
+  flex: 1;
+  height: 40px;
+}
+
+.field input::placeholder,
+.captchaRow input::placeholder {
+  color: #a8a8a8;
+}
+
+.captchaRow {
+  display: grid;
+  grid-template-columns: 108px 100px 44px;
+  gap: 6px;
+  align-items: center;
+}
+
+.captchaRow input {
+  height: 40px;
+  padding: 0 11px;
+  border: 1px solid #e5e5e5;
+  background: #ffffff;
+}
+
+.captchaImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border: 0;
+  background:
+    linear-gradient(12deg, rgba(150, 112, 38, 0.13), rgba(255, 255, 255, 0.1)),
+    #fbf5e9;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.captchaImage span {
+  display: inline-block;
+  margin: 0 -1px;
+  font-family: Georgia, serif;
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 700;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.captchaBlue {
+  color: #1d63bd;
+  transform: rotate(-12deg);
+}
+
+.captchaGold {
+  color: #b7852a;
+  transform: rotate(15deg);
+}
+
+.refreshCaptcha {
+  height: 40px;
+  border: 0;
+  background: transparent;
+  color: #333333;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.validationMessage {
+  height: 22px;
+  margin: 4px 0 5px;
+  color: #f04b45;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.loginSubmit {
+  width: 100%;
+  height: 40px;
+  border: 0;
+  border-radius: 3px;
+  background: #00c250;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.loginSubmit:hover {
+  background: #00b84d;
+}
+
+.forgotLink {
+  display: block;
+  margin-top: 18px;
+  color: #3169ad;
+  font-size: 14px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.noticeBar {
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: 120px 1fr 1fr 160px;
+  align-items: center;
+  height: 50px;
+  padding: 0 calc((100vw - 1120px) / 2);
+  background: rgba(35, 35, 35, 0.6);
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.speaker {
+  font-size: 24px;
+}
+
+.noticeBar a {
+  color: #ffffff;
+  text-align: right;
+  text-decoration: none;
+}
+
+.belowFold {
+  height: 136px;
+  padding-top: 74px;
+  text-align: center;
+}
+
+.belowFold h2 {
+  margin: 0;
+  font-size: 31px;
+}
+
+.belowFold span {
+  display: inline-block;
+  width: 44px;
+  height: 4px;
+  margin-top: 20px;
+  background: #00c250;
+}
+
+@media (max-width: 1100px) {
+  .mainNav {
+    padding: 0 24px;
+  }
+
+  .navLinks {
+    gap: 20px;
+  }
+
+  .heroCopy {
+    margin-left: 24px;
+  }
+
+  .phoneMock {
+    display: none;
+  }
+
+  .loginCard {
+    right: 24px;
+  }
+
+  .noticeBar {
+    grid-template-columns: 70px 1fr;
+    gap: 12px;
+    padding: 0 24px;
+  }
+
+  .noticeBar span:nth-child(3),
+  .noticeBar a {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .navLinks a:not(.joinButton) {
+    display: none;
+  }
+
+  .hero {
+    min-height: 690px;
+  }
+
+  .heroCopy {
+    width: auto;
+    margin: 0 24px;
+    padding-top: 50px;
+  }
+
+  .heroCopy h2 {
+    font-size: 32px;
+  }
+
+  .heroCopy p {
+    font-size: 20px;
+  }
+
+  .loginCard {
+    top: 300px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+}

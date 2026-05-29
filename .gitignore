@@ -13,6 +13,7 @@ reports/latest/*
 reports/baselines/*
 reports/history/*
 !reports/history/.gitkeep
+projects/*/captures/*profile*/
 coverage/
 *.log
 .DS_Store

@@ -1,0 +1,93 @@
+{
+  "generatedAt": "2026-05-29T12:59:12.714Z",
+  "pages": [
+    {
+      "pageId": "weixin-pay-login",
+      "name": "Weixin Pay Login Replica",
+      "originalUrl": "https://pay.weixin.qq.com/index.php/core/home/login",
+      "replicaUrl": "http://127.0.0.1:5173/replica/weixin-pay-login",
+      "sourceValidation": {
+        "status": "passed",
+        "canScore": true,
+        "finalUrl": "https://pay.weixin.qq.com/index.php/core/home/login",
+        "issues": [
+          {
+            "severity": "info",
+            "code": "PROJECT_BASELINE_SOURCE",
+            "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/weixin-pay-login/baselines/login-initial/original-dom.json"
+          },
+          {
+            "severity": "info",
+            "code": "PROJECT_BASELINE_SOURCE",
+            "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/weixin-pay-login/baselines/login-validation/original-dom.json"
+          }
+        ],
+        "captureMode": "baseline",
+        "stateResults": [
+          {
+            "stateId": "login-initial",
+            "name": "Login form initial state",
+            "status": "passed",
+            "canScore": true,
+            "finalUrl": "https://pay.weixin.qq.com/index.php/core/home/login",
+            "issues": [
+              {
+                "severity": "info",
+                "code": "PROJECT_BASELINE_SOURCE",
+                "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/weixin-pay-login/baselines/login-initial/original-dom.json"
+              }
+            ],
+            "captureMode": "baseline"
+          },
+          {
+            "stateId": "login-validation",
+            "name": "Login button validation state",
+            "status": "passed",
+            "canScore": true,
+            "finalUrl": "https://pay.weixin.qq.com/index.php/core/home/login",
+            "issues": [
+              {
+                "severity": "info",
+                "code": "PROJECT_BASELINE_SOURCE",
+                "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/weixin-pay-login/baselines/login-validation/original-dom.json"
+              }
+            ],
+            "captureMode": "baseline"
+          }
+        ]
+      },
+      "stateResults": [
+        {
+          "stateId": "login-initial",
+          "name": "Login form initial state",
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://pay.weixin.qq.com/index.php/core/home/login",
+          "issues": [
+            {
+              "severity": "info",
+              "code": "PROJECT_BASELINE_SOURCE",
+              "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/weixin-pay-login/baselines/login-initial/original-dom.json"
+            }
+          ],
+          "captureMode": "baseline"
+        },
+        {
+          "stateId": "login-validation",
+          "name": "Login button validation state",
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://pay.weixin.qq.com/index.php/core/home/login",
+          "issues": [
+            {
+              "severity": "info",
+              "code": "PROJECT_BASELINE_SOURCE",
+              "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/weixin-pay-login/baselines/login-validation/original-dom.json"
+            }
+          ],
+          "captureMode": "baseline"
+        }
+      ]
+    }
+  ]
+}
