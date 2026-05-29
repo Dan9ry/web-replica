@@ -93,6 +93,44 @@ function collectIssues(
   return issues;
 }
 
+function addLowScoreSuggestions(metrics: ScoreMetrics, issues: ValidationIssue[]): void {
+  if (metrics.visual < 80) {
+    issues.push({
+      severity: "warning",
+      code: "LOW_VISUAL_SCORE",
+      message:
+        "视觉一致性偏低：请优先查看 reports/latest/assets 下对应状态的视觉差异图，修复页面整体布局、搜索框尺寸、结果页左右栏宽度、字体字号、间距和颜色。",
+    });
+  }
+
+  if (metrics.interaction < 80) {
+    issues.push({
+      severity: "warning",
+      code: "LOW_INTERACTION_SCORE",
+      message:
+        "交互一致性偏低：请运行复刻页交互用例，重点检查搜索提交、Enter 键、空输入反馈、分页按钮和状态切换是否与真实流程一致。",
+    });
+  }
+
+  if (metrics.accessibility < 70) {
+    issues.push({
+      severity: "warning",
+      code: "LOW_ACCESSIBILITY_SCORE",
+      message:
+        "结构/可访问性一致性偏低：请补齐 nav/main/form/list 等 landmark，确保输入框、按钮、分页和结果列表有稳定语义和可访问名称。",
+    });
+  }
+
+  if (metrics.functionality < 90) {
+    issues.push({
+      severity: "warning",
+      code: "LOW_FUNCTIONALITY_SCORE",
+      message:
+        "功能一致性偏低：请确认每个真实状态都有对应复刻状态，缺失状态会直接拉低功能分。",
+    });
+  }
+}
+
 export function evaluateReplicaConsistency({
   originalCaptures,
   replicaCaptures,
@@ -159,6 +197,7 @@ export function evaluateReplicaConsistency({
     accessibility: Math.round(average(structureScores) * 10) / 10,
     responsive: stateCompleteness,
   };
+  addLowScoreSuggestions(metrics, issues);
 
   return {
     score: calculateWeightedScore(metrics),

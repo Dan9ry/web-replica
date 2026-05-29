@@ -74,6 +74,23 @@ describe("validateSourceCapture", () => {
     );
   });
 
+  test("keeps scoring open for screenshot baseline fallback captures", () => {
+    const result = validateSourceCapture(target, {
+      ...validCapture,
+      fallbackFromBaseline: true,
+      fallbackReason: "原网页进入安全验证页",
+    });
+
+    expect(result.status).toBe("passed");
+    expect(result.canScore).toBe(true);
+    expect(result.issues).toContainEqual(
+      expect.objectContaining({
+        severity: "warning",
+        code: "SOURCE_FALLBACK_SCREENSHOT",
+      }),
+    );
+  });
+
   test("fails closed for suspicious error or interception pages", () => {
     const result = validateSourceCapture(target, {
       ...validCapture,

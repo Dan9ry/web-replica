@@ -10,6 +10,7 @@ test-results/
 reports/tmp/
 reports/latest/*
 !reports/latest/.gitkeep
+reports/baselines/*
 reports/history/*
 !reports/history/.gitkeep
 coverage/

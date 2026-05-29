@@ -48,7 +48,7 @@ const report: EvaluationReport = {
     return {
       ...page,
       score: consistency.score,
-      issues: consistency.issues,
+      issues: [...page.sourceValidation.issues, ...consistency.issues],
       artifacts: {
         captures: {
           original: `reports/latest/captures/${page.pageId}-source.json`,

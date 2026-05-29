@@ -86,4 +86,54 @@ describe("evaluateReplicaConsistency", () => {
       }),
     );
   });
+
+  test("adds actionable suggestions for low scoring dimensions", () => {
+    const result = evaluateReplicaConsistency({
+      originalCaptures: [
+        makeCapture("home", "original"),
+        makeCapture("results", "original"),
+      ],
+      replicaCaptures: [
+        makeCapture("home", "replica", {
+          metrics: { screenshotDiffRatio: 0.52, ssim: 0.45 },
+          domProfile: {
+            landmarks: { nav: 0, main: 0, form: 0, button: 1, link: 2, input: 1 },
+            textSample: "百度一下",
+            styles: {},
+          },
+        }),
+        makeCapture("results", "replica", {
+          metrics: { screenshotDiffRatio: 0.48, ssim: 0.5 },
+          domProfile: {
+            landmarks: { nav: 0, main: 0, form: 0, button: 1, link: 2, input: 1 },
+            textSample: "微信支付",
+            styles: {},
+          },
+        }),
+      ],
+      interactionResults: [
+        { stateId: "home", name: "首页状态采集", passed: true },
+        { stateId: "results", name: "结果页采集", passed: false },
+      ],
+    });
+
+    expect(result.issues).toContainEqual(
+      expect.objectContaining({
+        code: "LOW_VISUAL_SCORE",
+        message: expect.stringContaining("视觉差异图"),
+      }),
+    );
+    expect(result.issues).toContainEqual(
+      expect.objectContaining({
+        code: "LOW_ACCESSIBILITY_SCORE",
+        message: expect.stringContaining("landmark"),
+      }),
+    );
+    expect(result.issues).toContainEqual(
+      expect.objectContaining({
+        code: "LOW_INTERACTION_SCORE",
+        message: expect.stringContaining("复刻页交互"),
+      }),
+    );
+  });
 });

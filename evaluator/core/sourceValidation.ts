@@ -47,6 +47,15 @@ export function validateSourceCapture(
     addIssue(issues, "CAPTURE_ERROR", `原网页采集异常：${capture.error}`);
   }
 
+  if (capture.fallbackFromBaseline) {
+    addIssue(
+      issues,
+      "SOURCE_FALLBACK_SCREENSHOT",
+      `原网页实时采集遇到验证问题，已使用最近一次成功截图/DOM 基准降级评估：${capture.fallbackReason ?? "未记录原因"}`,
+      "warning",
+    );
+  }
+
   if (
     !capture.manualVerified &&
     (capture.status === null || capture.status < 200 || capture.status >= 400)

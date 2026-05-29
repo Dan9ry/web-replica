@@ -90,6 +90,8 @@ export interface SourceCapture {
   selectors: Record<string, SelectorCapture>;
   error?: string;
   manualVerified?: boolean;
+  fallbackFromBaseline?: boolean;
+  fallbackReason?: string;
 }
 
 export interface DomProfile {

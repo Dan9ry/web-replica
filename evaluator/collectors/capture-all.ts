@@ -1,4 +1,4 @@
-import { mkdir } from "node:fs/promises";
+import { copyFile, mkdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { stdin as input, stdout as output } from "node:process";
 import { createInterface } from "node:readline/promises";
@@ -12,8 +12,13 @@ import {
   buildInteractiveVerificationMessage,
   shouldInterruptEvaluation,
   shouldOfferInteractiveRepair,
+  shouldUseScreenshotFallback,
 } from "../core/captureGate.js";
-import { normalizeTargetStates, validateTargetStateCaptures } from "../core/stateValidation.js";
+import {
+  normalizeTargetStates,
+  validateStateCapture,
+  validateTargetStateCaptures,
+} from "../core/stateValidation.js";
 import { writeJsonFile } from "../core/files.js";
 import type {
   BrowserActionStep,
@@ -28,6 +33,7 @@ import type {
 } from "../core/types.js";
 
 const latestDir = join(process.cwd(), "reports", "latest");
+const baselineDir = join(process.cwd(), "reports", "baselines");
 const interactiveMode = process.env.EVAL_INTERACTIVE === "1";
 const interactiveProfileDir =
   process.env.EVAL_PROFILE_DIR ?? join(process.cwd(), ".evaluator-browser-profile");
@@ -258,6 +264,73 @@ async function capturePageEvidence({
   };
 }
 
+function baselineJsonPath(target: PageTarget, state: PageStateConfig, viewportName: string): string {
+  return join(baselineDir, target.id, state.id, `original-${viewportName}.json`);
+}
+
+function baselineScreenshotPath(
+  target: PageTarget,
+  state: PageStateConfig,
+  viewportName: string,
+): string {
+  return join(baselineDir, target.id, state.id, `original-${viewportName}.png`);
+}
+
+async function saveBaselineCapture(
+  target: PageTarget,
+  state: PageStateConfig,
+  capture: StateCapture,
+): Promise<void> {
+  if (
+    capture.side !== "original" ||
+    capture.fallbackFromBaseline ||
+    capture.error ||
+    !capture.screenshotPath ||
+    !capture.screenshot ||
+    capture.screenshot.blank
+  ) {
+    return;
+  }
+
+  const validation = validateStateCapture(target, state, capture);
+  if (!validation.canScore) {
+    return;
+  }
+
+  const screenshotPath = baselineScreenshotPath(target, state, capture.viewport);
+  const jsonPath = baselineJsonPath(target, state, capture.viewport);
+  await mkdir(join(baselineDir, target.id, state.id), { recursive: true });
+  await copyFile(capture.screenshotPath, screenshotPath);
+  await writeJsonFile(jsonPath, {
+    ...capture,
+    screenshotPath,
+    fallbackFromBaseline: false,
+    fallbackReason: undefined,
+  });
+}
+
+async function loadBaselineCapture(
+  target: PageTarget,
+  state: PageStateConfig,
+  viewportName: string,
+  reason: string,
+): Promise<StateCapture | undefined> {
+  const jsonPath = baselineJsonPath(target, state, viewportName);
+
+  try {
+    const baseline = JSON.parse(await readFile(jsonPath, "utf8")) as StateCapture;
+    return {
+      ...baseline,
+      fallbackFromBaseline: true,
+      fallbackReason: reason,
+      error: undefined,
+      status: baseline.status ?? 200,
+    };
+  } catch {
+    return undefined;
+  }
+}
+
 async function collectState(
   target: PageTarget,
   state: PageStateConfig,
@@ -360,6 +433,22 @@ async function collectState(
         }));
       }
 
+      if (shouldUseScreenshotFallback(failedCapture, side, interactiveMode)) {
+        const fallbackCapture = await loadBaselineCapture(
+          target,
+          state,
+          viewport.name,
+          failedCapture.error ?? "原网页采集遇到安全验证，使用最近一次成功截图基准降级评估。",
+        );
+
+        if (fallbackCapture) {
+          console.warn(
+            `原网页状态 ${target.id}/${state.id} 采集遇到验证问题，已使用最近一次成功截图基准降级评估。`,
+          );
+          return fallbackCapture;
+        }
+      }
+
       return failedCapture;
     }
 
@@ -449,6 +538,7 @@ for (const target of targets) {
   for (const state of states) {
     const originalCapture = await collectState(target, state, "original");
     originalCaptures.push(originalCapture);
+    await saveBaselineCapture(target, state, originalCapture);
     await writeJsonFile(
       join(latestDir, "captures", `${target.id}-${state.id}-original.json`),
       originalCapture,

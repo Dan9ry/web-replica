@@ -74,6 +74,14 @@ export function shouldOfferInteractiveRepair(
   return side === "original" && Boolean(capture.error || isSecurityVerificationCapture(capture));
 }
 
+export function shouldUseScreenshotFallback(
+  capture: StateCapture,
+  side: CaptureSide,
+  interactive: boolean,
+): boolean {
+  return !interactive && shouldOfferInteractiveRepair(capture, side);
+}
+
 export function buildInteractiveVerificationMessage({
   targetName,
   stateName,

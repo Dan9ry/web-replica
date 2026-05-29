@@ -2,6 +2,7 @@ import { describe, expect, test } from "vitest";
 import {
   buildCaptureGateMessage,
   buildInteractiveVerificationMessage,
+  shouldUseScreenshotFallback,
   shouldInterruptEvaluation,
   shouldOfferInteractiveRepair,
 } from "../../evaluator/core/captureGate";
@@ -73,6 +74,9 @@ describe("capture gate", () => {
 
     expect(shouldOfferInteractiveRepair(capture, "original")).toBe(true);
     expect(shouldOfferInteractiveRepair({ ...capture, side: "replica" }, "replica")).toBe(false);
+    expect(shouldUseScreenshotFallback(capture, "original", false)).toBe(true);
+    expect(shouldUseScreenshotFallback({ ...capture, side: "replica" }, "replica", false)).toBe(false);
+    expect(shouldUseScreenshotFallback(capture, "original", true)).toBe(false);
   });
 
   test("builds a pause message for human verification", () => {
