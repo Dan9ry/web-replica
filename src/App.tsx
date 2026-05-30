@@ -1,7 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import GiteeSignupReplicaPage from "../projects/gitee-signup/page/GiteeSignupReplicaPage";
-import GoogleSearchReplicaPage from "../projects/google-search/page/GoogleSearchReplicaPage";
-import WeixinPayLoginReplicaPage from "../projects/weixin-pay-login/page/WeixinPayLoginReplicaPage";
 import styles from "./App.module.css";
 
 function HomePage() {
@@ -37,8 +35,6 @@ export default function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/replica/gitee-signup" element={<GiteeSignupReplicaPage />} />
-      <Route path="/replica/google-search" element={<GoogleSearchReplicaPage />} />
-      <Route path="/replica/weixin-pay-login" element={<WeixinPayLoginReplicaPage />} />
     </Routes>
   );
 }
