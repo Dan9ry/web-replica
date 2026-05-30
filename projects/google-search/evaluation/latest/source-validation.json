@@ -1,0 +1,128 @@
+{
+  "generatedAt": "2026-05-30T03:55:03.644Z",
+  "pages": [
+    {
+      "pageId": "google-search",
+      "name": "Google Search Replica",
+      "originalUrl": "https://www.google.com/",
+      "replicaUrl": "http://127.0.0.1:5173/replica/google-search",
+      "sourceValidation": {
+        "status": "passed",
+        "canScore": true,
+        "finalUrl": "https://www.google.com/",
+        "issues": [
+          {
+            "severity": "info",
+            "code": "PROJECT_BASELINE_SOURCE",
+            "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/initial/original-dom.json"
+          },
+          {
+            "severity": "info",
+            "code": "PROJECT_BASELINE_SOURCE",
+            "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/results/original-dom.json"
+          },
+          {
+            "severity": "info",
+            "code": "PROJECT_BASELINE_SOURCE",
+            "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/page-2/original-dom.json"
+          }
+        ],
+        "captureMode": "baseline",
+        "stateResults": [
+          {
+            "stateId": "initial",
+            "name": "Initial Search Page",
+            "status": "passed",
+            "canScore": true,
+            "finalUrl": "https://www.google.com/",
+            "issues": [
+              {
+                "severity": "info",
+                "code": "PROJECT_BASELINE_SOURCE",
+                "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/initial/original-dom.json"
+              }
+            ],
+            "captureMode": "baseline"
+          },
+          {
+            "stateId": "results",
+            "name": "Search Results Page",
+            "status": "passed",
+            "canScore": true,
+            "finalUrl": "https://www.google.com/search?q=tencent&sei=91waar7EDd6C9u8Pm7bM6Ag",
+            "issues": [
+              {
+                "severity": "info",
+                "code": "PROJECT_BASELINE_SOURCE",
+                "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/results/original-dom.json"
+              }
+            ],
+            "captureMode": "baseline"
+          },
+          {
+            "stateId": "page-2",
+            "name": "Second Results Page",
+            "status": "passed",
+            "canScore": true,
+            "finalUrl": "https://www.google.com/search?q=tencent&start=10",
+            "issues": [
+              {
+                "severity": "info",
+                "code": "PROJECT_BASELINE_SOURCE",
+                "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/page-2/original-dom.json"
+              }
+            ],
+            "captureMode": "baseline"
+          }
+        ]
+      },
+      "stateResults": [
+        {
+          "stateId": "initial",
+          "name": "Initial Search Page",
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://www.google.com/",
+          "issues": [
+            {
+              "severity": "info",
+              "code": "PROJECT_BASELINE_SOURCE",
+              "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/initial/original-dom.json"
+            }
+          ],
+          "captureMode": "baseline"
+        },
+        {
+          "stateId": "results",
+          "name": "Search Results Page",
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://www.google.com/search?q=tencent&sei=91waar7EDd6C9u8Pm7bM6Ag",
+          "issues": [
+            {
+              "severity": "info",
+              "code": "PROJECT_BASELINE_SOURCE",
+              "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/results/original-dom.json"
+            }
+          ],
+          "captureMode": "baseline"
+        },
+        {
+          "stateId": "page-2",
+          "name": "Second Results Page",
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://www.google.com/search?q=tencent&start=10",
+          "issues": [
+            {
+              "severity": "info",
+              "code": "PROJECT_BASELINE_SOURCE",
+              "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/page-2/original-dom.json"
+            }
+          ],
+          "captureMode": "baseline"
+        }
+      ]
+    }
+  ]
+}

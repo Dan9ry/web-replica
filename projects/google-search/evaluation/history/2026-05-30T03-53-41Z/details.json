@@ -1,0 +1,1091 @@
+{
+  "schemaVersion": "2.0",
+  "run": {
+    "generatedAt": "2026-05-30T03:55:03.921Z",
+    "targetConfig": "projects/google-search/config/target.json",
+    "browser": "Chromium",
+    "viewports": [
+      "desktop 1365x768"
+    ],
+    "pageCount": 1
+  },
+  "gates": [
+    {
+      "id": "google-search-source-gate",
+      "name": "Google Search Replica 原站基线与复刻可运行门禁",
+      "status": "passed",
+      "pageId": "google-search",
+      "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/initial/original-dom.json；原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/results/original-dom.json；原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/page-2/original-dom.json"
+    }
+  ],
+  "summary": {
+    "schemaVersion": "2.0",
+    "totalScore": 91.9,
+    "weightedScore": 91.9,
+    "conclusion": "excellent",
+    "gateStatus": "passed",
+    "pageCount": 1,
+    "stateCount": 3,
+    "requiredStateCount": 3,
+    "failedStateCount": 0,
+    "highRiskIssueCount": 0,
+    "lowestDimension": {
+      "id": "visual",
+      "name": "视觉一致性",
+      "score": 76.7
+    },
+    "dimensions": {
+      "functionality": {
+        "id": "functionality",
+        "name": "功能正确性",
+        "weight": 0.25,
+        "score": 97.5,
+        "weightedContribution": 24.4,
+        "status": "excellent",
+        "issueCount": 0,
+        "topIssues": []
+      },
+      "interaction": {
+        "id": "interaction",
+        "name": "交互流程一致性",
+        "weight": 0.2,
+        "score": 100,
+        "weightedContribution": 20,
+        "status": "excellent",
+        "issueCount": 0,
+        "topIssues": []
+      },
+      "visual": {
+        "id": "visual",
+        "name": "视觉一致性",
+        "weight": 0.25,
+        "score": 76.7,
+        "weightedContribution": 19.2,
+        "status": "warning",
+        "issueCount": 4,
+        "topIssues": [
+          "google-search-LOW_VISUAL_SCORE-4",
+          "google-search-PROJECT_BASELINE_SOURCE-1",
+          "google-search-PROJECT_BASELINE_SOURCE-2"
+        ]
+      },
+      "structure": {
+        "id": "structure",
+        "name": "结构语义一致性",
+        "weight": 0.1,
+        "score": 95.9,
+        "weightedContribution": 9.6,
+        "status": "excellent",
+        "issueCount": 0,
+        "topIssues": []
+      },
+      "content": {
+        "id": "content",
+        "name": "内容数据一致性",
+        "weight": 0.1,
+        "score": 87.4,
+        "weightedContribution": 8.7,
+        "status": "pass",
+        "issueCount": 0,
+        "topIssues": []
+      },
+      "engineering": {
+        "id": "engineering",
+        "name": "工程可维护性",
+        "weight": 0.1,
+        "score": 100,
+        "weightedContribution": 10,
+        "status": "excellent",
+        "issueCount": 0,
+        "topIssues": []
+      }
+    },
+    "issueCountByDimension": {
+      "functionality": 0,
+      "interaction": 0,
+      "visual": 4,
+      "structure": 0,
+      "content": 0,
+      "engineering": 0
+    },
+    "issueCountBySeverity": {
+      "blocker": 0,
+      "error": 0,
+      "warning": 1,
+      "info": 3
+    }
+  },
+  "dimensions": [
+    {
+      "id": "functionality",
+      "name": "功能正确性",
+      "weight": 0.25,
+      "score": 97.5,
+      "weightedContribution": 24.4,
+      "status": "excellent",
+      "issueCount": 0,
+      "topIssues": [],
+      "subMetrics": [
+        {
+          "id": "required-state-coverage",
+          "name": "required 状态覆盖率",
+          "weight": 0.25,
+          "score": 100,
+          "description": "required 状态是否有可信原站基线和复刻状态。",
+          "evidence": []
+        },
+        {
+          "id": "core-use-cases",
+          "name": "核心用例断言通过率",
+          "weight": 0.35,
+          "score": 100,
+          "description": "核心交互断言是否通过。",
+          "evidence": []
+        },
+        {
+          "id": "output-correctness",
+          "name": "输出结果正确率",
+          "weight": 0.2,
+          "score": 87.4,
+          "description": "结果文案、列表和状态输出是否正确。",
+          "evidence": []
+        },
+        {
+          "id": "boundary-cases",
+          "name": "边界/异常态通过率",
+          "weight": 0.2,
+          "score": 97.5,
+          "description": "空输入、错误态、无结果态等边界行为。",
+          "evidence": []
+        }
+      ],
+      "pageScores": [
+        {
+          "pageId": "google-search",
+          "pageName": "Google Search Replica",
+          "score": 97.5,
+          "status": "excellent",
+          "worstStates": [],
+          "topIssues": []
+        }
+      ],
+      "issues": [],
+      "evidence": [
+        "projects/google-search/evaluation/latest/captures/google-search-source.json"
+      ],
+      "recommendation": "保持当前实现，后续只需防止回归。"
+    },
+    {
+      "id": "interaction",
+      "name": "交互流程一致性",
+      "weight": 0.2,
+      "score": 100,
+      "weightedContribution": 20,
+      "status": "excellent",
+      "issueCount": 0,
+      "topIssues": [],
+      "subMetrics": [
+        {
+          "id": "case-pass-rate",
+          "name": "交互用例通过率",
+          "weight": 0.4,
+          "score": 100,
+          "description": "交互用例整体通过情况。",
+          "evidence": []
+        },
+        {
+          "id": "assertion-pass-rate",
+          "name": "步骤断言通过率",
+          "weight": 0.3,
+          "score": 100,
+          "description": "动作后的可见状态断言是否通过。",
+          "evidence": []
+        },
+        {
+          "id": "feedback-state",
+          "name": "反馈状态一致性",
+          "weight": 0.2,
+          "score": 93.7,
+          "description": "loading、error、disabled、即时反馈等状态是否一致。",
+          "evidence": []
+        },
+        {
+          "id": "keyboard-mouse-detail",
+          "name": "键盘/鼠标细节一致性",
+          "weight": 0.1,
+          "score": 100,
+          "description": "Enter、hover、focus、blur 等细节。",
+          "evidence": []
+        }
+      ],
+      "pageScores": [
+        {
+          "pageId": "google-search",
+          "pageName": "Google Search Replica",
+          "score": 100,
+          "status": "excellent",
+          "worstStates": [],
+          "topIssues": []
+        }
+      ],
+      "issues": [],
+      "evidence": [],
+      "recommendation": "保持当前实现，后续只需防止回归。"
+    },
+    {
+      "id": "visual",
+      "name": "视觉一致性",
+      "weight": 0.25,
+      "score": 76.7,
+      "weightedContribution": 19.2,
+      "status": "warning",
+      "issueCount": 4,
+      "topIssues": [
+        "google-search-LOW_VISUAL_SCORE-4",
+        "google-search-PROJECT_BASELINE_SOURCE-1",
+        "google-search-PROJECT_BASELINE_SOURCE-2"
+      ],
+      "subMetrics": [
+        {
+          "id": "full-page-visual",
+          "name": "整页视觉",
+          "weight": 0.2,
+          "score": 76.7,
+          "description": "整页截图 diff 与 SSIM 综合分。",
+          "evidence": []
+        },
+        {
+          "id": "region-visual",
+          "name": "区域加权视觉",
+          "weight": 0.45,
+          "score": 76.7,
+          "description": "关键区域截图、区域 diff、bbox 和样式综合分。未配置区域时会低于整页分，提示补充 regions。",
+          "evidence": []
+        },
+        {
+          "id": "key-style",
+          "name": "关键元素样式",
+          "weight": 0.2,
+          "score": 86.3,
+          "description": "字体、颜色、圆角、控件尺寸等样式对齐。",
+          "evidence": []
+        },
+        {
+          "id": "box-model",
+          "name": "布局盒模型",
+          "weight": 0.15,
+          "score": 71.7,
+          "description": "关键元素坐标、宽高、间距对齐。",
+          "evidence": []
+        }
+      ],
+      "pageScores": [
+        {
+          "pageId": "google-search",
+          "pageName": "Google Search Replica",
+          "score": 76.7,
+          "status": "warning",
+          "worstStates": [],
+          "topIssues": [
+            "google-search-LOW_VISUAL_SCORE-4",
+            "google-search-PROJECT_BASELINE_SOURCE-1",
+            "google-search-PROJECT_BASELINE_SOURCE-2"
+          ]
+        }
+      ],
+      "issues": [
+        {
+          "id": "google-search-LOW_VISUAL_SCORE-4",
+          "code": "LOW_VISUAL_SCORE",
+          "dimension": "visual",
+          "severity": "warning",
+          "pageId": "google-search",
+          "title": "视觉一致性偏低",
+          "description": "视觉一致性偏低：请优先查看当前 project/evaluation/latest/assets 下对应状态的视觉差异图，修复区域布局、字体字号、间距、颜色和控件尺寸。",
+          "evidence": [
+            "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+          ],
+          "impactScore": 4,
+          "confidence": 0.78,
+          "suggestedFix": "按区域 diff 调整布局、字号、颜色、间距和关键控件尺寸，优先修复低分区域。",
+          "artifactLinks": [
+            "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+          ],
+          "status": "new",
+          "priorityScore": 7.5
+        },
+        {
+          "id": "google-search-PROJECT_BASELINE_SOURCE-1",
+          "code": "PROJECT_BASELINE_SOURCE",
+          "dimension": "visual",
+          "severity": "info",
+          "pageId": "google-search",
+          "title": "PROJECT_BASELINE_SOURCE",
+          "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/initial/original-dom.json",
+          "evidence": [
+            "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+          ],
+          "impactScore": 1,
+          "confidence": 0.9,
+          "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+          "artifactLinks": [
+            "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+          ],
+          "status": "new",
+          "priorityScore": 1.1
+        },
+        {
+          "id": "google-search-PROJECT_BASELINE_SOURCE-2",
+          "code": "PROJECT_BASELINE_SOURCE",
+          "dimension": "visual",
+          "severity": "info",
+          "pageId": "google-search",
+          "title": "PROJECT_BASELINE_SOURCE",
+          "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/results/original-dom.json",
+          "evidence": [
+            "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+          ],
+          "impactScore": 1,
+          "confidence": 0.9,
+          "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+          "artifactLinks": [
+            "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+          ],
+          "status": "new",
+          "priorityScore": 1.1
+        },
+        {
+          "id": "google-search-PROJECT_BASELINE_SOURCE-3",
+          "code": "PROJECT_BASELINE_SOURCE",
+          "dimension": "visual",
+          "severity": "info",
+          "pageId": "google-search",
+          "title": "PROJECT_BASELINE_SOURCE",
+          "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/page-2/original-dom.json",
+          "evidence": [
+            "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+          ],
+          "impactScore": 1,
+          "confidence": 0.9,
+          "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+          "artifactLinks": [
+            "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+          ],
+          "status": "new",
+          "priorityScore": 1.1
+        }
+      ],
+      "evidence": [
+        "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+      ],
+      "recommendation": "优先查看区域 diff 和整页 diff，按页面头、中、尾逐段修正布局、字体、颜色和间距。"
+    },
+    {
+      "id": "structure",
+      "name": "结构语义一致性",
+      "weight": 0.1,
+      "score": 95.9,
+      "weightedContribution": 9.6,
+      "status": "excellent",
+      "issueCount": 0,
+      "topIssues": [],
+      "subMetrics": [
+        {
+          "id": "dom-structure",
+          "name": "关键 DOM 结构",
+          "weight": 0.3,
+          "score": 95.9,
+          "description": "用户复刻范围内 functional/content/structural/visual selector 按权重匹配情况。",
+          "evidence": []
+        },
+        {
+          "id": "control-semantics",
+          "name": "关键控件语义",
+          "weight": 0.25,
+          "score": 98,
+          "description": "用户要求交互的 input、button、a、form 等控件是否真实可操作。",
+          "evidence": []
+        },
+        {
+          "id": "basic-a11y-semantics",
+          "name": "基础语义一致性",
+          "weight": 0.2,
+          "score": 91.7,
+          "description": "视觉必需区域、基础语义、焦点和可见文本是否合理。",
+          "evidence": []
+        },
+        {
+          "id": "anti-cheat",
+          "name": "反截图伪页面检查",
+          "weight": 0.1,
+          "score": 100,
+          "description": "是否存在整页截图、大面积 canvas 或不可交互伪装。",
+          "evidence": []
+        }
+      ],
+      "pageScores": [
+        {
+          "pageId": "google-search",
+          "pageName": "Google Search Replica",
+          "score": 95.9,
+          "status": "excellent",
+          "worstStates": [],
+          "topIssues": []
+        }
+      ],
+      "issues": [],
+      "evidence": [
+        "projects/google-search/evaluation/latest/captures/google-search-source.json"
+      ],
+      "recommendation": "保持当前实现，后续只需防止回归。"
+    },
+    {
+      "id": "content",
+      "name": "内容数据一致性",
+      "weight": 0.1,
+      "score": 87.4,
+      "weightedContribution": 8.7,
+      "status": "pass",
+      "issueCount": 0,
+      "topIssues": [],
+      "subMetrics": [
+        {
+          "id": "core-text-coverage",
+          "name": "核心文本覆盖",
+          "weight": 0.3,
+          "score": 87.4,
+          "description": "标题、按钮、提示、结果等核心文本覆盖率。",
+          "evidence": []
+        },
+        {
+          "id": "form-copy",
+          "name": "表单文案",
+          "weight": 0.2,
+          "score": 91.7,
+          "description": "label、placeholder、helper text 是否一致。",
+          "evidence": []
+        },
+        {
+          "id": "state-copy",
+          "name": "错误/空态/loading 文案",
+          "weight": 0.2,
+          "score": 97.5,
+          "description": "状态文案是否与原站可见 UI 对齐。",
+          "evidence": []
+        },
+        {
+          "id": "data-shape",
+          "name": "列表/表格/卡片数据结构",
+          "weight": 0.2,
+          "score": 92.5,
+          "description": "结果项字段、数量和结构是否一致。",
+          "evidence": []
+        }
+      ],
+      "pageScores": [
+        {
+          "pageId": "google-search",
+          "pageName": "Google Search Replica",
+          "score": 87.4,
+          "status": "pass",
+          "worstStates": [],
+          "topIssues": []
+        }
+      ],
+      "issues": [],
+      "evidence": [
+        "projects/google-search/evaluation/latest/captures/google-search-source.json"
+      ],
+      "recommendation": "对齐原站可见文案、错误提示、列表字段、表格字段和状态文案。"
+    },
+    {
+      "id": "engineering",
+      "name": "工程可维护性",
+      "weight": 0.1,
+      "score": 100,
+      "weightedContribution": 10,
+      "status": "excellent",
+      "issueCount": 0,
+      "topIssues": [],
+      "subMetrics": [
+        {
+          "id": "build-run-test",
+          "name": "构建/启动/测试",
+          "weight": 0.25,
+          "score": 100,
+          "description": "复刻工程是否可构建、可启动、可评估。",
+          "evidence": []
+        },
+        {
+          "id": "code-organization",
+          "name": "组件拆分与代码组织",
+          "weight": 0.2,
+          "score": 100,
+          "description": "源码是否位于 project/page 并按组件、数据、状态、样式组织。",
+          "evidence": []
+        },
+        {
+          "id": "style-isolation",
+          "name": "样式隔离与可维护性",
+          "weight": 0.15,
+          "score": 88.4,
+          "description": "样式是否隔离、命名清晰、便于维护。",
+          "evidence": []
+        },
+        {
+          "id": "artifact-completeness",
+          "name": "评估产物与日志完整性",
+          "weight": 0.2,
+          "score": 100,
+          "description": "summary、details、report、截图、diff 等产物是否完整。",
+          "evidence": []
+        }
+      ],
+      "pageScores": [
+        {
+          "pageId": "google-search",
+          "pageName": "Google Search Replica",
+          "score": 100,
+          "status": "excellent",
+          "worstStates": [],
+          "topIssues": []
+        }
+      ],
+      "issues": [],
+      "evidence": [
+        "summary.json",
+        "details.json",
+        "artifacts-index.json",
+        "report.md",
+        "index.html"
+      ],
+      "recommendation": "保持当前实现，后续只需防止回归。"
+    }
+  ],
+  "pages": [
+    {
+      "pageId": "google-search",
+      "name": "Google Search Replica",
+      "originalUrl": "https://www.google.com/",
+      "replicaUrl": "http://127.0.0.1:5173/replica/google-search",
+      "captureMode": "baseline",
+      "gateStatus": "passed",
+      "finalUrl": "https://www.google.com/",
+      "score": {
+        "total": 91.9,
+        "level": "高一致",
+        "metrics": {
+          "functionality": 97.5,
+          "interaction": 100,
+          "visual": 76.7,
+          "structure": 95.9,
+          "content": 87.4,
+          "engineering": 100
+        }
+      },
+      "states": [
+        {
+          "stateId": "initial",
+          "name": "Initial Search Page",
+          "required": true,
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://www.google.com/",
+          "issues": [
+            "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/initial/original-dom.json"
+          ],
+          "score": {
+            "functionality": 97.5,
+            "interaction": 100,
+            "visual": 76.7,
+            "structure": 95.9,
+            "content": 87.4,
+            "engineering": 100
+          }
+        },
+        {
+          "stateId": "results",
+          "name": "Search Results Page",
+          "required": true,
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://www.google.com/search?q=tencent&sei=91waar7EDd6C9u8Pm7bM6Ag",
+          "issues": [
+            "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/results/original-dom.json"
+          ],
+          "score": {
+            "functionality": 97.5,
+            "interaction": 100,
+            "visual": 76.7,
+            "structure": 95.9,
+            "content": 87.4,
+            "engineering": 100
+          }
+        },
+        {
+          "stateId": "page-2",
+          "name": "Second Results Page",
+          "required": true,
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://www.google.com/search?q=tencent&start=10",
+          "issues": [
+            "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/page-2/original-dom.json"
+          ],
+          "score": {
+            "functionality": 97.5,
+            "interaction": 100,
+            "visual": 76.7,
+            "structure": 95.9,
+            "content": 87.4,
+            "engineering": 100
+          }
+        }
+      ],
+      "interactions": [
+        {
+          "id": "submit-search-click",
+          "stateId": "results",
+          "name": "Search button submits query",
+          "weight": 1,
+          "passed": true
+        },
+        {
+          "id": "submit-search-enter",
+          "stateId": "results",
+          "name": "Enter key submits query",
+          "weight": 1,
+          "passed": true
+        },
+        {
+          "id": "pagination-next",
+          "stateId": "page-2",
+          "name": "Pagination moves to next page",
+          "weight": 1,
+          "passed": true
+        }
+      ],
+      "issues": [
+        {
+          "id": "google-search-LOW_VISUAL_SCORE-4",
+          "code": "LOW_VISUAL_SCORE",
+          "dimension": "visual",
+          "severity": "warning",
+          "pageId": "google-search",
+          "title": "视觉一致性偏低",
+          "description": "视觉一致性偏低：请优先查看当前 project/evaluation/latest/assets 下对应状态的视觉差异图，修复区域布局、字体字号、间距、颜色和控件尺寸。",
+          "evidence": [
+            "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+          ],
+          "impactScore": 4,
+          "confidence": 0.78,
+          "suggestedFix": "按区域 diff 调整布局、字号、颜色、间距和关键控件尺寸，优先修复低分区域。",
+          "artifactLinks": [
+            "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+          ],
+          "status": "new",
+          "priorityScore": 7.5
+        },
+        {
+          "id": "google-search-PROJECT_BASELINE_SOURCE-1",
+          "code": "PROJECT_BASELINE_SOURCE",
+          "dimension": "visual",
+          "severity": "info",
+          "pageId": "google-search",
+          "title": "PROJECT_BASELINE_SOURCE",
+          "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/initial/original-dom.json",
+          "evidence": [
+            "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+          ],
+          "impactScore": 1,
+          "confidence": 0.9,
+          "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+          "artifactLinks": [
+            "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+          ],
+          "status": "new",
+          "priorityScore": 1.1
+        },
+        {
+          "id": "google-search-PROJECT_BASELINE_SOURCE-2",
+          "code": "PROJECT_BASELINE_SOURCE",
+          "dimension": "visual",
+          "severity": "info",
+          "pageId": "google-search",
+          "title": "PROJECT_BASELINE_SOURCE",
+          "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/results/original-dom.json",
+          "evidence": [
+            "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+          ],
+          "impactScore": 1,
+          "confidence": 0.9,
+          "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+          "artifactLinks": [
+            "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+          ],
+          "status": "new",
+          "priorityScore": 1.1
+        },
+        {
+          "id": "google-search-PROJECT_BASELINE_SOURCE-3",
+          "code": "PROJECT_BASELINE_SOURCE",
+          "dimension": "visual",
+          "severity": "info",
+          "pageId": "google-search",
+          "title": "PROJECT_BASELINE_SOURCE",
+          "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/page-2/original-dom.json",
+          "evidence": [
+            "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+          ],
+          "impactScore": 1,
+          "confidence": 0.9,
+          "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+          "artifactLinks": [
+            "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+            "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+          ],
+          "status": "new",
+          "priorityScore": 1.1
+        }
+      ],
+      "artifacts": {
+        "captures": {
+          "original": "projects/google-search/evaluation/latest/captures/google-search-source.json",
+          "replica": "projects/google-search/evaluation/latest/captures/google-search-source.json"
+        },
+        "visualDiffs": [
+          "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+          "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+          "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png"
+        ],
+        "regionDiffs": [
+          "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+          "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+          "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+          "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+          "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+        ]
+      }
+    }
+  ],
+  "issues": [
+    {
+      "id": "google-search-LOW_VISUAL_SCORE-4",
+      "code": "LOW_VISUAL_SCORE",
+      "dimension": "visual",
+      "severity": "warning",
+      "pageId": "google-search",
+      "title": "视觉一致性偏低",
+      "description": "视觉一致性偏低：请优先查看当前 project/evaluation/latest/assets 下对应状态的视觉差异图，修复区域布局、字体字号、间距、颜色和控件尺寸。",
+      "evidence": [
+        "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+      ],
+      "impactScore": 4,
+      "confidence": 0.78,
+      "suggestedFix": "按区域 diff 调整布局、字号、颜色、间距和关键控件尺寸，优先修复低分区域。",
+      "artifactLinks": [
+        "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+      ],
+      "status": "new",
+      "priorityScore": 7.5
+    },
+    {
+      "id": "google-search-PROJECT_BASELINE_SOURCE-1",
+      "code": "PROJECT_BASELINE_SOURCE",
+      "dimension": "visual",
+      "severity": "info",
+      "pageId": "google-search",
+      "title": "PROJECT_BASELINE_SOURCE",
+      "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/initial/original-dom.json",
+      "evidence": [
+        "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+      ],
+      "impactScore": 1,
+      "confidence": 0.9,
+      "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+      "artifactLinks": [
+        "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+      ],
+      "status": "new",
+      "priorityScore": 1.1
+    },
+    {
+      "id": "google-search-PROJECT_BASELINE_SOURCE-2",
+      "code": "PROJECT_BASELINE_SOURCE",
+      "dimension": "visual",
+      "severity": "info",
+      "pageId": "google-search",
+      "title": "PROJECT_BASELINE_SOURCE",
+      "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/results/original-dom.json",
+      "evidence": [
+        "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+      ],
+      "impactScore": 1,
+      "confidence": 0.9,
+      "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+      "artifactLinks": [
+        "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+      ],
+      "status": "new",
+      "priorityScore": 1.1
+    },
+    {
+      "id": "google-search-PROJECT_BASELINE_SOURCE-3",
+      "code": "PROJECT_BASELINE_SOURCE",
+      "dimension": "visual",
+      "severity": "info",
+      "pageId": "google-search",
+      "title": "PROJECT_BASELINE_SOURCE",
+      "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/google-search/baselines/page-2/original-dom.json",
+      "evidence": [
+        "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+      ],
+      "impactScore": 1,
+      "confidence": 0.9,
+      "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+      "artifactLinks": [
+        "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+      ],
+      "status": "new",
+      "priorityScore": 1.1
+    }
+  ],
+  "artifacts": {
+    "byDimension": {
+      "functionality": [
+        "projects/google-search/evaluation/latest/captures/google-search-source.json"
+      ],
+      "interaction": [],
+      "visual": [
+        "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+      ],
+      "structure": [
+        "projects/google-search/evaluation/latest/captures/google-search-source.json"
+      ],
+      "content": [
+        "projects/google-search/evaluation/latest/captures/google-search-source.json"
+      ],
+      "engineering": [
+        "summary.json",
+        "details.json",
+        "artifacts-index.json",
+        "report.md",
+        "index.html"
+      ]
+    },
+    "byPage": {
+      "google-search": [
+        "projects/google-search/evaluation/latest/captures/google-search-source.json",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+        "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+      ]
+    },
+    "all": [
+      "projects/google-search/evaluation/latest/captures/google-search-source.json",
+      "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png",
+      "summary.json",
+      "details.json",
+      "artifacts-index.json",
+      "report.md",
+      "index.html"
+    ]
+  },
+  "history": {
+    "status": "unavailable",
+    "message": "当前版本尚未接入历史归档对比；报告保留六维历史对比入口。"
+  }
+}

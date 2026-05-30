@@ -1,0 +1,133 @@
+{
+  "stateId": "results",
+  "side": "replica",
+  "viewport": "desktop",
+  "requestedUrl": "http://127.0.0.1:5173/replica/google-search?q=tencent",
+  "finalUrl": "http://127.0.0.1:5173/replica/google-search?q=tencent",
+  "status": 200,
+  "title": "Web Replica Evaluator",
+  "bodyTextSample": "Google\nGoogle Search\nログイン\nAI モード\nすべて\n画像\nニュース\n動画\nショッピング\nショート動画\nもっと見る\nツール\n✦ AI による概要\n\nテンセント（Tencent Holdings）は、1998年に中国・深圳で設立された世界有数のテクノロジー企業です。中国のIT・テック大手「BAT」の一角を占め、メッセージアプリやゲーム、 クラウドサービスなど多岐にわたる事業を展開しています。\n\nコミュニケーション&ソーシャルメディア WeChat や QQ などを運営しています。\nゲーム・エンターテインメント 世界規模のゲーム事業を持ちます。\nもっと見る\n\nSearch results for tencent · About 7,680,000 results (0.39 seconds)\n\nW\nWikipedia\nhttps://ja.wikipedia.org › wiki › テンセント\n⋮\nテンセント\n\nテンセント・ホールディングスは、広東省深圳市に本拠を置く中国の多国籍テクノロジー・コングロマリット。\n\nT\nTencent Japan\nhttps://www.tencentjapan.com\n⋮\nTencent Japan\n\n私たちは、1998年に中国深センで設立し、2004年に香港証券取引所に上場しました。\n\nC\nTencent Cloud\nhttps://www.tencentcloud.com\n⋮\nTencent Cloud\n\nSecure, reliable and high-performance cloud products for games, media, finance and global digital businesses.\n\nT\nTencent Holdings\nhttps://www.tencent.com › en-us\n⋮\nTencent 腾讯\n\nTencent is a world-leading internet and technology company that develops innovative products and services.\n\nR\nReuters\nhttps://www.reuters.com › companies › 0700.HK\n⋮\nTencent Holdings Ltd company profile\n\nLatest company information, business segments, market updates and financial news for Tencent Holdings.\n\nテンセント\n\n企業\n\nテンセント・ホールディングスは、広東省深圳市に本拠を置く中国の多国籍テクノロジー企業です。\n\n1\n2\n3\n4\n5\nNext\n広告\nビジネス\n検索の仕組み\nプライバシー\n規約\n設定",
+  "screenshotPath": "projects/google-search/evaluation/latest/assets/google-search/results/replica-desktop.png",
+  "screenshot": {
+    "width": 1365,
+    "height": 768,
+    "blank": false
+  },
+  "selectors": {
+    "textarea[name='q'], input[name='q']": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "#rso, #search": {
+      "count": 2,
+      "visibleCount": 2
+    },
+    "#botstuff, #footcnt": {
+      "count": 2,
+      "visibleCount": 2
+    }
+  },
+  "domProfile": {
+    "landmarks": {
+      "nav": 2,
+      "main": 1,
+      "form": 1,
+      "button": 19,
+      "link": 20,
+      "input": 1,
+      "list": 1,
+      "listitem": 2
+    },
+    "textSample": "Google\nGoogle Search\nログイン\nAI モード\nすべて\n画像\nニュース\n動画\nショッピング\nショート動画\nもっと見る\nツール\n✦ AI による概要\n\nテンセント（Tencent Holdings）は、1998年に中国・深圳で設立された世界有数のテクノロジー企業です。中国のIT・テック大手「BAT」の一角を占め、メッセージアプリやゲーム、 クラウドサービスなど多岐にわたる事業を展開しています。\n\nコミュニケーション&ソーシャルメディア WeChat や QQ などを運営しています。\nゲーム・エンターテインメント 世界規模のゲーム事業を持ちます。\nもっと見る\n\nSearch results for tencent · About 7,680,000 results (0.39 seconds)\n\nW\nWikipedia\nhttps://ja.wikipedia.org › wiki › テンセント\n⋮\nテンセント\n\nテンセント・ホールディングスは、広東省深圳市に本拠を置く中国の多国籍テクノロジー・コングロマリット。\n\nT\nTencent Japan\nhttps://www.tencentjapan.com\n⋮\nTencent Japan\n\n私たちは、1998年に中国深センで設立し、2004年に香港証券取引所に上場しました。\n\nC\nTencent Cloud\nhttps://www.tencentcloud.com\n⋮\nTencent Cloud\n\nSecure, reliable and high-performance cloud products for games, media, finance and global digital businesses.\n\nT\nTencent Holdings\nhttps://www.tencent.com › en-us\n⋮\nTencent 腾讯\n\nTencent is a world-leading internet and technology company that develops innovative products and services.\n\nR\nReuters\nhttps://www.reuters.com › companies › 0700.HK\n⋮\nTencent Holdings Ltd company profile\n\nLatest company information, business segments, market updates and financial news for Tencent Holdings.\n\nテンセント\n\n企業\n\nテンセント・ホールディングスは、広東省深圳市に本拠を置く中国の多国籍テクノロジー企業です。\n\n1\n2\n3\n4\n5\nNext\n広告\nビジネス\n検索の仕組み\nプライバシー\n規約\n設定",
+    "textNodeLength": 1225,
+    "imageAreaRatio": 0,
+    "canvasAreaRatio": 0,
+    "backgroundImageAreaRatio": 0,
+    "interactiveControlCount": 25,
+    "focusableControlCount": 25,
+    "base64ImageCount": 0,
+    "styles": {
+      "#searchform, form": {
+        "fontSize": "14px",
+        "color": "rgb(31, 31, 31)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderColor": "rgb(31, 31, 31) rgb(31, 31, 31) rgb(218, 220, 224)",
+        "borderRadius": "0px",
+        "width": "1365px",
+        "height": "139px",
+        "x": 0,
+        "y": 0,
+        "display": "block",
+        "fontWeight": "400",
+        "lineHeight": "normal"
+      },
+      "textarea[name='q'], input[name='q']": {
+        "fontSize": "16px",
+        "color": "rgb(32, 33, 36)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(32, 33, 36)",
+        "borderRadius": "0px",
+        "width": "523px",
+        "height": "20px",
+        "x": 289,
+        "y": 38,
+        "display": "block",
+        "fontWeight": "400",
+        "lineHeight": "normal"
+      },
+      "#rso, #search": {
+        "fontSize": "14px",
+        "color": "rgb(31, 31, 31)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(31, 31, 31)",
+        "borderRadius": "0px",
+        "width": "1100px",
+        "height": "1043px",
+        "x": 132,
+        "y": 173,
+        "display": "grid",
+        "fontWeight": "400",
+        "lineHeight": "normal"
+      },
+      "#botstuff, #footcnt": {
+        "fontSize": "14px",
+        "color": "rgb(31, 31, 31)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(31, 31, 31)",
+        "borderRadius": "0px",
+        "width": "960px",
+        "height": "34px",
+        "x": 272,
+        "y": 1250,
+        "display": "flex",
+        "fontWeight": "400",
+        "lineHeight": "normal"
+      }
+    }
+  },
+  "metrics": {
+    "loadTimeMs": 766,
+    "screenshotDiffRatio": 0.04808264652014652,
+    "ssim": 0.526240258103801,
+    "regionScores": [
+      {
+        "stateId": "results",
+        "regionId": "results-header",
+        "selector": "#searchform, form",
+        "weight": 2,
+        "score": 78.38727506075548,
+        "pixelScore": 95.7997557997558,
+        "ssimScore": 62.04967128818678,
+        "bboxScore": 63,
+        "styleScore": 75,
+        "diffRatio": 0.042002442002442006,
+        "ssim": 0.6204967128818678,
+        "originalPath": "projects/google-search/evaluation/latest/assets/google-search/results/regions/original-results-header-desktop.png",
+        "replicaPath": "projects/google-search/evaluation/latest/assets/google-search/results/regions/replica-results-header-desktop.png",
+        "diffPath": "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png"
+      }
+    ],
+    "layoutScore": 39,
+    "styleScore": 84.5
+  }
+}

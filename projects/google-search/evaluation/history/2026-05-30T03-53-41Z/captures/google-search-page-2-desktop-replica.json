@@ -1,0 +1,133 @@
+{
+  "stateId": "page-2",
+  "side": "replica",
+  "viewport": "desktop",
+  "requestedUrl": "http://127.0.0.1:5173/replica/google-search?q=tencent&page=2",
+  "finalUrl": "http://127.0.0.1:5173/replica/google-search?q=tencent&page=2",
+  "status": 200,
+  "title": "Web Replica Evaluator",
+  "bodyTextSample": "Google\nGoogle Search\nログイン\nAI モード\nすべて\n画像\nニュース\n動画\nショッピング\nショート動画\nもっと見る\nツール\n\nSearch results for tencent · About 7,680,000 results (0.39 seconds)\n\nG\nTencent Games\nhttps://www.tencentgames.com\n⋮\nTencent Games\n\nAt Tencent Games we seek to elevate the core experience and spirit of games with original thinking.\n\nn\nnote · Jini\nhttps://note.com › ゲームゼミ\n⋮\nテンセントとは何か--世界No.1ゲーム企業、その未知なる ...\n\nテンセント・ホールディングスは1998年、深圳市で創業された企業。世界中にデータセンターを含む拠点を展開。\n\nP\nPR TIMES\nhttps://prtimes.jp › main › html › searchrlp\n⋮\nTencent Japan合同会社のプレスリリース\n\nPR TIMESで配信されたTencent Japan合同会社のプレスリリース一覧です。\n\nS\nsmartweb.jp\nhttps://www.smartweb.jp › glossary › tencent\n⋮\nTencent(テンセント) - SmartWeb\n\nTencentは、メッセージング、ゲーム、クラウド、フィンテック、AIを統合するデジタルエコシステムを構築した企業です。\n\nN\nNikkei\nhttps://www.nikkei.com › topic › tencent\n⋮\nテンセント 関連ニュース\n\n中国テック大手テンセントの投資、ゲーム、クラウド、AI関連の最新ニュース。\n\nPrevious\n1\n2\n3\n4\n5\nNext\n広告\nビジネス\n検索の仕組み\nプライバシー\n規約\n設定",
+  "screenshotPath": "projects/google-search/evaluation/latest/assets/google-search/page-2/replica-desktop.png",
+  "screenshot": {
+    "width": 1365,
+    "height": 768,
+    "blank": false
+  },
+  "selectors": {
+    "textarea[name='q'], input[name='q']": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "#rso, #search": {
+      "count": 2,
+      "visibleCount": 2
+    },
+    "#botstuff, #footcnt": {
+      "count": 2,
+      "visibleCount": 2
+    }
+  },
+  "domProfile": {
+    "landmarks": {
+      "nav": 2,
+      "main": 1,
+      "form": 1,
+      "button": 19,
+      "link": 20,
+      "input": 1,
+      "list": 0,
+      "listitem": 0
+    },
+    "textSample": "Google\nGoogle Search\nログイン\nAI モード\nすべて\n画像\nニュース\n動画\nショッピング\nショート動画\nもっと見る\nツール\n\nSearch results for tencent · About 7,680,000 results (0.39 seconds)\n\nG\nTencent Games\nhttps://www.tencentgames.com\n⋮\nTencent Games\n\nAt Tencent Games we seek to elevate the core experience and spirit of games with original thinking.\n\nn\nnote · Jini\nhttps://note.com › ゲームゼミ\n⋮\nテンセントとは何か--世界No.1ゲーム企業、その未知なる ...\n\nテンセント・ホールディングスは1998年、深圳市で創業された企業。世界中にデータセンターを含む拠点を展開。\n\nP\nPR TIMES\nhttps://prtimes.jp › main › html › searchrlp\n⋮\nTencent Japan合同会社のプレスリリース\n\nPR TIMESで配信されたTencent Japan合同会社のプレスリリース一覧です。\n\nS\nsmartweb.jp\nhttps://www.smartweb.jp › glossary › tencent\n⋮\nTencent(テンセント) - SmartWeb\n\nTencentは、メッセージング、ゲーム、クラウド、フィンテック、AIを統合するデジタルエコシステムを構築した企業です。\n\nN\nNikkei\nhttps://www.nikkei.com › topic › tencent\n⋮\nテンセント 関連ニュース\n\n中国テック大手テンセントの投資、ゲーム、クラウド、AI関連の最新ニュース。\n\nPrevious\n1\n2\n3\n4\n5\nNext\n広告\nビジネス\n検索の仕組み\nプライバシー\n規約\n設定",
+    "textNodeLength": 873,
+    "imageAreaRatio": 0,
+    "canvasAreaRatio": 0,
+    "backgroundImageAreaRatio": 0,
+    "interactiveControlCount": 25,
+    "focusableControlCount": 25,
+    "base64ImageCount": 0,
+    "styles": {
+      "#searchform, form": {
+        "fontSize": "14px",
+        "color": "rgb(31, 31, 31)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderColor": "rgb(31, 31, 31) rgb(31, 31, 31) rgb(218, 220, 224)",
+        "borderRadius": "0px",
+        "width": "1365px",
+        "height": "139px",
+        "x": 0,
+        "y": 0,
+        "display": "block",
+        "fontWeight": "400",
+        "lineHeight": "normal"
+      },
+      "textarea[name='q'], input[name='q']": {
+        "fontSize": "16px",
+        "color": "rgb(32, 33, 36)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(32, 33, 36)",
+        "borderRadius": "0px",
+        "width": "523px",
+        "height": "20px",
+        "x": 289,
+        "y": 38,
+        "display": "block",
+        "fontWeight": "400",
+        "lineHeight": "normal"
+      },
+      "#rso, #search": {
+        "fontSize": "14px",
+        "color": "rgb(31, 31, 31)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(31, 31, 31)",
+        "borderRadius": "0px",
+        "width": "1100px",
+        "height": "736px",
+        "x": 132,
+        "y": 173,
+        "display": "grid",
+        "fontWeight": "400",
+        "lineHeight": "normal"
+      },
+      "#botstuff, #footcnt": {
+        "fontSize": "14px",
+        "color": "rgb(31, 31, 31)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(31, 31, 31)",
+        "borderRadius": "0px",
+        "width": "960px",
+        "height": "34px",
+        "x": 272,
+        "y": 943,
+        "display": "flex",
+        "fontWeight": "400",
+        "lineHeight": "normal"
+      }
+    }
+  },
+  "metrics": {
+    "loadTimeMs": 773,
+    "screenshotDiffRatio": 0.03236607142857143,
+    "ssim": 0.683131100728951,
+    "regionScores": [
+      {
+        "stateId": "page-2",
+        "regionId": "results-header",
+        "selector": "#searchform, form",
+        "weight": 2,
+        "score": 78.38710295331984,
+        "pixelScore": 95.7997557997558,
+        "ssimScore": 62.049179552656376,
+        "bboxScore": 63,
+        "styleScore": 75,
+        "diffRatio": 0.042002442002442006,
+        "ssim": 0.6204917955265637,
+        "originalPath": "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/original-results-header-desktop.png",
+        "replicaPath": "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/replica-results-header-desktop.png",
+        "diffPath": "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+      }
+    ],
+    "layoutScore": 45,
+    "styleScore": 84.5
+  }
+}

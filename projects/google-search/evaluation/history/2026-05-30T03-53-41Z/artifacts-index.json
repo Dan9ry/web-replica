@@ -1,0 +1,60 @@
+{
+  "byDimension": {
+    "functionality": [
+      "projects/google-search/evaluation/latest/captures/google-search-source.json"
+    ],
+    "interaction": [],
+    "visual": [
+      "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+    ],
+    "structure": [
+      "projects/google-search/evaluation/latest/captures/google-search-source.json"
+    ],
+    "content": [
+      "projects/google-search/evaluation/latest/captures/google-search-source.json"
+    ],
+    "engineering": [
+      "summary.json",
+      "details.json",
+      "artifacts-index.json",
+      "report.md",
+      "index.html"
+    ]
+  },
+  "byPage": {
+    "google-search": [
+      "projects/google-search/evaluation/latest/captures/google-search-source.json",
+      "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+      "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+    ]
+  },
+  "all": [
+    "projects/google-search/evaluation/latest/captures/google-search-source.json",
+    "projects/google-search/evaluation/latest/assets/google-search/initial/diff-desktop.png",
+    "projects/google-search/evaluation/latest/assets/google-search/results/diff-desktop.png",
+    "projects/google-search/evaluation/latest/assets/google-search/page-2/diff-desktop.png",
+    "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png",
+    "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png",
+    "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png",
+    "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png",
+    "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png",
+    "summary.json",
+    "details.json",
+    "artifacts-index.json",
+    "report.md",
+    "index.html"
+  ]
+}

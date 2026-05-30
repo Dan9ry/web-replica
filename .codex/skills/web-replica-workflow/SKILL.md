@@ -116,6 +116,21 @@ Use these templates only as generic checklists. They do not override the current
 - core interactions: focus/blur, typing, clearing, validation, disabled/enabled submit, local failure feedback. Do not call real login/payment/upload APIs unless explicitly requested.
 - sensitive-page capture rule: on payment, login, account, security verification, or similar pages, collect only visible UI evidence. Do not dump full DOM, hidden inputs, cookies, localStorage, sessionStorage, or token fields. If a QR-code/scanning mode covers the form, first use visible buttons, links, icons, or screenshot coordinates to switch to the visible form mode, then capture the visible form.
 
+**QR-only Login Mode Recovery**:
+
+When a login/payment/account page only shows a QR-code panel and the requested username/password/captcha inputs are not visible, do not fail immediately.
+
+Required steps:
+
+1. Take a screenshot of the current visible page state.
+2. Use visual inspection to identify possible login-mode switch entries near the QR-code panel.
+3. Candidate entries are not limited to text links. They may be a top-right folded corner, small icon, QR/account toggle graphic, tab, text link, button, clickable decorative region, or nearby panel affordance.
+4. Try only a limited number of high-confidence candidate clicks.
+5. After each click, re-detect the requested inputs, such as username, password, captcha, phone, email, or submit button.
+6. If the requested form appears, continue Phase 3 capture from that same browser session.
+7. If all candidates fail, record the screenshot path, candidate click points/selectors, result after each attempt, and blocker reason.
+8. Do not fabricate an account/password form from memory or assumptions.
+
 ## Verification Handoff Contract
 
 This contract is mandatory for Phase 3 URL capture whenever the target may show CAPTCHA, security verification, AI verification, login challenge, or access restriction.
@@ -311,6 +326,14 @@ Default: auto-proceed to Phase 3 unless the user asked to pause.
 - save DOM/style summaries and interaction notes,
 - record any blocker in `logs/blockers.md`,
 - pause if access or verification fails.
+
+**Login/payment/account QR-only recovery in Phase 3**:
+
+1. First detect the requested visible inputs.
+2. If inputs are not visible and a QR-code panel dominates the page, run QR-only Login Mode Recovery before marking the state blocked.
+3. Re-detect requested inputs after each candidate switch click.
+4. Only after QR recovery fails may the source state be marked blocked.
+5. Do not proceed to implementation with a guessed form baseline.
 
 **Same-browser verification handoff protocol**:
 

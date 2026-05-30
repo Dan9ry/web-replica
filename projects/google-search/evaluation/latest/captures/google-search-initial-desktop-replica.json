@@ -1,0 +1,179 @@
+{
+  "stateId": "initial",
+  "side": "replica",
+  "viewport": "desktop",
+  "requestedUrl": "http://127.0.0.1:5173/replica/google-search",
+  "finalUrl": "http://127.0.0.1:5173/replica/google-search",
+  "status": 200,
+  "title": "Web Replica Evaluator",
+  "bodyTextSample": "Googleについて\nストア\nGmail\n画像\nログイン\nGoogle\nAI モード\nGoogle 検索\nI'm Feeling Lucky\n\nGoogle 検索は次の言語でもご利用いただけます: English\n\n日本\n広告\nビジネス\n検索の仕組み\nプライバシー\n規約\n設定",
+  "screenshotPath": "projects/google-search/evaluation/latest/assets/google-search/initial/replica-desktop.png",
+  "screenshot": {
+    "width": 1365,
+    "height": 768,
+    "blank": false
+  },
+  "selectors": {
+    "body": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "textarea[name='q'], input[name='q']": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "input[name='btnK'], button[type='submit']": {
+      "count": 1,
+      "visibleCount": 1
+    }
+  },
+  "domProfile": {
+    "landmarks": {
+      "nav": 2,
+      "main": 1,
+      "form": 1,
+      "button": 8,
+      "link": 11,
+      "input": 1,
+      "list": 0,
+      "listitem": 0
+    },
+    "textSample": "Googleについて\nストア\nGmail\n画像\nログイン\nGoogle\nAI モード\nGoogle 検索\nI'm Feeling Lucky\n\nGoogle 検索は次の言語でもご利用いただけます: English\n\n日本\n広告\nビジネス\n検索の仕組み\nプライバシー\n規約\n設定",
+    "textNodeLength": 138,
+    "imageAreaRatio": 0,
+    "canvasAreaRatio": 0,
+    "backgroundImageAreaRatio": 0,
+    "interactiveControlCount": 9,
+    "focusableControlCount": 9,
+    "base64ImageCount": 0,
+    "styles": {
+      "body": {
+        "fontSize": "16px",
+        "color": "rgb(32, 33, 36)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(32, 33, 36)",
+        "borderRadius": "0px",
+        "width": "1365px",
+        "height": "768px",
+        "x": 0,
+        "y": 0,
+        "display": "block",
+        "fontWeight": "400",
+        "lineHeight": "normal"
+      },
+      "textarea[name='q'], input[name='q']": {
+        "fontSize": "16px",
+        "color": "rgb(32, 33, 36)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(32, 33, 36)",
+        "borderRadius": "0px",
+        "width": "430px",
+        "height": "20px",
+        "x": 389,
+        "y": 306,
+        "display": "block",
+        "fontWeight": "400",
+        "lineHeight": "normal"
+      },
+      "input[name='btnK'], button[type='submit']": {
+        "fontSize": "14px",
+        "color": "rgb(60, 64, 67)",
+        "backgroundColor": "rgb(248, 249, 250)",
+        "borderColor": "rgb(248, 249, 250)",
+        "borderRadius": "6px",
+        "width": "111px",
+        "height": "36px",
+        "x": 550,
+        "y": 371,
+        "display": "block",
+        "fontWeight": "400",
+        "lineHeight": "normal"
+      },
+      "#fbar, footer, [role='contentinfo']": {
+        "fontSize": "14px",
+        "color": "rgb(31, 31, 31)",
+        "backgroundColor": "rgb(242, 242, 242)",
+        "borderColor": "rgb(31, 31, 31)",
+        "borderRadius": "0px",
+        "width": "1365px",
+        "height": "102px",
+        "x": 0,
+        "y": 666,
+        "display": "block",
+        "fontWeight": "400",
+        "lineHeight": "normal"
+      },
+      "form": {
+        "fontSize": "14px",
+        "color": "rgb(31, 31, 31)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(31, 31, 31)",
+        "borderRadius": "0px",
+        "width": "690px",
+        "height": "117px",
+        "x": 338,
+        "y": 290,
+        "display": "flex",
+        "fontWeight": "400",
+        "lineHeight": "normal"
+      }
+    }
+  },
+  "metrics": {
+    "loadTimeMs": 791,
+    "screenshotDiffRatio": 0.008181662087912088,
+    "ssim": 0.9249183472899485,
+    "regionScores": [
+      {
+        "stateId": "initial",
+        "regionId": "search-shell",
+        "selector": "body",
+        "weight": 2,
+        "score": 93.82487833819009,
+        "pixelScore": 99.18183379120879,
+        "ssimScore": 92.49183472899485,
+        "bboxScore": 100,
+        "styleScore": 60.26138721247417,
+        "diffRatio": 0.008181662087912088,
+        "ssim": 0.9249183472899485,
+        "originalPath": "projects/google-search/evaluation/latest/assets/google-search/initial/regions/original-search-shell-desktop.png",
+        "replicaPath": "projects/google-search/evaluation/latest/assets/google-search/initial/regions/replica-search-shell-desktop.png",
+        "diffPath": "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png"
+      },
+      {
+        "stateId": "initial",
+        "regionId": "search-form",
+        "selector": "form",
+        "weight": 3,
+        "score": 83.21656785387614,
+        "pixelScore": 98.10850984764028,
+        "ssimScore": 77.10782406410864,
+        "bboxScore": 34,
+        "styleScore": 100,
+        "diffRatio": 0.018914901523597177,
+        "ssim": 0.7710782406410864,
+        "originalPath": "projects/google-search/evaluation/latest/assets/google-search/initial/regions/original-search-form-desktop.png",
+        "replicaPath": "projects/google-search/evaluation/latest/assets/google-search/initial/regions/replica-search-form-desktop.png",
+        "diffPath": "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png"
+      },
+      {
+        "stateId": "initial",
+        "regionId": "footer",
+        "selector": "#fbar, footer, [role='contentinfo']",
+        "weight": 1,
+        "score": 93.7484645008476,
+        "pixelScore": 98.80629174746822,
+        "ssimScore": 84.2559828429446,
+        "bboxScore": 100,
+        "styleScore": 97.4504902432036,
+        "diffRatio": 0.011937082525317819,
+        "ssim": 0.842559828429446,
+        "originalPath": "projects/google-search/evaluation/latest/assets/google-search/initial/regions/original-footer-desktop.png",
+        "replicaPath": "projects/google-search/evaluation/latest/assets/google-search/initial/regions/replica-footer-desktop.png",
+        "diffPath": "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png"
+      }
+    ],
+    "layoutScore": 67,
+    "styleScore": 65.67796936391944
+  }
+}

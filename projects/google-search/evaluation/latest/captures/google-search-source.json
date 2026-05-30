@@ -1,0 +1,906 @@
+{
+  "original": [
+    {
+      "stateId": "initial",
+      "side": "original",
+      "viewport": "desktop",
+      "requestedUrl": "https://www.google.com/",
+      "finalUrl": "https://www.google.com/",
+      "status": 200,
+      "title": "Google",
+      "bodyTextSample": "Googleについて\nストア\nGmail画像\nログイン\nAI モード\n \nGoogle 検索は次の言語でもご利用いただけます: English\n日本\n広告\nビジネス\n検索の仕組み\nプライバシー\n規約\n設定",
+      "screenshotPath": "projects/google-search/evaluation/latest/assets/google-search/initial/original-desktop.png",
+      "screenshot": {
+        "width": 1365,
+        "height": 768,
+        "blank": false
+      },
+      "selectors": {
+        "body": {
+          "count": 1,
+          "visibleCount": 1
+        },
+        "textarea[name='q'], input[name='q']": {
+          "count": 1,
+          "visibleCount": 1
+        },
+        "input[name='btnK'], button[type='submit']": {
+          "count": 3,
+          "visibleCount": 1
+        },
+        "#fbar, footer, [role='contentinfo']": {
+          "count": 1,
+          "visibleCount": 1
+        },
+        "form": {
+          "count": 1,
+          "visibleCount": 1
+        }
+      },
+      "domProfile": {
+        "landmarks": {
+          "nav": 1,
+          "main": 0,
+          "form": 1,
+          "button": 27,
+          "link": 20,
+          "input": 12,
+          "list": 4,
+          "listitem": 8
+        },
+        "textSample": "Googleについて\nストア\nGmail画像\nログイン\nAI モード\n \nGoogle 検索は次の言語でもご利用いただけます: English\n日本\n広告\nビジネス\n検索の仕組み\nプライバシー\n規約\n設定",
+        "textNodeLength": 102,
+        "imageAreaRatio": 0.0005494505494505495,
+        "canvasAreaRatio": 0,
+        "backgroundImageAreaRatio": 1,
+        "interactiveControlCount": 53,
+        "focusableControlCount": 20,
+        "base64ImageCount": 0,
+        "styles": {
+          "body": {
+            "fontSize": "14px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgb(255, 255, 255)",
+            "borderColor": "rgb(31, 31, 31)",
+            "borderRadius": "0px",
+            "width": "1365px",
+            "height": "768px",
+            "x": 0,
+            "y": 0,
+            "display": "block",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "textarea[name='q'], input[name='q']": {
+            "fontSize": "16px",
+            "color": "rgba(0, 0, 0, 0.87)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgba(0, 0, 0, 0.87) rgba(0, 0, 0, 0.87) rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "width": "436px",
+            "height": "50px",
+            "x": 387,
+            "y": 295,
+            "display": "flex",
+            "fontWeight": "400",
+            "lineHeight": "22px"
+          },
+          "input[name='btnK'], button[type='submit']": {
+            "fontSize": "14px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgb(11, 80, 208)",
+            "borderColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "9999px",
+            "width": "0px",
+            "height": "0px",
+            "x": 0,
+            "y": 0,
+            "display": "none",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "#fbar, footer, [role='contentinfo']": {
+            "fontSize": "14px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgb(243, 245, 246)",
+            "borderColor": "rgb(31, 31, 31)",
+            "borderRadius": "0px",
+            "width": "1365px",
+            "height": "105px",
+            "x": 0,
+            "y": 664,
+            "display": "block",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "form": {
+            "fontSize": "14px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(31, 31, 31)",
+            "borderRadius": "0px",
+            "width": "1173px",
+            "height": "140px",
+            "x": 96,
+            "y": 294,
+            "display": "block",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          }
+        }
+      },
+      "metrics": {
+        "loadTimeMs": 3962
+      },
+      "manualVerified": false,
+      "fromProjectBaseline": true,
+      "baselinePath": "projects/google-search/baselines/initial/original-dom.json",
+      "fallbackFromBaseline": false
+    },
+    {
+      "stateId": "results",
+      "side": "original",
+      "viewport": "desktop",
+      "requestedUrl": "https://www.google.com/search?q=tencent",
+      "finalUrl": "https://www.google.com/search?q=tencent&sei=91waar7EDd6C9u8Pm7bM6Ag",
+      "status": 200,
+      "title": "tencent - Google 検索",
+      "bodyTextSample": "メイン コンテンツにスキップ\nユーザー補助ヘルプ\nログイン\nAI モード\nすべて\n画像\nニュース\n動画\nショッピング\nショート動画\nもっと見る\nツール\n検索結果\nLooking for results in English?\nChange to English\n引き続き日本語を使用\n言語設定\nAI による概要\nテンセント（騰訊控股：Tencent Holdings）は、1998年に中国・深センで設立された世界有数のテクノロジー・コングロマリット企業です。中国のIT・テック大手「BAT」の一角を占め、メッセージアプリやゲーム、クラウドサービスなど多岐にわたる事業を展開しています。 \nWikipedia\n +3\n事業の主な柱は以下の通りです。\nコミュニケーション＆ソーシャルメディア\n月間アクティブユーザー数が10億人を超える中国最大のメッセージアプリ「微信（WeChat）」や「QQ」などを運営しています。 \nTencent 腾讯\n +1\nゲーム・エンターテインメント\n世界最大の売上高を誇るゲームパブリッシャーであり、傘下に「Riot Games（リーグ・オブ・レジェンド等）」や「Supercell」を抱えています。また、「Epic Games」などの主要企業の株式も保有しています。 \nビジネス+IT\n +1\nFinTech・決済サービス\n「微信支付（WeChat Pay）」を通じて、世界中でモバイル決済や金融サービスを提供しています。 \nTencent 腾讯\n +1\nクラウド・エンタープライズAI\n法人向けに「Tencent Cloud」を展開し、生成AIツールやビッグデータ解析などのエンタープライズ向けソリューションをグローバルに提供しています。 \nTencent 腾讯\n +1\n詳細な事業内容や企業情報は、テンセント（Tencent）公式サイト から確認できます。また、日本における事業展開については Tencent Japan公式サイト をご覧ください。\n7 件のサイト\nテンセント - Wikipedia\nテンセント. 中国のテクノロジーコングロマリット持株会社. 言語; 読み込み中… PDFをダウンロード; ウォッチリスト...\nWikipedia\nTencent Japan\n私たちは、1998年に中国深センで設立し、2004年に香港証券取引所に上場しました。香港ハンセン株価指数の構成銘柄の一つ...\nTencent Japan\nTencent 腾讯\nTencent Announces 2026 First Quarter Results. ... Making Vid...\nTencent 腾讯\nTencent | LinkedIn\nTencent is a world-leading internet and technology company t...\nLinkedIn\nすべて表示\nもっと見る\nウェブ検索結果\nテンセント\n\nWikipedia\nhttps://ja.wikipedia.org › wiki › テンセント\nテンセント・ホールディングス（簡: 腾讯控股有限公司、英語: Tencent Holdings Ltd.）は、広東省深圳市に本拠を置く中国の多国籍テクノロジー・コングロマリット。\nTencent Japan\n\nTencent Japan\nhttps://tencentjapan.com\n活力を与え、成長を支える会社。 専門的な研修とキャリア開発システムを通じて 組織や個人の活力を刺激し、 従業員が会社とともに成長するのを支援します。\nTencent 腾讯\n\nTencent 腾讯\nhttps://www.tencent.com\n·\nこのページを訳す\n2026/03/25 — 腾讯于1998年11月成立，是一家互联网公司，通过技术丰富互联网用户的生活，助力企业数字化升级。我们的使命是“用户为本科技向善”。\n関連する質問\nテンセントと任天堂の関係は？\nTencentは何の会社ですか？\nTencentの代表作は？\nテンセントが規制された理由は何ですか？\n画像\nBehind the scenes at Tencent | GamesIndustry.biz\nGamesIndustry.biz\nTencent - Wikipedia\nWikipedia\nTencent 腾讯| Shenzhen\nFacebook\nその他の画像を表示\nウェブ検索結果\n会社概要\n\nTencent Japan\nhttps://tencentjapan.com › about-us\n私たちは、1998年に中国深センで設立し、2004年に香港証券取引所に上場しました。香港ハンセン株価指数の構成銘柄の一つであります。私たちは常にイノベーションに投資 ...\nTencent Cloud\n\nTencent Cloud\nhttps://www.tencentcloud.com › ...\nTencent Cloudは、私たちが東南アジアで1000万人以上のユーザーにサービスを提供し、ユーザー間のエコシステムを構築し電子書籍ストアとUGCプラットフォームの急速な成長を ...\nアクセス\n\nTencent Japan\nhttps://tencentjapan.com › access\n私たちは、1998年に中国深センで設立し、2004年に香港証券取引所に上場しました。香港ハンセン株価指数の構成銘柄の一つであります。私たちは常にイノベーションに投資 ...\nTencent Japan｜働きがいのある会社 ...\n\nGreat Place To Work® Institute Japan\nhttps://hatarakigai.info › ranking › certified_companies\nTencent Japan, established in 2011, operates from two offices in Tokyo's Toranomon area—Business Tower and Mori Tower—and opened a new office in Osaka in 2024.\nTencent\n\nLinkedIn · Tencent\n131.3万 人以上のフォロワー\nTencent is a world-leading internet and technology company that develops innovative products and services to improve the quality of life of ...\n騰訊控股[ﾃﾝｾﾝﾄ･ﾎｰﾙﾃﾞｨﾝｸﾞｽ] Stock Price Quote - Hong Kong\n\nBloomberg\nhttps://www.bloomberg.com › quote\n以下時点： 2026-05-29 17:08 JST . 1日. 1ヶ月. 6ヶ月. 年初来. 1年. 5年. 前日終値. 425.00 HKD. 427.20 ...\n他の人はこちらも検索\nテンセント やばい\nテンセント ゲーム一覧\nTencent 日本\nTencent 株価\nTencent アプリ\nTencent 年収\nTencent 何 の 会社\nTencent AI\nページの操作\n\t\n1\t\n2\n\t\n3\n\t\n4\n\t\n5\n\t\n6\n\t\n7\n\t\n8\n\t\n9\n\t\n10\n\t\n次へ\nテンセント\n企業\nテンセント・ホールディングスは、広東省深圳市に本拠を置く中国の多国籍テクノロジー・コングロマリット。中国三大ビッグ・テック企業、BATの一社であり、インターネット関連の子会社を通してソーシャル・ネットワーキング・サービス、インスタントメッセンジャー、Webホスティングサービスなどを提供している。\n出典: \nウィキペディア\n創設者\n馬化騰、 許晨曄、 曽李青、 張志東、 陳一丹\n本部所在地\n中華人民共和国 深セン\n社長\nMartin Lau\n設立\n1998年11月11日, ケイマン諸島\n他の人はこちらも検索\n百度\nアリババグループ\nByteDance\n網易\nもっと見る\nフッターのリンク\n日本\n渋谷区、東京都 - ソース: あなたの IP アドレス\n - 現在地を更新\nヘルプフィードバックを送信プライバシー規約",
+      "screenshotPath": "projects/google-search/evaluation/latest/assets/google-search/results/original-desktop.png",
+      "screenshot": {
+        "width": 1365,
+        "height": 768,
+        "blank": false
+      },
+      "selectors": {
+        "textarea[name='q'], input[name='q']": {
+          "count": 2,
+          "visibleCount": 1
+        },
+        "#rso, #search": {
+          "count": 2,
+          "visibleCount": 2
+        },
+        "#rso .g, #search .g": {
+          "count": 0,
+          "visibleCount": 0
+        },
+        "#botstuff, #footcnt": {
+          "count": 2,
+          "visibleCount": 2
+        },
+        "#searchform, form": {
+          "count": 3,
+          "visibleCount": 2
+        },
+        "body": {
+          "count": 1,
+          "visibleCount": 1
+        },
+        "form": {
+          "count": 2,
+          "visibleCount": 1
+        }
+      },
+      "domProfile": {
+        "landmarks": {
+          "nav": 3,
+          "main": 1,
+          "form": 2,
+          "button": 120,
+          "link": 138,
+          "input": 18,
+          "list": 13,
+          "listitem": 43
+        },
+        "textSample": "メイン コンテンツにスキップ\nユーザー補助ヘルプ\nログイン\nAI モード\nすべて\n画像\nニュース\n動画\nショッピング\nショート動画\nもっと見る\nツール\n検索結果\nLooking for results in English?\nChange to English\n引き続き日本語を使用\n言語設定\nAI による概要\nテンセント（騰訊控股：Tencent Holdings）は、1998年に中国・深センで設立された世界有数のテクノロジー・コングロマリット企業です。中国のIT・テック大手「BAT」の一角を占め、メッセージアプリやゲーム、クラウドサービスなど多岐にわたる事業を展開しています。 \nWikipedia\n +3\n事業の主な柱は以下の通りです。\nコミュニケーション＆ソーシャルメディア\n月間アクティブユーザー数が10億人を超える中国最大のメッセージアプリ「微信（WeChat）」や「QQ」などを運営しています。 \nTencent 腾讯\n +1\nゲーム・エンターテインメント\n世界最大の売上高を誇るゲームパブリッシャーであり、傘下に「Riot Games（リーグ・オブ・レジェンド等）」や「Supercell」を抱えています。また、「Epic Games」などの主要企業の株式も保有しています。 \nビジネス+IT\n +1\nFinTech・決済サービス\n「微信支付（WeChat Pay）」を通じて、世界中でモバイル決済や金融サービスを提供しています。 \nTencent 腾讯\n +1\nクラウド・エンタープライズAI\n法人向けに「Tencent Cloud」を展開し、生成AIツールやビッグデータ解析などのエンタープライズ向けソリューションをグローバルに提供しています。 \nTencent 腾讯\n +1\n詳細な事業内容や企業情報は、テンセント（Tencent）公式サイト から確認できます。また、日本における事業展開については Tencent Japan公式サイト をご覧ください。\n7 件のサイト\nテンセント - Wikipedia\nテンセント. 中国のテクノロジーコングロマリット持株会社. 言語; 読み込み中… PDFをダウンロード; ウォッチリスト...\nWikipedia\nTencent Japan\n私たちは、1998年に中国深センで設立し、2004年に香港証券取引所に上場しました。香港ハンセン株価指数の構成銘柄の一つ...\nTencent Japan\nTencent 腾讯\nTencent Announces 2026 First Quarter Results. ... Making Vid...\nTencent 腾讯\nTencent | LinkedIn\nTencent is a world-leading internet and technology company t...\nLinkedIn\nすべて表示\nもっと見る\nウェブ検索結果\nテンセント\n\nWikipedia\nhttps://ja.wikipedia.org › wiki › テンセント\nテンセント・ホールディングス（簡: 腾讯控股有限公司、英語: Tencent Holdings Ltd.）は、広東省深圳市に本拠を置く中国の多国籍テクノロジー・コングロマリット。\nTencent Japan\n\nTencent Japan\nhttps://tencentjapan.com\n活力を与え、成長を支える会社。 専門的な研修とキャリア開発システムを通じて 組織や個人の活力を刺激し、 従業員が会社とともに成長するのを支援します。\nTencent 腾讯\n\nTencent 腾讯\nhttps://www.tencent.com\n·\nこのページを訳す\n2026/03/25 — 腾讯于1998年11月成立，是一家互联网公司，通过技术丰富互联网用户的生活，助力企业数字化升级。我们的使命是“用户为本科技向善”。\n関連する質問\nテンセントと任天堂の関係は？\nTencentは何の会社ですか？\nTencentの代表作は？\nテンセントが規制された理由は何ですか？\n画像\nBehind the scenes at Tencent | GamesIndustry.biz\nGamesIndustry.biz\nTencent - Wikipedia\nWikipedia\nTencent 腾讯| Shenzhen\nFacebook\nその他の画像を表示\nウェブ検索結果\n会社概要\n\nTencent Japan\nhttps://tencentjapan.com › about-us\n私たちは、1998年に中国深センで設立し、2004年に香港証券取引所に上場しました。香港ハンセン株価指数の構成銘柄の一つであります。私たちは常にイノベーションに投資 ...\nTencent Cloud\n\nTencent Cloud\nhttps://www.tencentcloud.com › ...\nTencent Cloudは、私たちが東南アジアで1000万人以上のユーザーにサービスを提供し、ユーザー間のエコシステムを構築し電子書籍ストアとUGCプラットフォームの急速な成長を ...\nアクセス\n\nTencent Japan\nhttps://tencentjapan.com › access\n私たちは、1998年に中国深センで設立し、2004年に香港証券取引所に上場しました。香港ハンセン株価指数の構成銘柄の一つであります。私たちは常にイノベーションに投資 ...\nTencent Japan｜働きがいのある会社 ...\n\nGreat Place To Work® Institute Japan\nhttps://hatarakigai.info › ranking › certified_companies\nTencent Japan, established in 2011, operates from two offices in Tokyo's Toranomon area—Business Tower and Mori Tower—and opened a new office in Osaka in 2024.\nTencent\n\nLinkedIn · Tencent\n131.3万 人以上のフォロワー\nTencent is a world-leading internet and technology company that develops innovative products and services to improve the quality of life of ...\n騰訊控股[ﾃﾝｾﾝﾄ･ﾎｰﾙﾃﾞｨﾝｸﾞｽ] Stock Price Quote - Hong Kong\n\nBloomberg\nhttps://www.bloomberg.com › quote\n以下時点： 2026-05-29 17:08 JST . 1日. 1ヶ月. 6ヶ月. 年初来. 1年. 5年. 前日終値. 425.00 HKD. 427.20 ...\n他の人はこちらも検索\nテンセント やばい\nテンセント ゲーム一覧\nTencent 日本\nTencent 株価\nTencent アプリ\nTencent 年収\nTencent 何 の 会社\nTencent AI\nページの操作\n\t\n1\t\n2\n\t\n3\n\t\n4\n\t\n5\n\t\n6\n\t\n7\n\t\n8\n\t\n9\n\t\n10\n\t\n次へ\nテンセント\n企業\nテンセント・ホールディングスは、広東省深圳市に本拠を置く中国の多国籍テクノロジー・コングロマリット。中国三大ビッグ・テック企業、BATの一社であり、インターネット関連の子会社を通してソーシャル・ネットワーキング・サービス、インスタントメッセンジャー、Webホスティングサービスなどを提供している。\n出典: \nウィキペディア\n創設者\n馬化騰、 許晨曄、 曽李青、 張志東、 陳一丹\n本部所在地\n中華人民共和国 深セン\n社長\nMartin Lau\n設立\n1998年11月11日, ケイマン諸島\n他の人はこちらも検索\n百度\nアリババグループ\nByteDance\n網易\nもっと見る\nフッターのリンク\n日本\n渋谷区、東京都 - ソース: あなたの IP アドレス\n - 現在地を更新\nヘルプフィードバックを送信プライバシー規約",
+        "textNodeLength": 3486,
+        "imageAreaRatio": 0.032214310754349815,
+        "canvasAreaRatio": 0,
+        "backgroundImageAreaRatio": 0.1990465548448947,
+        "interactiveControlCount": 261,
+        "focusableControlCount": 115,
+        "base64ImageCount": 60,
+        "styles": {
+          "textarea[name='q'], input[name='q']": {
+            "fontSize": "16px",
+            "color": "rgba(0, 0, 0, 0.87)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgba(0, 0, 0, 0.87) rgba(0, 0, 0, 0.87) rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "width": "522px",
+            "height": "50px",
+            "x": 290,
+            "y": 27,
+            "display": "flex",
+            "fontWeight": "400",
+            "lineHeight": "22px"
+          },
+          "#rso, #search": {
+            "fontSize": "16px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(31, 31, 31)",
+            "borderRadius": "0px",
+            "width": "652px",
+            "height": "1977px",
+            "x": 133,
+            "y": 590,
+            "display": "block",
+            "fontWeight": "400",
+            "lineHeight": "25.6px"
+          },
+          "#botstuff, #footcnt": {
+            "fontSize": "14px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(31, 31, 31)",
+            "borderRadius": "0px",
+            "width": "652px",
+            "height": "379px",
+            "x": 133,
+            "y": 2597,
+            "display": "block",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "#searchform, form": {
+            "fontSize": "14px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(31, 31, 31)",
+            "borderRadius": "0px",
+            "width": "1365px",
+            "height": "72px",
+            "x": 0,
+            "y": 16,
+            "display": "grid",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "body": {
+            "fontSize": "14px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgb(255, 255, 255)",
+            "borderColor": "rgb(31, 31, 31)",
+            "borderRadius": "0px",
+            "width": "1365px",
+            "height": "3112px",
+            "x": 0,
+            "y": 0,
+            "display": "block",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "form": {
+            "fontSize": "14px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(31, 31, 31)",
+            "borderRadius": "0px",
+            "width": "861px",
+            "height": "52px",
+            "x": 133,
+            "y": 26,
+            "display": "block",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          }
+        }
+      },
+      "metrics": {
+        "loadTimeMs": 6048
+      },
+      "manualVerified": false,
+      "fromProjectBaseline": true,
+      "baselinePath": "projects/google-search/baselines/results/original-dom.json",
+      "fallbackFromBaseline": false
+    },
+    {
+      "stateId": "page-2",
+      "side": "original",
+      "viewport": "desktop",
+      "requestedUrl": "https://www.google.com/search?q=tencent&start=10",
+      "finalUrl": "https://www.google.com/search?q=tencent&start=10",
+      "status": 200,
+      "title": "tencent - Google 検索",
+      "bodyTextSample": "メイン コンテンツにスキップ\nユーザー補助ヘルプ\nログイン\nAI モード\nすべて\n画像\nニュース\n動画\nショッピング\nショート動画\nもっと見る\nツール\n検索結果\nWeb results\nTencent Games\n\nTencent Games\nhttps://www.tencentgames.com\n·\nこのページを訳す\nAt Tencent Games we seek to elevate the core experience and spirit of games, with happy genes and unchanging original mind, to become something even more ...\nテンセントとは何か──世界No.1ゲーム企業、その未知なる ...\n\nnote · Jini | ゲームゼミ\n110 件以上の高評価 · 1 年前\nテンセント・ホールディングス（騰訊控股有限公司）は1998年、深圳市で馬化騰（ポニー・マー）らによって創業された企業だ。世界中にデータセンターを含む拠点 ...\n￥1,980\nTencent Japan合同会社のプレスリリース\n\nPR TIMES\nhttps://prtimes.jp › main › html › searchrlp › company_id\nPR TIMESで配信されたTencent Japan合同会社のプレスリリース一覧です（最新配信日：2025年9月24日 17時10分）。Tencent Japan合同会社.\nTencent(テンセント) - SmartWeb\n\nsmartweb.jp\nhttps://www.smartweb.jp › glossary › tencent\nTencentは、メッセージング、ゲーム、クラウド、フィンテック、AIを統合するデジタルエコシステムを構築した中国テクノロジー企業です。 1998年に設立され、最初はQQという ...\nウェビナー · 日本語\n\nTencent Cloud\nhttps://intl.cloud.tencent.com › webinar › detail\nTencent is a leading influencer in industries such as social media, mobile payments, online video, games, music, and more. Leverage Tencent's vast ecosystem ...\nTencent Holdings Limited[騰訊控股有限公司]\n\nAutomotive Industry Portal MarkLines\nhttps://www.marklines.com › sdv › tencent-holdings\n業容. -本社は中国広東省深圳市. -インターネットベースの技術と文化の会社であり、技術を駆使してインターネットユーザーの生産と生活を支援する。\nテンセント(00700) 中国株銘柄詳細\n\n内藤証券\nhttps://naito-sec.co.jp › chinap › price_index\n中国のインターネットサービス大手 · 株価情報 · チャート · ニュース · 企業情報 · 財務情報 · 配当・CA. 15分遅れ. 取引(5/15 16:09) 456.400( ...\n[Chinese Stocks] Tencent Holdings: Overseas games and ...\n\nYouTube · トウシル [楽天証券]\n視聴回数: 1400 回以上 · 6 か月前\n9:14\nこちらの動画は2025年11月17日(月)に収録しております。 トウシルの記事はこちら決算レポート：テンセント・ホールディングス（海外ゲームと広告事業が ...\nこの動画の 6 件の重要なパート\nTencent Cloud Japan\n\nLinkedIn · Tencent Cloud Japan\n210 人以上のフォロワー\nTencent Cloudは、人間的なぬくもりを適度に持った高性能なテクノロジーで、ビジネス用に最適化されたソリューションの構築と拡大に役立ちます。\nTencent Japan合同会社の「会社紹介」 OpenWork\n\nOpenWork\nhttps://www.openwork.jp › ... › 採用情報\n中国で設立されたインターネットサービス企業。 ゲーム開発やオンラインゲーム運営などを行う「tencent Games」や、決済サービス「WeChat Payment」などを手掛ける。\n他の人はこちらも検索\nテンセント やばい\nテンセント ゲーム一覧\nTencent 日本\nTencent 株価\nTencent アプリ\nTencent 年収\nTencent 何 の 会社\nTencent AI\nページの操作\n前へ\n\t\n1\n\t\n2\t\n3\n\t\n4\n\t\n5\n\t\n6\n\t\n7\n\t\n8\n\t\n9\n\t\n10\n\t\n次へ\nフッターのリンク\n日本\n渋谷区、東京都 - ソース: あなたの IP アドレス\n - 現在地を更新\nヘルプフィードバックを送信プライバシー規約",
+      "screenshotPath": "projects/google-search/evaluation/latest/assets/google-search/page-2/original-desktop.png",
+      "screenshot": {
+        "width": 1365,
+        "height": 768,
+        "blank": false
+      },
+      "selectors": {
+        "textarea[name='q'], input[name='q']": {
+          "count": 2,
+          "visibleCount": 1
+        },
+        "#rso, #search": {
+          "count": 2,
+          "visibleCount": 2
+        },
+        "#rso .g, #search .g": {
+          "count": 0,
+          "visibleCount": 0
+        },
+        "#botstuff, #footcnt": {
+          "count": 2,
+          "visibleCount": 2
+        },
+        "#searchform, form": {
+          "count": 3,
+          "visibleCount": 2
+        },
+        "body": {
+          "count": 1,
+          "visibleCount": 1
+        },
+        "form": {
+          "count": 2,
+          "visibleCount": 1
+        }
+      },
+      "domProfile": {
+        "landmarks": {
+          "nav": 3,
+          "main": 1,
+          "form": 2,
+          "button": 50,
+          "link": 81,
+          "input": 15,
+          "list": 4,
+          "listitem": 23
+        },
+        "textSample": "メイン コンテンツにスキップ\nユーザー補助ヘルプ\nログイン\nAI モード\nすべて\n画像\nニュース\n動画\nショッピング\nショート動画\nもっと見る\nツール\n検索結果\nWeb results\nTencent Games\n\nTencent Games\nhttps://www.tencentgames.com\n·\nこのページを訳す\nAt Tencent Games we seek to elevate the core experience and spirit of games, with happy genes and unchanging original mind, to become something even more ...\nテンセントとは何か──世界No.1ゲーム企業、その未知なる ...\n\nnote · Jini | ゲームゼミ\n110 件以上の高評価 · 1 年前\nテンセント・ホールディングス（騰訊控股有限公司）は1998年、深圳市で馬化騰（ポニー・マー）らによって創業された企業だ。世界中にデータセンターを含む拠点 ...\n￥1,980\nTencent Japan合同会社のプレスリリース\n\nPR TIMES\nhttps://prtimes.jp › main › html › searchrlp › company_id\nPR TIMESで配信されたTencent Japan合同会社のプレスリリース一覧です（最新配信日：2025年9月24日 17時10分）。Tencent Japan合同会社.\nTencent(テンセント) - SmartWeb\n\nsmartweb.jp\nhttps://www.smartweb.jp › glossary › tencent\nTencentは、メッセージング、ゲーム、クラウド、フィンテック、AIを統合するデジタルエコシステムを構築した中国テクノロジー企業です。 1998年に設立され、最初はQQという ...\nウェビナー · 日本語\n\nTencent Cloud\nhttps://intl.cloud.tencent.com › webinar › detail\nTencent is a leading influencer in industries such as social media, mobile payments, online video, games, music, and more. Leverage Tencent's vast ecosystem ...\nTencent Holdings Limited[騰訊控股有限公司]\n\nAutomotive Industry Portal MarkLines\nhttps://www.marklines.com › sdv › tencent-holdings\n業容. -本社は中国広東省深圳市. -インターネットベースの技術と文化の会社であり、技術を駆使してインターネットユーザーの生産と生活を支援する。\nテンセント(00700) 中国株銘柄詳細\n\n内藤証券\nhttps://naito-sec.co.jp › chinap › price_index\n中国のインターネットサービス大手 · 株価情報 · チャート · ニュース · 企業情報 · 財務情報 · 配当・CA. 15分遅れ. 取引(5/15 16:09) 456.400( ...\n[Chinese Stocks] Tencent Holdings: Overseas games and ...\n\nYouTube · トウシル [楽天証券]\n視聴回数: 1400 回以上 · 6 か月前\n9:14\nこちらの動画は2025年11月17日(月)に収録しております。 トウシルの記事はこちら決算レポート：テンセント・ホールディングス（海外ゲームと広告事業が ...\nこの動画の 6 件の重要なパート\nTencent Cloud Japan\n\nLinkedIn · Tencent Cloud Japan\n210 人以上のフォロワー\nTencent Cloudは、人間的なぬくもりを適度に持った高性能なテクノロジーで、ビジネス用に最適化されたソリューションの構築と拡大に役立ちます。\nTencent Japan合同会社の「会社紹介」 OpenWork\n\nOpenWork\nhttps://www.openwork.jp › ... › 採用情報\n中国で設立されたインターネットサービス企業。 ゲーム開発やオンラインゲーム運営などを行う「tencent Games」や、決済サービス「WeChat Payment」などを手掛ける。\n他の人はこちらも検索\nテンセント やばい\nテンセント ゲーム一覧\nTencent 日本\nTencent 株価\nTencent アプリ\nTencent 年収\nTencent 何 の 会社\nTencent AI\nページの操作\n前へ\n\t\n1\n\t\n2\t\n3\n\t\n4\n\t\n5\n\t\n6\n\t\n7\n\t\n8\n\t\n9\n\t\n10\n\t\n次へ\nフッターのリンク\n日本\n渋谷区、東京都 - ソース: あなたの IP アドレス\n - 現在地を更新\nヘルプフィードバックを送信プライバシー規約",
+        "textNodeLength": 2197,
+        "imageAreaRatio": 0.002354242979242979,
+        "canvasAreaRatio": 0,
+        "backgroundImageAreaRatio": 0,
+        "interactiveControlCount": 141,
+        "focusableControlCount": 68,
+        "base64ImageCount": 11,
+        "styles": {
+          "textarea[name='q'], input[name='q']": {
+            "fontSize": "16px",
+            "color": "rgba(0, 0, 0, 0.87)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgba(0, 0, 0, 0.87) rgba(0, 0, 0, 0.87) rgba(0, 0, 0, 0)",
+            "borderRadius": "0px",
+            "width": "522px",
+            "height": "50px",
+            "x": 290,
+            "y": 27,
+            "display": "flex",
+            "fontWeight": "400",
+            "lineHeight": "22px"
+          },
+          "#rso, #search": {
+            "fontSize": "16px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(31, 31, 31)",
+            "borderRadius": "0px",
+            "width": "652px",
+            "height": "1544px",
+            "x": 133,
+            "y": 168,
+            "display": "block",
+            "fontWeight": "400",
+            "lineHeight": "25.6px"
+          },
+          "#botstuff, #footcnt": {
+            "fontSize": "14px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(31, 31, 31)",
+            "borderRadius": "0px",
+            "width": "652px",
+            "height": "379px",
+            "x": 133,
+            "y": 1742,
+            "display": "block",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "#searchform, form": {
+            "fontSize": "14px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(31, 31, 31)",
+            "borderRadius": "0px",
+            "width": "1365px",
+            "height": "72px",
+            "x": 0,
+            "y": 16,
+            "display": "grid",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "body": {
+            "fontSize": "14px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgb(255, 255, 255)",
+            "borderColor": "rgb(31, 31, 31)",
+            "borderRadius": "0px",
+            "width": "1365px",
+            "height": "2256px",
+            "x": 0,
+            "y": 0,
+            "display": "block",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "form": {
+            "fontSize": "14px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(31, 31, 31)",
+            "borderRadius": "0px",
+            "width": "861px",
+            "height": "52px",
+            "x": 133,
+            "y": 26,
+            "display": "block",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          }
+        }
+      },
+      "metrics": {
+        "loadTimeMs": 5379
+      },
+      "manualVerified": false,
+      "fromProjectBaseline": true,
+      "baselinePath": "projects/google-search/baselines/page-2/original-dom.json",
+      "fallbackFromBaseline": false
+    }
+  ],
+  "replica": [
+    {
+      "stateId": "initial",
+      "side": "replica",
+      "viewport": "desktop",
+      "requestedUrl": "http://127.0.0.1:5173/replica/google-search",
+      "finalUrl": "http://127.0.0.1:5173/replica/google-search",
+      "status": 200,
+      "title": "Web Replica Evaluator",
+      "bodyTextSample": "Googleについて\nストア\nGmail\n画像\nログイン\nGoogle\nAI モード\nGoogle 検索\nI'm Feeling Lucky\n\nGoogle 検索は次の言語でもご利用いただけます: English\n\n日本\n広告\nビジネス\n検索の仕組み\nプライバシー\n規約\n設定",
+      "screenshotPath": "projects/google-search/evaluation/latest/assets/google-search/initial/replica-desktop.png",
+      "screenshot": {
+        "width": 1365,
+        "height": 768,
+        "blank": false
+      },
+      "selectors": {
+        "body": {
+          "count": 1,
+          "visibleCount": 1
+        },
+        "textarea[name='q'], input[name='q']": {
+          "count": 1,
+          "visibleCount": 1
+        },
+        "input[name='btnK'], button[type='submit']": {
+          "count": 1,
+          "visibleCount": 1
+        }
+      },
+      "domProfile": {
+        "landmarks": {
+          "nav": 2,
+          "main": 1,
+          "form": 1,
+          "button": 8,
+          "link": 11,
+          "input": 1,
+          "list": 0,
+          "listitem": 0
+        },
+        "textSample": "Googleについて\nストア\nGmail\n画像\nログイン\nGoogle\nAI モード\nGoogle 検索\nI'm Feeling Lucky\n\nGoogle 検索は次の言語でもご利用いただけます: English\n\n日本\n広告\nビジネス\n検索の仕組み\nプライバシー\n規約\n設定",
+        "textNodeLength": 138,
+        "imageAreaRatio": 0,
+        "canvasAreaRatio": 0,
+        "backgroundImageAreaRatio": 0,
+        "interactiveControlCount": 9,
+        "focusableControlCount": 9,
+        "base64ImageCount": 0,
+        "styles": {
+          "body": {
+            "fontSize": "16px",
+            "color": "rgb(32, 33, 36)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(32, 33, 36)",
+            "borderRadius": "0px",
+            "width": "1365px",
+            "height": "768px",
+            "x": 0,
+            "y": 0,
+            "display": "block",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "textarea[name='q'], input[name='q']": {
+            "fontSize": "16px",
+            "color": "rgb(32, 33, 36)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(32, 33, 36)",
+            "borderRadius": "0px",
+            "width": "430px",
+            "height": "20px",
+            "x": 389,
+            "y": 306,
+            "display": "block",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "input[name='btnK'], button[type='submit']": {
+            "fontSize": "14px",
+            "color": "rgb(60, 64, 67)",
+            "backgroundColor": "rgb(248, 249, 250)",
+            "borderColor": "rgb(248, 249, 250)",
+            "borderRadius": "6px",
+            "width": "111px",
+            "height": "36px",
+            "x": 550,
+            "y": 371,
+            "display": "block",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "#fbar, footer, [role='contentinfo']": {
+            "fontSize": "14px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgb(242, 242, 242)",
+            "borderColor": "rgb(31, 31, 31)",
+            "borderRadius": "0px",
+            "width": "1365px",
+            "height": "102px",
+            "x": 0,
+            "y": 666,
+            "display": "block",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "form": {
+            "fontSize": "14px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(31, 31, 31)",
+            "borderRadius": "0px",
+            "width": "690px",
+            "height": "117px",
+            "x": 338,
+            "y": 290,
+            "display": "flex",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          }
+        }
+      },
+      "metrics": {
+        "loadTimeMs": 791,
+        "screenshotDiffRatio": 0.008181662087912088,
+        "ssim": 0.9249183472899485,
+        "regionScores": [
+          {
+            "stateId": "initial",
+            "regionId": "search-shell",
+            "selector": "body",
+            "weight": 2,
+            "score": 93.82487833819009,
+            "pixelScore": 99.18183379120879,
+            "ssimScore": 92.49183472899485,
+            "bboxScore": 100,
+            "styleScore": 60.26138721247417,
+            "diffRatio": 0.008181662087912088,
+            "ssim": 0.9249183472899485,
+            "originalPath": "projects/google-search/evaluation/latest/assets/google-search/initial/regions/original-search-shell-desktop.png",
+            "replicaPath": "projects/google-search/evaluation/latest/assets/google-search/initial/regions/replica-search-shell-desktop.png",
+            "diffPath": "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-shell-desktop.png"
+          },
+          {
+            "stateId": "initial",
+            "regionId": "search-form",
+            "selector": "form",
+            "weight": 3,
+            "score": 83.21656785387614,
+            "pixelScore": 98.10850984764028,
+            "ssimScore": 77.10782406410864,
+            "bboxScore": 34,
+            "styleScore": 100,
+            "diffRatio": 0.018914901523597177,
+            "ssim": 0.7710782406410864,
+            "originalPath": "projects/google-search/evaluation/latest/assets/google-search/initial/regions/original-search-form-desktop.png",
+            "replicaPath": "projects/google-search/evaluation/latest/assets/google-search/initial/regions/replica-search-form-desktop.png",
+            "diffPath": "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-search-form-desktop.png"
+          },
+          {
+            "stateId": "initial",
+            "regionId": "footer",
+            "selector": "#fbar, footer, [role='contentinfo']",
+            "weight": 1,
+            "score": 93.7484645008476,
+            "pixelScore": 98.80629174746822,
+            "ssimScore": 84.2559828429446,
+            "bboxScore": 100,
+            "styleScore": 97.4504902432036,
+            "diffRatio": 0.011937082525317819,
+            "ssim": 0.842559828429446,
+            "originalPath": "projects/google-search/evaluation/latest/assets/google-search/initial/regions/original-footer-desktop.png",
+            "replicaPath": "projects/google-search/evaluation/latest/assets/google-search/initial/regions/replica-footer-desktop.png",
+            "diffPath": "projects/google-search/evaluation/latest/assets/google-search/initial/regions/diff-footer-desktop.png"
+          }
+        ],
+        "layoutScore": 67,
+        "styleScore": 65.67796936391944
+      }
+    },
+    {
+      "stateId": "results",
+      "side": "replica",
+      "viewport": "desktop",
+      "requestedUrl": "http://127.0.0.1:5173/replica/google-search?q=tencent",
+      "finalUrl": "http://127.0.0.1:5173/replica/google-search?q=tencent",
+      "status": 200,
+      "title": "Web Replica Evaluator",
+      "bodyTextSample": "Google\nGoogle Search\nログイン\nAI モード\nすべて\n画像\nニュース\n動画\nショッピング\nショート動画\nもっと見る\nツール\n✦ AI による概要\n\nテンセント（Tencent Holdings）は、1998年に中国・深圳で設立された世界有数のテクノロジー企業です。中国のIT・テック大手「BAT」の一角を占め、メッセージアプリやゲーム、 クラウドサービスなど多岐にわたる事業を展開しています。\n\nコミュニケーション&ソーシャルメディア WeChat や QQ などを運営しています。\nゲーム・エンターテインメント 世界規模のゲーム事業を持ちます。\nもっと見る\n\nSearch results for tencent · About 7,680,000 results (0.39 seconds)\n\nW\nWikipedia\nhttps://ja.wikipedia.org › wiki › テンセント\n⋮\nテンセント\n\nテンセント・ホールディングスは、広東省深圳市に本拠を置く中国の多国籍テクノロジー・コングロマリット。\n\nT\nTencent Japan\nhttps://www.tencentjapan.com\n⋮\nTencent Japan\n\n私たちは、1998年に中国深センで設立し、2004年に香港証券取引所に上場しました。\n\nC\nTencent Cloud\nhttps://www.tencentcloud.com\n⋮\nTencent Cloud\n\nSecure, reliable and high-performance cloud products for games, media, finance and global digital businesses.\n\nT\nTencent Holdings\nhttps://www.tencent.com › en-us\n⋮\nTencent 腾讯\n\nTencent is a world-leading internet and technology company that develops innovative products and services.\n\nR\nReuters\nhttps://www.reuters.com › companies › 0700.HK\n⋮\nTencent Holdings Ltd company profile\n\nLatest company information, business segments, market updates and financial news for Tencent Holdings.\n\nテンセント\n\n企業\n\nテンセント・ホールディングスは、広東省深圳市に本拠を置く中国の多国籍テクノロジー企業です。\n\n1\n2\n3\n4\n5\nNext\n広告\nビジネス\n検索の仕組み\nプライバシー\n規約\n設定",
+      "screenshotPath": "projects/google-search/evaluation/latest/assets/google-search/results/replica-desktop.png",
+      "screenshot": {
+        "width": 1365,
+        "height": 768,
+        "blank": false
+      },
+      "selectors": {
+        "textarea[name='q'], input[name='q']": {
+          "count": 1,
+          "visibleCount": 1
+        },
+        "#rso, #search": {
+          "count": 2,
+          "visibleCount": 2
+        },
+        "#botstuff, #footcnt": {
+          "count": 2,
+          "visibleCount": 2
+        }
+      },
+      "domProfile": {
+        "landmarks": {
+          "nav": 2,
+          "main": 1,
+          "form": 1,
+          "button": 19,
+          "link": 20,
+          "input": 1,
+          "list": 1,
+          "listitem": 2
+        },
+        "textSample": "Google\nGoogle Search\nログイン\nAI モード\nすべて\n画像\nニュース\n動画\nショッピング\nショート動画\nもっと見る\nツール\n✦ AI による概要\n\nテンセント（Tencent Holdings）は、1998年に中国・深圳で設立された世界有数のテクノロジー企業です。中国のIT・テック大手「BAT」の一角を占め、メッセージアプリやゲーム、 クラウドサービスなど多岐にわたる事業を展開しています。\n\nコミュニケーション&ソーシャルメディア WeChat や QQ などを運営しています。\nゲーム・エンターテインメント 世界規模のゲーム事業を持ちます。\nもっと見る\n\nSearch results for tencent · About 7,680,000 results (0.39 seconds)\n\nW\nWikipedia\nhttps://ja.wikipedia.org › wiki › テンセント\n⋮\nテンセント\n\nテンセント・ホールディングスは、広東省深圳市に本拠を置く中国の多国籍テクノロジー・コングロマリット。\n\nT\nTencent Japan\nhttps://www.tencentjapan.com\n⋮\nTencent Japan\n\n私たちは、1998年に中国深センで設立し、2004年に香港証券取引所に上場しました。\n\nC\nTencent Cloud\nhttps://www.tencentcloud.com\n⋮\nTencent Cloud\n\nSecure, reliable and high-performance cloud products for games, media, finance and global digital businesses.\n\nT\nTencent Holdings\nhttps://www.tencent.com › en-us\n⋮\nTencent 腾讯\n\nTencent is a world-leading internet and technology company that develops innovative products and services.\n\nR\nReuters\nhttps://www.reuters.com › companies › 0700.HK\n⋮\nTencent Holdings Ltd company profile\n\nLatest company information, business segments, market updates and financial news for Tencent Holdings.\n\nテンセント\n\n企業\n\nテンセント・ホールディングスは、広東省深圳市に本拠を置く中国の多国籍テクノロジー企業です。\n\n1\n2\n3\n4\n5\nNext\n広告\nビジネス\n検索の仕組み\nプライバシー\n規約\n設定",
+        "textNodeLength": 1225,
+        "imageAreaRatio": 0,
+        "canvasAreaRatio": 0,
+        "backgroundImageAreaRatio": 0,
+        "interactiveControlCount": 25,
+        "focusableControlCount": 25,
+        "base64ImageCount": 0,
+        "styles": {
+          "#searchform, form": {
+            "fontSize": "14px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgb(255, 255, 255)",
+            "borderColor": "rgb(31, 31, 31) rgb(31, 31, 31) rgb(218, 220, 224)",
+            "borderRadius": "0px",
+            "width": "1365px",
+            "height": "139px",
+            "x": 0,
+            "y": 0,
+            "display": "block",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "textarea[name='q'], input[name='q']": {
+            "fontSize": "16px",
+            "color": "rgb(32, 33, 36)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(32, 33, 36)",
+            "borderRadius": "0px",
+            "width": "523px",
+            "height": "20px",
+            "x": 289,
+            "y": 38,
+            "display": "block",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "#rso, #search": {
+            "fontSize": "14px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(31, 31, 31)",
+            "borderRadius": "0px",
+            "width": "1100px",
+            "height": "1043px",
+            "x": 132,
+            "y": 173,
+            "display": "grid",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "#botstuff, #footcnt": {
+            "fontSize": "14px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(31, 31, 31)",
+            "borderRadius": "0px",
+            "width": "960px",
+            "height": "34px",
+            "x": 272,
+            "y": 1250,
+            "display": "flex",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          }
+        }
+      },
+      "metrics": {
+        "loadTimeMs": 766,
+        "screenshotDiffRatio": 0.04808264652014652,
+        "ssim": 0.526240258103801,
+        "regionScores": [
+          {
+            "stateId": "results",
+            "regionId": "results-header",
+            "selector": "#searchform, form",
+            "weight": 2,
+            "score": 78.38727506075548,
+            "pixelScore": 95.7997557997558,
+            "ssimScore": 62.04967128818678,
+            "bboxScore": 63,
+            "styleScore": 75,
+            "diffRatio": 0.042002442002442006,
+            "ssim": 0.6204967128818678,
+            "originalPath": "projects/google-search/evaluation/latest/assets/google-search/results/regions/original-results-header-desktop.png",
+            "replicaPath": "projects/google-search/evaluation/latest/assets/google-search/results/regions/replica-results-header-desktop.png",
+            "diffPath": "projects/google-search/evaluation/latest/assets/google-search/results/regions/diff-results-header-desktop.png"
+          }
+        ],
+        "layoutScore": 39,
+        "styleScore": 84.5
+      }
+    },
+    {
+      "stateId": "page-2",
+      "side": "replica",
+      "viewport": "desktop",
+      "requestedUrl": "http://127.0.0.1:5173/replica/google-search?q=tencent&page=2",
+      "finalUrl": "http://127.0.0.1:5173/replica/google-search?q=tencent&page=2",
+      "status": 200,
+      "title": "Web Replica Evaluator",
+      "bodyTextSample": "Google\nGoogle Search\nログイン\nAI モード\nすべて\n画像\nニュース\n動画\nショッピング\nショート動画\nもっと見る\nツール\n\nSearch results for tencent · About 7,680,000 results (0.39 seconds)\n\nG\nTencent Games\nhttps://www.tencentgames.com\n⋮\nTencent Games\n\nAt Tencent Games we seek to elevate the core experience and spirit of games with original thinking.\n\nn\nnote · Jini\nhttps://note.com › ゲームゼミ\n⋮\nテンセントとは何か--世界No.1ゲーム企業、その未知なる ...\n\nテンセント・ホールディングスは1998年、深圳市で創業された企業。世界中にデータセンターを含む拠点を展開。\n\nP\nPR TIMES\nhttps://prtimes.jp › main › html › searchrlp\n⋮\nTencent Japan合同会社のプレスリリース\n\nPR TIMESで配信されたTencent Japan合同会社のプレスリリース一覧です。\n\nS\nsmartweb.jp\nhttps://www.smartweb.jp › glossary › tencent\n⋮\nTencent(テンセント) - SmartWeb\n\nTencentは、メッセージング、ゲーム、クラウド、フィンテック、AIを統合するデジタルエコシステムを構築した企業です。\n\nN\nNikkei\nhttps://www.nikkei.com › topic › tencent\n⋮\nテンセント 関連ニュース\n\n中国テック大手テンセントの投資、ゲーム、クラウド、AI関連の最新ニュース。\n\nPrevious\n1\n2\n3\n4\n5\nNext\n広告\nビジネス\n検索の仕組み\nプライバシー\n規約\n設定",
+      "screenshotPath": "projects/google-search/evaluation/latest/assets/google-search/page-2/replica-desktop.png",
+      "screenshot": {
+        "width": 1365,
+        "height": 768,
+        "blank": false
+      },
+      "selectors": {
+        "textarea[name='q'], input[name='q']": {
+          "count": 1,
+          "visibleCount": 1
+        },
+        "#rso, #search": {
+          "count": 2,
+          "visibleCount": 2
+        },
+        "#botstuff, #footcnt": {
+          "count": 2,
+          "visibleCount": 2
+        }
+      },
+      "domProfile": {
+        "landmarks": {
+          "nav": 2,
+          "main": 1,
+          "form": 1,
+          "button": 19,
+          "link": 20,
+          "input": 1,
+          "list": 0,
+          "listitem": 0
+        },
+        "textSample": "Google\nGoogle Search\nログイン\nAI モード\nすべて\n画像\nニュース\n動画\nショッピング\nショート動画\nもっと見る\nツール\n\nSearch results for tencent · About 7,680,000 results (0.39 seconds)\n\nG\nTencent Games\nhttps://www.tencentgames.com\n⋮\nTencent Games\n\nAt Tencent Games we seek to elevate the core experience and spirit of games with original thinking.\n\nn\nnote · Jini\nhttps://note.com › ゲームゼミ\n⋮\nテンセントとは何か--世界No.1ゲーム企業、その未知なる ...\n\nテンセント・ホールディングスは1998年、深圳市で創業された企業。世界中にデータセンターを含む拠点を展開。\n\nP\nPR TIMES\nhttps://prtimes.jp › main › html › searchrlp\n⋮\nTencent Japan合同会社のプレスリリース\n\nPR TIMESで配信されたTencent Japan合同会社のプレスリリース一覧です。\n\nS\nsmartweb.jp\nhttps://www.smartweb.jp › glossary › tencent\n⋮\nTencent(テンセント) - SmartWeb\n\nTencentは、メッセージング、ゲーム、クラウド、フィンテック、AIを統合するデジタルエコシステムを構築した企業です。\n\nN\nNikkei\nhttps://www.nikkei.com › topic › tencent\n⋮\nテンセント 関連ニュース\n\n中国テック大手テンセントの投資、ゲーム、クラウド、AI関連の最新ニュース。\n\nPrevious\n1\n2\n3\n4\n5\nNext\n広告\nビジネス\n検索の仕組み\nプライバシー\n規約\n設定",
+        "textNodeLength": 873,
+        "imageAreaRatio": 0,
+        "canvasAreaRatio": 0,
+        "backgroundImageAreaRatio": 0,
+        "interactiveControlCount": 25,
+        "focusableControlCount": 25,
+        "base64ImageCount": 0,
+        "styles": {
+          "#searchform, form": {
+            "fontSize": "14px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgb(255, 255, 255)",
+            "borderColor": "rgb(31, 31, 31) rgb(31, 31, 31) rgb(218, 220, 224)",
+            "borderRadius": "0px",
+            "width": "1365px",
+            "height": "139px",
+            "x": 0,
+            "y": 0,
+            "display": "block",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "textarea[name='q'], input[name='q']": {
+            "fontSize": "16px",
+            "color": "rgb(32, 33, 36)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(32, 33, 36)",
+            "borderRadius": "0px",
+            "width": "523px",
+            "height": "20px",
+            "x": 289,
+            "y": 38,
+            "display": "block",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "#rso, #search": {
+            "fontSize": "14px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(31, 31, 31)",
+            "borderRadius": "0px",
+            "width": "1100px",
+            "height": "736px",
+            "x": 132,
+            "y": 173,
+            "display": "grid",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "#botstuff, #footcnt": {
+            "fontSize": "14px",
+            "color": "rgb(31, 31, 31)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgb(31, 31, 31)",
+            "borderRadius": "0px",
+            "width": "960px",
+            "height": "34px",
+            "x": 272,
+            "y": 943,
+            "display": "flex",
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          }
+        }
+      },
+      "metrics": {
+        "loadTimeMs": 773,
+        "screenshotDiffRatio": 0.03236607142857143,
+        "ssim": 0.683131100728951,
+        "regionScores": [
+          {
+            "stateId": "page-2",
+            "regionId": "results-header",
+            "selector": "#searchform, form",
+            "weight": 2,
+            "score": 78.38710295331984,
+            "pixelScore": 95.7997557997558,
+            "ssimScore": 62.049179552656376,
+            "bboxScore": 63,
+            "styleScore": 75,
+            "diffRatio": 0.042002442002442006,
+            "ssim": 0.6204917955265637,
+            "originalPath": "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/original-results-header-desktop.png",
+            "replicaPath": "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/replica-results-header-desktop.png",
+            "diffPath": "projects/google-search/evaluation/latest/assets/google-search/page-2/regions/diff-results-header-desktop.png"
+          }
+        ],
+        "layoutScore": 45,
+        "styleScore": 84.5
+      }
+    }
+  ]
+}

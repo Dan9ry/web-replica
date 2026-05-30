@@ -1,0 +1,334 @@
+{
+  "id": "google-search",
+  "name": "Google Search Replica",
+  "originalUrl": "https://www.google.com/",
+  "replicaUrl": "http://127.0.0.1:5173/replica/google-search",
+  "projectRoot": "projects/google-search",
+  "baselineDir": "projects/google-search/baselines",
+  "criticalSelectors": [
+    "body",
+    "textarea[name='q'], input[name='q']",
+    "input[name='btnK'], button[type='submit']"
+  ],
+  "viewports": [
+    {
+      "name": "desktop",
+      "width": 1365,
+      "height": 768,
+      "weight": 1
+    }
+  ],
+  "expectedTitleIncludes": [
+    "Google"
+  ],
+  "expectedTextIncludes": [
+    "Google",
+    "Google Search",
+    "About",
+    "広告"
+  ],
+  "compareSelectors": [
+    "body",
+    "textarea[name='q'], input[name='q']",
+    "input[name='btnK'], button[type='submit']"
+  ],
+  "structureSelectors": [
+    {
+      "selector": "body",
+      "purpose": "structural",
+      "required": true,
+      "weight": 2
+    },
+    {
+      "selector": "textarea[name='q'], input[name='q']",
+      "purpose": "functional",
+      "interactionRequired": true,
+      "required": true,
+      "weight": 3
+    },
+    {
+      "selector": "input[name='btnK'], button[type='submit']",
+      "purpose": "functional",
+      "interactionRequired": true,
+      "required": true,
+      "weight": 3
+    },
+    {
+      "selector": "#rso, #search",
+      "purpose": "content",
+      "required": false,
+      "weight": 2
+    },
+    {
+      "selector": "#botstuff, #footcnt",
+      "purpose": "functional",
+      "interactionRequired": true,
+      "required": false,
+      "weight": 2
+    }
+  ],
+  "states": [
+    {
+      "id": "initial",
+      "name": "Initial Search Page",
+      "required": true,
+      "weight": 1,
+      "originalUrl": "https://www.google.com/",
+      "replicaUrl": "http://127.0.0.1:5173/replica/google-search",
+      "criticalSelectors": [
+        "body",
+        "textarea[name='q'], input[name='q']",
+        "input[name='btnK'], button[type='submit']"
+      ],
+      "compareSelectors": [
+        "body",
+        "textarea[name='q'], input[name='q']",
+        "input[name='btnK'], button[type='submit']",
+        "#fbar, footer, [role='contentinfo']"
+      ],
+      "expectedTextIncludes": [
+        "Google",
+        "Google Search",
+        "About",
+        "Advertising"
+      ],
+      "regions": [
+        {
+          "id": "search-shell",
+          "selector": "body",
+          "weight": 2
+        },
+        {
+          "id": "search-form",
+          "selector": "form",
+          "weight": 3
+        },
+        {
+          "id": "footer",
+          "selector": "#fbar, footer, [role='contentinfo']",
+          "weight": 1
+        }
+      ],
+      "expectations": [
+        {
+          "type": "expectVisible",
+          "selector": "textarea[name='q'], input[name='q']"
+        },
+        {
+          "type": "expectVisible",
+          "selector": "input[name='btnK'], button[type='submit']"
+        }
+      ]
+    },
+    {
+      "id": "results",
+      "name": "Search Results Page",
+      "required": true,
+      "weight": 1,
+      "originalUrl": "https://www.google.com/search?q=tencent",
+      "replicaUrl": "http://127.0.0.1:5173/replica/google-search?q=tencent",
+      "criticalSelectors": [
+        "textarea[name='q'], input[name='q']",
+        "#rso, #search",
+        "#botstuff, #footcnt"
+      ],
+      "compareSelectors": [
+        "#searchform, form",
+        "textarea[name='q'], input[name='q']",
+        "#rso, #search",
+        "#botstuff, #footcnt"
+      ],
+      "expectedTextIncludes": [
+        "tencent",
+        "Tencent",
+        "Search results",
+        "Next"
+      ],
+      "regions": [
+        {
+          "id": "results-header",
+          "selector": "#searchform, form",
+          "weight": 2
+        },
+        {
+          "id": "results-list",
+          "selector": "#rso, #search",
+          "weight": 4
+        },
+        {
+          "id": "pagination",
+          "selector": "#botstuff, #footcnt",
+          "weight": 2
+        }
+      ],
+      "expectations": [
+        {
+          "type": "expectValue",
+          "selector": "textarea[name='q'], input[name='q']",
+          "value": "tencent"
+        },
+        {
+          "type": "expectCount",
+          "selector": "#rso .g, #search .g",
+          "min": 5
+        },
+        {
+          "type": "expectVisible",
+          "selector": "#botstuff, #footcnt"
+        }
+      ]
+    },
+    {
+      "id": "page-2",
+      "name": "Second Results Page",
+      "required": true,
+      "weight": 1,
+      "originalUrl": "https://www.google.com/search?q=tencent&start=10",
+      "replicaUrl": "http://127.0.0.1:5173/replica/google-search?q=tencent&page=2",
+      "criticalSelectors": [
+        "textarea[name='q'], input[name='q']",
+        "#rso, #search",
+        "#botstuff, #footcnt"
+      ],
+      "compareSelectors": [
+        "#searchform, form",
+        "textarea[name='q'], input[name='q']",
+        "#rso, #search",
+        "#botstuff, #footcnt"
+      ],
+      "expectedTextIncludes": [
+        "tencent",
+        "Tencent",
+        "Previous",
+        "Next"
+      ],
+      "regions": [
+        {
+          "id": "results-header",
+          "selector": "#searchform, form",
+          "weight": 2
+        },
+        {
+          "id": "results-list",
+          "selector": "#rso, #search",
+          "weight": 4
+        },
+        {
+          "id": "pagination",
+          "selector": "#botstuff, #footcnt",
+          "weight": 2
+        }
+      ],
+      "expectations": [
+        {
+          "type": "expectValue",
+          "selector": "textarea[name='q'], input[name='q']",
+          "value": "tencent"
+        },
+        {
+          "type": "expectCount",
+          "selector": "#rso .g, #search .g",
+          "min": 5
+        },
+        {
+          "type": "expectTextIncludes",
+          "selector": "#botstuff, #footcnt",
+          "value": "2"
+        }
+      ]
+    }
+  ],
+  "interactions": [
+    {
+      "id": "submit-search-click",
+      "name": "Search button submits query",
+      "targetState": "results",
+      "replicaUrl": "http://127.0.0.1:5173/replica/google-search",
+      "steps": [
+        {
+          "type": "fill",
+          "selector": "[data-search-input]",
+          "value": "tencent"
+        },
+        {
+          "type": "click",
+          "selector": "[data-search-submit]"
+        },
+        {
+          "type": "waitForSelector",
+          "selector": "[data-results-list]",
+          "timeoutMs": 3000
+        }
+      ],
+      "assertions": [
+        {
+          "type": "expectValue",
+          "selector": "[data-search-input]",
+          "value": "tencent"
+        },
+        {
+          "type": "expectCount",
+          "selector": "[data-result-item]",
+          "min": 5
+        }
+      ]
+    },
+    {
+      "id": "submit-search-enter",
+      "name": "Enter key submits query",
+      "targetState": "results",
+      "replicaUrl": "http://127.0.0.1:5173/replica/google-search",
+      "steps": [
+        {
+          "type": "fill",
+          "selector": "[data-search-input]",
+          "value": "tencent"
+        },
+        {
+          "type": "press",
+          "selector": "[data-search-input]",
+          "key": "Enter"
+        },
+        {
+          "type": "waitForSelector",
+          "selector": "[data-results-list]",
+          "timeoutMs": 3000
+        }
+      ],
+      "assertions": [
+        {
+          "type": "expectVisible",
+          "selector": "[data-results-list]"
+        }
+      ]
+    },
+    {
+      "id": "pagination-next",
+      "name": "Pagination moves to next page",
+      "targetState": "page-2",
+      "replicaUrl": "http://127.0.0.1:5173/replica/google-search?q=tencent",
+      "steps": [
+        {
+          "type": "click",
+          "selector": "[data-page-next]"
+        },
+        {
+          "type": "waitForSelector",
+          "selector": "[data-current-page='2']",
+          "timeoutMs": 3000
+        }
+      ],
+      "assertions": [
+        {
+          "type": "expectTextIncludes",
+          "selector": "[data-pagination]",
+          "value": "2"
+        },
+        {
+          "type": "expectUrlIncludes",
+          "value": "page=2"
+        }
+      ]
+    }
+  ]
+}
