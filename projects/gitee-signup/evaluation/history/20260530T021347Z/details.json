@@ -1,0 +1,1185 @@
+{
+  "schemaVersion": "2.0",
+  "run": {
+    "generatedAt": "2026-05-30T02:13:30.084Z",
+    "targetConfig": "projects/gitee-signup/config/target.json",
+    "browser": "Chromium",
+    "viewports": [
+      "desktop 1365x768"
+    ],
+    "pageCount": 1
+  },
+  "gates": [
+    {
+      "id": "gitee-signup-source-gate",
+      "name": "Gitee Signup Replica 原站基线与复刻可运行门禁",
+      "status": "passed",
+      "pageId": "gitee-signup",
+      "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-initial/original-dom.json；原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-blur-required/original-dom.json；原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-submit-validation/original-dom.json"
+    }
+  ],
+  "summary": {
+    "schemaVersion": "2.0",
+    "totalScore": 93.6,
+    "weightedScore": 93.6,
+    "conclusion": "excellent",
+    "gateStatus": "passed",
+    "pageCount": 1,
+    "stateCount": 3,
+    "requiredStateCount": 3,
+    "failedStateCount": 0,
+    "highRiskIssueCount": 0,
+    "lowestDimension": {
+      "id": "visual",
+      "name": "视觉一致性",
+      "score": 79.7
+    },
+    "dimensions": {
+      "functionality": {
+        "id": "functionality",
+        "name": "功能正确性",
+        "weight": 0.25,
+        "score": 99.2,
+        "weightedContribution": 24.8,
+        "status": "excellent",
+        "issueCount": 0,
+        "topIssues": []
+      },
+      "interaction": {
+        "id": "interaction",
+        "name": "交互流程一致性",
+        "weight": 0.2,
+        "score": 100,
+        "weightedContribution": 20,
+        "status": "excellent",
+        "issueCount": 0,
+        "topIssues": []
+      },
+      "visual": {
+        "id": "visual",
+        "name": "视觉一致性",
+        "weight": 0.25,
+        "score": 79.7,
+        "weightedContribution": 19.9,
+        "status": "warning",
+        "issueCount": 4,
+        "topIssues": [
+          "gitee-signup-LOW_VISUAL_SCORE-4",
+          "gitee-signup-PROJECT_BASELINE_SOURCE-1",
+          "gitee-signup-PROJECT_BASELINE_SOURCE-2"
+        ]
+      },
+      "structure": {
+        "id": "structure",
+        "name": "结构语义一致性",
+        "weight": 0.1,
+        "score": 92.6,
+        "weightedContribution": 9.3,
+        "status": "excellent",
+        "issueCount": 0,
+        "topIssues": []
+      },
+      "content": {
+        "id": "content",
+        "name": "内容数据一致性",
+        "weight": 0.1,
+        "score": 95.8,
+        "weightedContribution": 9.6,
+        "status": "excellent",
+        "issueCount": 0,
+        "topIssues": []
+      },
+      "engineering": {
+        "id": "engineering",
+        "name": "工程可维护性",
+        "weight": 0.1,
+        "score": 100,
+        "weightedContribution": 10,
+        "status": "excellent",
+        "issueCount": 0,
+        "topIssues": []
+      }
+    },
+    "issueCountByDimension": {
+      "functionality": 0,
+      "interaction": 0,
+      "visual": 4,
+      "structure": 0,
+      "content": 0,
+      "engineering": 0
+    },
+    "issueCountBySeverity": {
+      "blocker": 0,
+      "error": 0,
+      "warning": 1,
+      "info": 3
+    }
+  },
+  "dimensions": [
+    {
+      "id": "functionality",
+      "name": "功能正确性",
+      "weight": 0.25,
+      "score": 99.2,
+      "weightedContribution": 24.8,
+      "status": "excellent",
+      "issueCount": 0,
+      "topIssues": [],
+      "subMetrics": [
+        {
+          "id": "required-state-coverage",
+          "name": "required 状态覆盖率",
+          "weight": 0.25,
+          "score": 100,
+          "description": "required 状态是否有可信原站基线和复刻状态。",
+          "evidence": []
+        },
+        {
+          "id": "core-use-cases",
+          "name": "核心用例断言通过率",
+          "weight": 0.35,
+          "score": 100,
+          "description": "核心交互断言是否通过。",
+          "evidence": []
+        },
+        {
+          "id": "output-correctness",
+          "name": "输出结果正确率",
+          "weight": 0.2,
+          "score": 95.8,
+          "description": "结果文案、列表和状态输出是否正确。",
+          "evidence": []
+        },
+        {
+          "id": "boundary-cases",
+          "name": "边界/异常态通过率",
+          "weight": 0.2,
+          "score": 99.2,
+          "description": "空输入、错误态、无结果态等边界行为。",
+          "evidence": []
+        }
+      ],
+      "pageScores": [
+        {
+          "pageId": "gitee-signup",
+          "pageName": "Gitee Signup Replica",
+          "score": 99.2,
+          "status": "excellent",
+          "worstStates": [],
+          "topIssues": []
+        }
+      ],
+      "issues": [],
+      "evidence": [
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/captures/gitee-signup-source.json"
+      ],
+      "recommendation": "保持当前实现，后续只需防止回归。"
+    },
+    {
+      "id": "interaction",
+      "name": "交互流程一致性",
+      "weight": 0.2,
+      "score": 100,
+      "weightedContribution": 20,
+      "status": "excellent",
+      "issueCount": 0,
+      "topIssues": [],
+      "subMetrics": [
+        {
+          "id": "case-pass-rate",
+          "name": "交互用例通过率",
+          "weight": 0.4,
+          "score": 100,
+          "description": "交互用例整体通过情况。",
+          "evidence": []
+        },
+        {
+          "id": "assertion-pass-rate",
+          "name": "步骤断言通过率",
+          "weight": 0.3,
+          "score": 100,
+          "description": "动作后的可见状态断言是否通过。",
+          "evidence": []
+        },
+        {
+          "id": "feedback-state",
+          "name": "反馈状态一致性",
+          "weight": 0.2,
+          "score": 97.9,
+          "description": "loading、error、disabled、即时反馈等状态是否一致。",
+          "evidence": []
+        },
+        {
+          "id": "keyboard-mouse-detail",
+          "name": "键盘/鼠标细节一致性",
+          "weight": 0.1,
+          "score": 100,
+          "description": "Enter、hover、focus、blur 等细节。",
+          "evidence": []
+        }
+      ],
+      "pageScores": [
+        {
+          "pageId": "gitee-signup",
+          "pageName": "Gitee Signup Replica",
+          "score": 100,
+          "status": "excellent",
+          "worstStates": [],
+          "topIssues": []
+        }
+      ],
+      "issues": [],
+      "evidence": [],
+      "recommendation": "保持当前实现，后续只需防止回归。"
+    },
+    {
+      "id": "visual",
+      "name": "视觉一致性",
+      "weight": 0.25,
+      "score": 79.7,
+      "weightedContribution": 19.9,
+      "status": "warning",
+      "issueCount": 4,
+      "topIssues": [
+        "gitee-signup-LOW_VISUAL_SCORE-4",
+        "gitee-signup-PROJECT_BASELINE_SOURCE-1",
+        "gitee-signup-PROJECT_BASELINE_SOURCE-2"
+      ],
+      "subMetrics": [
+        {
+          "id": "full-page-visual",
+          "name": "整页视觉",
+          "weight": 0.2,
+          "score": 79.7,
+          "description": "整页截图 diff 与 SSIM 综合分。",
+          "evidence": []
+        },
+        {
+          "id": "region-visual",
+          "name": "区域加权视觉",
+          "weight": 0.45,
+          "score": 79.7,
+          "description": "关键区域截图、区域 diff、bbox 和样式综合分。未配置区域时会低于整页分，提示补充 regions。",
+          "evidence": []
+        },
+        {
+          "id": "key-style",
+          "name": "关键元素样式",
+          "weight": 0.2,
+          "score": 86.2,
+          "description": "字体、颜色、圆角、控件尺寸等样式对齐。",
+          "evidence": []
+        },
+        {
+          "id": "box-model",
+          "name": "布局盒模型",
+          "weight": 0.15,
+          "score": 74.7,
+          "description": "关键元素坐标、宽高、间距对齐。",
+          "evidence": []
+        }
+      ],
+      "pageScores": [
+        {
+          "pageId": "gitee-signup",
+          "pageName": "Gitee Signup Replica",
+          "score": 79.7,
+          "status": "warning",
+          "worstStates": [],
+          "topIssues": [
+            "gitee-signup-LOW_VISUAL_SCORE-4",
+            "gitee-signup-PROJECT_BASELINE_SOURCE-1",
+            "gitee-signup-PROJECT_BASELINE_SOURCE-2"
+          ]
+        }
+      ],
+      "issues": [
+        {
+          "id": "gitee-signup-LOW_VISUAL_SCORE-4",
+          "code": "LOW_VISUAL_SCORE",
+          "dimension": "visual",
+          "severity": "warning",
+          "pageId": "gitee-signup",
+          "title": "视觉一致性偏低",
+          "description": "视觉一致性偏低：请优先查看当前 project/evaluation/latest/assets 下对应状态的视觉差异图，修复区域布局、字体字号、间距、颜色和控件尺寸。",
+          "evidence": [
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+          ],
+          "impactScore": 4,
+          "confidence": 0.78,
+          "suggestedFix": "按区域 diff 调整布局、字号、颜色、间距和关键控件尺寸，优先修复低分区域。",
+          "artifactLinks": [
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+          ],
+          "status": "new",
+          "priorityScore": 7.5
+        },
+        {
+          "id": "gitee-signup-PROJECT_BASELINE_SOURCE-1",
+          "code": "PROJECT_BASELINE_SOURCE",
+          "dimension": "visual",
+          "severity": "info",
+          "pageId": "gitee-signup",
+          "title": "PROJECT_BASELINE_SOURCE",
+          "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-initial/original-dom.json",
+          "evidence": [
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+          ],
+          "impactScore": 1,
+          "confidence": 0.9,
+          "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+          "artifactLinks": [
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+          ],
+          "status": "new",
+          "priorityScore": 1.1
+        },
+        {
+          "id": "gitee-signup-PROJECT_BASELINE_SOURCE-2",
+          "code": "PROJECT_BASELINE_SOURCE",
+          "dimension": "visual",
+          "severity": "info",
+          "pageId": "gitee-signup",
+          "title": "PROJECT_BASELINE_SOURCE",
+          "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-blur-required/original-dom.json",
+          "evidence": [
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+          ],
+          "impactScore": 1,
+          "confidence": 0.9,
+          "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+          "artifactLinks": [
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+          ],
+          "status": "new",
+          "priorityScore": 1.1
+        },
+        {
+          "id": "gitee-signup-PROJECT_BASELINE_SOURCE-3",
+          "code": "PROJECT_BASELINE_SOURCE",
+          "dimension": "visual",
+          "severity": "info",
+          "pageId": "gitee-signup",
+          "title": "PROJECT_BASELINE_SOURCE",
+          "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-submit-validation/original-dom.json",
+          "evidence": [
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+          ],
+          "impactScore": 1,
+          "confidence": 0.9,
+          "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+          "artifactLinks": [
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+          ],
+          "status": "new",
+          "priorityScore": 1.1
+        }
+      ],
+      "evidence": [
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+      ],
+      "recommendation": "优先查看区域 diff 和整页 diff，按页面头、中、尾逐段修正布局、字体、颜色和间距。"
+    },
+    {
+      "id": "structure",
+      "name": "结构语义一致性",
+      "weight": 0.1,
+      "score": 92.6,
+      "weightedContribution": 9.3,
+      "status": "excellent",
+      "issueCount": 0,
+      "topIssues": [],
+      "subMetrics": [
+        {
+          "id": "dom-structure",
+          "name": "关键 DOM 结构",
+          "weight": 0.3,
+          "score": 92.6,
+          "description": "用户复刻范围内 functional/content/structural/visual selector 按权重匹配情况。",
+          "evidence": []
+        },
+        {
+          "id": "control-semantics",
+          "name": "关键控件语义",
+          "weight": 0.25,
+          "score": 96.3,
+          "description": "用户要求交互的 input、button、a、form 等控件是否真实可操作。",
+          "evidence": []
+        },
+        {
+          "id": "basic-a11y-semantics",
+          "name": "基础语义一致性",
+          "weight": 0.2,
+          "score": 94.2,
+          "description": "视觉必需区域、基础语义、焦点和可见文本是否合理。",
+          "evidence": []
+        },
+        {
+          "id": "anti-cheat",
+          "name": "反截图伪页面检查",
+          "weight": 0.1,
+          "score": 100,
+          "description": "是否存在整页截图、大面积 canvas 或不可交互伪装。",
+          "evidence": []
+        }
+      ],
+      "pageScores": [
+        {
+          "pageId": "gitee-signup",
+          "pageName": "Gitee Signup Replica",
+          "score": 92.6,
+          "status": "excellent",
+          "worstStates": [],
+          "topIssues": []
+        }
+      ],
+      "issues": [],
+      "evidence": [
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/captures/gitee-signup-source.json"
+      ],
+      "recommendation": "保持当前实现，后续只需防止回归。"
+    },
+    {
+      "id": "content",
+      "name": "内容数据一致性",
+      "weight": 0.1,
+      "score": 95.8,
+      "weightedContribution": 9.6,
+      "status": "excellent",
+      "issueCount": 0,
+      "topIssues": [],
+      "subMetrics": [
+        {
+          "id": "core-text-coverage",
+          "name": "核心文本覆盖",
+          "weight": 0.3,
+          "score": 95.8,
+          "description": "标题、按钮、提示、结果等核心文本覆盖率。",
+          "evidence": []
+        },
+        {
+          "id": "form-copy",
+          "name": "表单文案",
+          "weight": 0.2,
+          "score": 94.2,
+          "description": "label、placeholder、helper text 是否一致。",
+          "evidence": []
+        },
+        {
+          "id": "state-copy",
+          "name": "错误/空态/loading 文案",
+          "weight": 0.2,
+          "score": 99.2,
+          "description": "状态文案是否与原站可见 UI 对齐。",
+          "evidence": []
+        },
+        {
+          "id": "data-shape",
+          "name": "列表/表格/卡片数据结构",
+          "weight": 0.2,
+          "score": 97.5,
+          "description": "结果项字段、数量和结构是否一致。",
+          "evidence": []
+        }
+      ],
+      "pageScores": [
+        {
+          "pageId": "gitee-signup",
+          "pageName": "Gitee Signup Replica",
+          "score": 95.8,
+          "status": "excellent",
+          "worstStates": [],
+          "topIssues": []
+        }
+      ],
+      "issues": [],
+      "evidence": [
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/captures/gitee-signup-source.json"
+      ],
+      "recommendation": "保持当前实现，后续只需防止回归。"
+    },
+    {
+      "id": "engineering",
+      "name": "工程可维护性",
+      "weight": 0.1,
+      "score": 100,
+      "weightedContribution": 10,
+      "status": "excellent",
+      "issueCount": 0,
+      "topIssues": [],
+      "subMetrics": [
+        {
+          "id": "build-run-test",
+          "name": "构建/启动/测试",
+          "weight": 0.25,
+          "score": 100,
+          "description": "复刻工程是否可构建、可启动、可评估。",
+          "evidence": []
+        },
+        {
+          "id": "code-organization",
+          "name": "组件拆分与代码组织",
+          "weight": 0.2,
+          "score": 100,
+          "description": "源码是否位于 project/page 并按组件、数据、状态、样式组织。",
+          "evidence": []
+        },
+        {
+          "id": "style-isolation",
+          "name": "样式隔离与可维护性",
+          "weight": 0.15,
+          "score": 89.9,
+          "description": "样式是否隔离、命名清晰、便于维护。",
+          "evidence": []
+        },
+        {
+          "id": "artifact-completeness",
+          "name": "评估产物与日志完整性",
+          "weight": 0.2,
+          "score": 100,
+          "description": "summary、details、report、截图、diff 等产物是否完整。",
+          "evidence": []
+        }
+      ],
+      "pageScores": [
+        {
+          "pageId": "gitee-signup",
+          "pageName": "Gitee Signup Replica",
+          "score": 100,
+          "status": "excellent",
+          "worstStates": [],
+          "topIssues": []
+        }
+      ],
+      "issues": [],
+      "evidence": [
+        "summary.json",
+        "details.json",
+        "artifacts-index.json",
+        "report.md",
+        "index.html"
+      ],
+      "recommendation": "保持当前实现，后续只需防止回归。"
+    }
+  ],
+  "pages": [
+    {
+      "pageId": "gitee-signup",
+      "name": "Gitee Signup Replica",
+      "originalUrl": "https://gitee.com/signup",
+      "replicaUrl": "http://127.0.0.1:5173/replica/gitee-signup",
+      "captureMode": "baseline",
+      "gateStatus": "passed",
+      "finalUrl": "https://gitee.com/signup",
+      "score": {
+        "total": 93.6,
+        "level": "高一致",
+        "metrics": {
+          "functionality": 99.2,
+          "interaction": 100,
+          "visual": 79.7,
+          "structure": 92.6,
+          "content": 95.8,
+          "engineering": 100
+        }
+      },
+      "states": [
+        {
+          "stateId": "signup-initial",
+          "name": "Signup form initial state",
+          "required": true,
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://gitee.com/signup",
+          "issues": [
+            "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-initial/original-dom.json"
+          ],
+          "score": {
+            "functionality": 99.2,
+            "interaction": 100,
+            "visual": 79.7,
+            "structure": 92.6,
+            "content": 95.8,
+            "engineering": 100
+          }
+        },
+        {
+          "stateId": "signup-blur-required",
+          "name": "Required prompts after blur",
+          "required": true,
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://gitee.com/signup",
+          "issues": [
+            "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-blur-required/original-dom.json"
+          ],
+          "score": {
+            "functionality": 99.2,
+            "interaction": 100,
+            "visual": 79.7,
+            "structure": 92.6,
+            "content": 95.8,
+            "engineering": 100
+          }
+        },
+        {
+          "stateId": "signup-submit-validation",
+          "name": "Signup button validation state",
+          "required": true,
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://gitee.com/signup",
+          "issues": [
+            "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-submit-validation/original-dom.json"
+          ],
+          "score": {
+            "functionality": 99.2,
+            "interaction": 100,
+            "visual": 79.7,
+            "structure": 92.6,
+            "content": 95.8,
+            "engineering": 100
+          }
+        }
+      ],
+      "interactions": [],
+      "issues": [
+        {
+          "id": "gitee-signup-LOW_VISUAL_SCORE-4",
+          "code": "LOW_VISUAL_SCORE",
+          "dimension": "visual",
+          "severity": "warning",
+          "pageId": "gitee-signup",
+          "title": "视觉一致性偏低",
+          "description": "视觉一致性偏低：请优先查看当前 project/evaluation/latest/assets 下对应状态的视觉差异图，修复区域布局、字体字号、间距、颜色和控件尺寸。",
+          "evidence": [
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+          ],
+          "impactScore": 4,
+          "confidence": 0.78,
+          "suggestedFix": "按区域 diff 调整布局、字号、颜色、间距和关键控件尺寸，优先修复低分区域。",
+          "artifactLinks": [
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+          ],
+          "status": "new",
+          "priorityScore": 7.5
+        },
+        {
+          "id": "gitee-signup-PROJECT_BASELINE_SOURCE-1",
+          "code": "PROJECT_BASELINE_SOURCE",
+          "dimension": "visual",
+          "severity": "info",
+          "pageId": "gitee-signup",
+          "title": "PROJECT_BASELINE_SOURCE",
+          "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-initial/original-dom.json",
+          "evidence": [
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+          ],
+          "impactScore": 1,
+          "confidence": 0.9,
+          "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+          "artifactLinks": [
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+          ],
+          "status": "new",
+          "priorityScore": 1.1
+        },
+        {
+          "id": "gitee-signup-PROJECT_BASELINE_SOURCE-2",
+          "code": "PROJECT_BASELINE_SOURCE",
+          "dimension": "visual",
+          "severity": "info",
+          "pageId": "gitee-signup",
+          "title": "PROJECT_BASELINE_SOURCE",
+          "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-blur-required/original-dom.json",
+          "evidence": [
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+          ],
+          "impactScore": 1,
+          "confidence": 0.9,
+          "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+          "artifactLinks": [
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+          ],
+          "status": "new",
+          "priorityScore": 1.1
+        },
+        {
+          "id": "gitee-signup-PROJECT_BASELINE_SOURCE-3",
+          "code": "PROJECT_BASELINE_SOURCE",
+          "dimension": "visual",
+          "severity": "info",
+          "pageId": "gitee-signup",
+          "title": "PROJECT_BASELINE_SOURCE",
+          "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-submit-validation/original-dom.json",
+          "evidence": [
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+          ],
+          "impactScore": 1,
+          "confidence": 0.9,
+          "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+          "artifactLinks": [
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+            "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+          ],
+          "status": "new",
+          "priorityScore": 1.1
+        }
+      ],
+      "artifacts": {
+        "captures": {
+          "original": "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/captures/gitee-signup-source.json",
+          "replica": "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/captures/gitee-signup-source.json"
+        },
+        "visualDiffs": [
+          "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+          "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+          "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png"
+        ],
+        "regionDiffs": [
+          "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+          "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+          "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+          "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+          "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+          "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+          "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+          "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+          "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+        ]
+      }
+    }
+  ],
+  "issues": [
+    {
+      "id": "gitee-signup-LOW_VISUAL_SCORE-4",
+      "code": "LOW_VISUAL_SCORE",
+      "dimension": "visual",
+      "severity": "warning",
+      "pageId": "gitee-signup",
+      "title": "视觉一致性偏低",
+      "description": "视觉一致性偏低：请优先查看当前 project/evaluation/latest/assets 下对应状态的视觉差异图，修复区域布局、字体字号、间距、颜色和控件尺寸。",
+      "evidence": [
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+      ],
+      "impactScore": 4,
+      "confidence": 0.78,
+      "suggestedFix": "按区域 diff 调整布局、字号、颜色、间距和关键控件尺寸，优先修复低分区域。",
+      "artifactLinks": [
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+      ],
+      "status": "new",
+      "priorityScore": 7.5
+    },
+    {
+      "id": "gitee-signup-PROJECT_BASELINE_SOURCE-1",
+      "code": "PROJECT_BASELINE_SOURCE",
+      "dimension": "visual",
+      "severity": "info",
+      "pageId": "gitee-signup",
+      "title": "PROJECT_BASELINE_SOURCE",
+      "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-initial/original-dom.json",
+      "evidence": [
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+      ],
+      "impactScore": 1,
+      "confidence": 0.9,
+      "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+      "artifactLinks": [
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+      ],
+      "status": "new",
+      "priorityScore": 1.1
+    },
+    {
+      "id": "gitee-signup-PROJECT_BASELINE_SOURCE-2",
+      "code": "PROJECT_BASELINE_SOURCE",
+      "dimension": "visual",
+      "severity": "info",
+      "pageId": "gitee-signup",
+      "title": "PROJECT_BASELINE_SOURCE",
+      "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-blur-required/original-dom.json",
+      "evidence": [
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+      ],
+      "impactScore": 1,
+      "confidence": 0.9,
+      "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+      "artifactLinks": [
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+      ],
+      "status": "new",
+      "priorityScore": 1.1
+    },
+    {
+      "id": "gitee-signup-PROJECT_BASELINE_SOURCE-3",
+      "code": "PROJECT_BASELINE_SOURCE",
+      "dimension": "visual",
+      "severity": "info",
+      "pageId": "gitee-signup",
+      "title": "PROJECT_BASELINE_SOURCE",
+      "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-submit-validation/original-dom.json",
+      "evidence": [
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+      ],
+      "impactScore": 1,
+      "confidence": 0.9,
+      "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+      "artifactLinks": [
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+      ],
+      "status": "new",
+      "priorityScore": 1.1
+    }
+  ],
+  "artifacts": {
+    "byDimension": {
+      "functionality": [
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/captures/gitee-signup-source.json"
+      ],
+      "interaction": [],
+      "visual": [
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+      ],
+      "structure": [
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/captures/gitee-signup-source.json"
+      ],
+      "content": [
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/captures/gitee-signup-source.json"
+      ],
+      "engineering": [
+        "summary.json",
+        "details.json",
+        "artifacts-index.json",
+        "report.md",
+        "index.html"
+      ]
+    },
+    "byPage": {
+      "gitee-signup": [
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/captures/gitee-signup-source.json",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+        "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+      ]
+    },
+    "all": [
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/captures/gitee-signup-source.json",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png",
+      "summary.json",
+      "details.json",
+      "artifacts-index.json",
+      "report.md",
+      "index.html"
+    ]
+  },
+  "history": {
+    "status": "unavailable",
+    "message": "当前版本尚未接入历史归档对比；报告保留六维历史对比入口。"
+  }
+}

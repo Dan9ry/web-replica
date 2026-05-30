@@ -1,0 +1,169 @@
+{
+  "stateId": "signup-submit-validation",
+  "side": "replica",
+  "viewport": "desktop",
+  "requestedUrl": "http://127.0.0.1:5173/replica/gitee-signup?state=submit",
+  "finalUrl": "http://127.0.0.1:5173/replica/gitee-signup?state=submit",
+  "status": 200,
+  "title": "Web Replica Evaluator",
+  "bodyTextSample": "G\ngitee\n企业级 DevOps 研发管理平台\n\n霍泰稳　极客邦科技创始人\n\n类似 GitHub 这样的代码托管服务，是软件研发过程中不可缺少的一环， 在国内目前还没有特别好的服务，Gitee 很好地填补了这个空白。 一起努力，越来越好，为中国技术人群提供更多更贴心的服务。\n\nGitee 企业版\nhot\n企业级 DevOps 研发管理平台 ›\n注册\n\n已有帐号？ 点此登录\n\n×\n\n姓名为必填项\n\n!\n请填写此字段。\nhttps://gitee.com/\nAI\n?\n×\n\n个人空间地址为必填项\n\n×\n\n手机号码为必填项\n\n◉\n×\n\n密码长度不得低于8个字符\n\n我已阅读并同意 使用条款 及 非活跃帐号处理规范\n立即注册\n\n其他方式登录\n\n↔\n⌂\n✹\n●\n…\n© Gitee.com\n关于我们\n使用条款\n帮助文档\n在线自助服务\n重发激活邮件\n◔",
+  "screenshotPath": "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/replica-desktop.png",
+  "screenshot": {
+    "width": 1365,
+    "height": 768,
+    "blank": false
+  },
+  "selectors": {
+    "body": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "form": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "input:not([type='hidden']),textarea": {
+      "count": 5,
+      "visibleCount": 5
+    },
+    "button,input[type='submit']": {
+      "count": 7,
+      "visibleCount": 7
+    }
+  },
+  "domProfile": {
+    "landmarks": {
+      "nav": 0,
+      "main": 1,
+      "form": 1,
+      "button": 7,
+      "link": 10,
+      "input": 5,
+      "list": 0,
+      "listitem": 0
+    },
+    "textSample": "G\ngitee\n企业级 DevOps 研发管理平台\n\n霍泰稳　极客邦科技创始人\n\n类似 GitHub 这样的代码托管服务，是软件研发过程中不可缺少的一环， 在国内目前还没有特别好的服务，Gitee 很好地填补了这个空白。 一起努力，越来越好，为中国技术人群提供更多更贴心的服务。\n\nGitee 企业版\nhot\n企业级 DevOps 研发管理平台 ›\n注册\n\n已有帐号？ 点此登录\n\n×\n\n姓名为必填项\n\n!\n请填写此字段。\nhttps://gitee.com/\nAI\n?\n×\n\n个人空间地址为必填项\n\n×\n\n手机号码为必填项\n\n◉\n×\n\n密码长度不得低于8个字符\n\n我已阅读并同意 使用条款 及 非活跃帐号处理规范\n立即注册\n\n其他方式登录\n\n↔\n⌂\n✹\n●\n…\n© Gitee.com\n关于我们\n使用条款\n帮助文档\n在线自助服务\n重发激活邮件\n◔",
+    "textNodeLength": 374,
+    "imageAreaRatio": 0,
+    "canvasAreaRatio": 0,
+    "backgroundImageAreaRatio": 1,
+    "interactiveControlCount": 22,
+    "focusableControlCount": 22,
+    "base64ImageCount": 0,
+    "styles": {
+      "body": {
+        "fontSize": "16px",
+        "color": "rgb(32, 33, 36)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(32, 33, 36)",
+        "borderRadius": "0px",
+        "width": "1365px",
+        "height": "768px",
+        "x": 0,
+        "y": 0,
+        "display": "block",
+        "fontWeight": "400",
+        "lineHeight": "normal"
+      },
+      "form": {
+        "fontSize": "16px",
+        "color": "rgb(48, 54, 67)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(48, 54, 67)",
+        "borderRadius": "0px",
+        "width": "360px",
+        "height": "319px",
+        "x": 753,
+        "y": 182,
+        "display": "block",
+        "fontWeight": "400",
+        "lineHeight": "normal"
+      },
+      "input:not([type='hidden']),textarea": {
+        "fontSize": "14px",
+        "color": "rgb(48, 54, 67)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(48, 54, 67)",
+        "borderRadius": "0px",
+        "width": "358px",
+        "height": "38px",
+        "x": 754,
+        "y": 183,
+        "display": "block",
+        "fontWeight": "400",
+        "lineHeight": "normal"
+      },
+      "button,input[type='submit']": {
+        "fontSize": "19px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 120, 15)",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "width": "360px",
+        "height": "38px",
+        "x": 753,
+        "y": 463,
+        "display": "inline-block",
+        "fontWeight": "700",
+        "lineHeight": "normal"
+      }
+    }
+  },
+  "metrics": {
+    "loadTimeMs": 816,
+    "screenshotDiffRatio": 0.09812938797313797,
+    "ssim": 0.5281615706608929,
+    "regionScores": [
+      {
+        "stateId": "signup-submit-validation",
+        "regionId": "signup-form",
+        "selector": "form",
+        "weight": 3,
+        "score": 73.17634509726005,
+        "pixelScore": 90.21072796934865,
+        "ssimScore": 46.347192888723285,
+        "bboxScore": 89,
+        "styleScore": 71,
+        "diffRatio": 0.09789272030651341,
+        "ssim": 0.4634719288872328,
+        "originalPath": "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/original-signup-form-desktop.png",
+        "replicaPath": "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/replica-signup-form-desktop.png",
+        "diffPath": "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png"
+      },
+      {
+        "stateId": "signup-submit-validation",
+        "regionId": "first-input",
+        "selector": "input:not([type='hidden']),textarea",
+        "weight": 2,
+        "score": 85.68696152653831,
+        "pixelScore": 98.35062516626762,
+        "ssimScore": 82.59765771919398,
+        "bboxScore": 75,
+        "styleScore": 44,
+        "diffRatio": 0.016493748337323755,
+        "ssim": 0.8259765771919397,
+        "originalPath": "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/original-first-input-desktop.png",
+        "replicaPath": "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/replica-first-input-desktop.png",
+        "diffPath": "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png"
+      },
+      {
+        "stateId": "signup-submit-validation",
+        "regionId": "submit-button",
+        "selector": "button,input[type='submit']",
+        "weight": 2,
+        "score": 92.30148738227037,
+        "pixelScore": 97.34649122807018,
+        "ssimScore": 87.45510145813994,
+        "bboxScore": 93,
+        "styleScore": 84.07851024112257,
+        "diffRatio": 0.026535087719298245,
+        "ssim": 0.8745510145813994,
+        "originalPath": "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/original-submit-button-desktop.png",
+        "replicaPath": "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/replica-submit-button-desktop.png",
+        "diffPath": "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+      }
+    ],
+    "layoutScore": 89.25,
+    "styleScore": 59.26962756028064
+  }
+}

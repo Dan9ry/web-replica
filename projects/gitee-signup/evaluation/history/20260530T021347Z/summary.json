@@ -1,0 +1,97 @@
+{
+  "schemaVersion": "2.0",
+  "totalScore": 93.6,
+  "weightedScore": 93.6,
+  "conclusion": "excellent",
+  "gateStatus": "passed",
+  "pageCount": 1,
+  "stateCount": 3,
+  "requiredStateCount": 3,
+  "failedStateCount": 0,
+  "highRiskIssueCount": 0,
+  "lowestDimension": {
+    "id": "visual",
+    "name": "视觉一致性",
+    "score": 79.7
+  },
+  "dimensions": {
+    "functionality": {
+      "id": "functionality",
+      "name": "功能正确性",
+      "weight": 0.25,
+      "score": 99.2,
+      "weightedContribution": 24.8,
+      "status": "excellent",
+      "issueCount": 0,
+      "topIssues": []
+    },
+    "interaction": {
+      "id": "interaction",
+      "name": "交互流程一致性",
+      "weight": 0.2,
+      "score": 100,
+      "weightedContribution": 20,
+      "status": "excellent",
+      "issueCount": 0,
+      "topIssues": []
+    },
+    "visual": {
+      "id": "visual",
+      "name": "视觉一致性",
+      "weight": 0.25,
+      "score": 79.7,
+      "weightedContribution": 19.9,
+      "status": "warning",
+      "issueCount": 4,
+      "topIssues": [
+        "gitee-signup-LOW_VISUAL_SCORE-4",
+        "gitee-signup-PROJECT_BASELINE_SOURCE-1",
+        "gitee-signup-PROJECT_BASELINE_SOURCE-2"
+      ]
+    },
+    "structure": {
+      "id": "structure",
+      "name": "结构语义一致性",
+      "weight": 0.1,
+      "score": 92.6,
+      "weightedContribution": 9.3,
+      "status": "excellent",
+      "issueCount": 0,
+      "topIssues": []
+    },
+    "content": {
+      "id": "content",
+      "name": "内容数据一致性",
+      "weight": 0.1,
+      "score": 95.8,
+      "weightedContribution": 9.6,
+      "status": "excellent",
+      "issueCount": 0,
+      "topIssues": []
+    },
+    "engineering": {
+      "id": "engineering",
+      "name": "工程可维护性",
+      "weight": 0.1,
+      "score": 100,
+      "weightedContribution": 10,
+      "status": "excellent",
+      "issueCount": 0,
+      "topIssues": []
+    }
+  },
+  "issueCountByDimension": {
+    "functionality": 0,
+    "interaction": 0,
+    "visual": 4,
+    "structure": 0,
+    "content": 0,
+    "engineering": 0
+  },
+  "issueCountBySeverity": {
+    "blocker": 0,
+    "error": 0,
+    "warning": 1,
+    "info": 3
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "byDimension": {
+    "functionality": [
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/captures/gitee-signup-source.json"
+    ],
+    "interaction": [],
+    "visual": [
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+    ],
+    "structure": [
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/captures/gitee-signup-source.json"
+    ],
+    "content": [
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/captures/gitee-signup-source.json"
+    ],
+    "engineering": [
+      "summary.json",
+      "details.json",
+      "artifacts-index.json",
+      "report.md",
+      "index.html"
+    ]
+  },
+  "byPage": {
+    "gitee-signup": [
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/captures/gitee-signup-source.json",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+      "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png"
+    ]
+  },
+  "all": [
+    "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/captures/gitee-signup-source.json",
+    "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/diff-desktop.png",
+    "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/diff-desktop.png",
+    "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/diff-desktop.png",
+    "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-signup-form-desktop.png",
+    "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-first-input-desktop.png",
+    "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/regions/diff-submit-button-desktop.png",
+    "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-signup-form-desktop.png",
+    "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-first-input-desktop.png",
+    "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-blur-required/regions/diff-submit-button-desktop.png",
+    "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-signup-form-desktop.png",
+    "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-first-input-desktop.png",
+    "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-submit-validation/regions/diff-submit-button-desktop.png",
+    "summary.json",
+    "details.json",
+    "artifacts-index.json",
+    "report.md",
+    "index.html"
+  ]
+}

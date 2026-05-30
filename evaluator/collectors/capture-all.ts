@@ -110,7 +110,7 @@ async function collectDomProfile(
   selectors: string[],
 ): Promise<DomProfile> {
   return page.evaluate(
-    `(selectorList) => {
+    `((selectorList) => {
     const count = (selector) => document.querySelectorAll(selector).length;
     const viewportArea = Math.max(1, window.innerWidth * window.innerHeight);
     const areaFor = (elements) => Array.from(elements).reduce((total, element) => {
@@ -178,8 +178,7 @@ async function collectDomProfile(
       base64ImageCount: Array.from(document.querySelectorAll("img")).filter((image) => image.src.startsWith("data:")).length,
       styles,
     };
-  }`,
-    selectors,
+  })(${JSON.stringify(selectors)})`,
   ) as Promise<DomProfile>;
 }
 

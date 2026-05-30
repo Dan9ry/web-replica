@@ -1,0 +1,141 @@
+{
+  "id": "gitee-signup",
+  "name": "Gitee Signup Replica",
+  "originalUrl": "https://gitee.com/signup",
+  "replicaUrl": "http://127.0.0.1:5173/replica/gitee-signup",
+  "criticalSelectors": [
+    "body",
+    "form",
+    "input:not([type='hidden']),textarea",
+    "button,input[type='submit']"
+  ],
+  "viewports": [
+    {
+      "name": "desktop",
+      "width": 1365,
+      "height": 768
+    }
+  ],
+  "expectedTextIncludes": [
+    "注册"
+  ],
+  "states": [
+    {
+      "id": "signup-initial",
+      "name": "Signup form initial state",
+      "required": true,
+      "originalUrl": "https://gitee.com/signup",
+      "replicaUrl": "http://127.0.0.1:5173/replica/gitee-signup",
+      "criticalSelectors": [
+        "body",
+        "form",
+        "input:not([type='hidden']),textarea",
+        "button,input[type='submit']"
+      ],
+      "expectedTextIncludes": [
+        "注册"
+      ],
+      "compareSelectors": [
+        "body",
+        "form",
+        "input:not([type='hidden']),textarea",
+        "button,input[type='submit']"
+      ],
+      "regions": [
+        {
+          "id": "signup-form",
+          "selector": "form",
+          "weight": 3
+        },
+        {
+          "id": "first-input",
+          "selector": "input:not([type='hidden']),textarea",
+          "weight": 2
+        },
+        {
+          "id": "submit-button",
+          "selector": "button,input[type='submit']",
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "id": "signup-blur-required",
+      "name": "Required prompts after blur",
+      "required": true,
+      "originalUrl": "https://gitee.com/signup",
+      "replicaUrl": "http://127.0.0.1:5173/replica/gitee-signup?state=blur",
+      "criticalSelectors": [
+        "body",
+        "form",
+        "input:not([type='hidden']),textarea",
+        "button,input[type='submit']"
+      ],
+      "expectedTextIncludes": [
+        "注册"
+      ],
+      "compareSelectors": [
+        "body",
+        "form",
+        "input:not([type='hidden']),textarea",
+        "button,input[type='submit']"
+      ],
+      "regions": [
+        {
+          "id": "signup-form",
+          "selector": "form",
+          "weight": 3
+        },
+        {
+          "id": "first-input",
+          "selector": "input:not([type='hidden']),textarea",
+          "weight": 2
+        },
+        {
+          "id": "submit-button",
+          "selector": "button,input[type='submit']",
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "id": "signup-submit-validation",
+      "name": "Signup button validation state",
+      "required": true,
+      "originalUrl": "https://gitee.com/signup",
+      "replicaUrl": "http://127.0.0.1:5173/replica/gitee-signup?state=submit",
+      "criticalSelectors": [
+        "body",
+        "form",
+        "input:not([type='hidden']),textarea",
+        "button,input[type='submit']"
+      ],
+      "expectedTextIncludes": [
+        "注册"
+      ],
+      "compareSelectors": [
+        "body",
+        "form",
+        "input:not([type='hidden']),textarea",
+        "button,input[type='submit']"
+      ],
+      "regions": [
+        {
+          "id": "signup-form",
+          "selector": "form",
+          "weight": 3
+        },
+        {
+          "id": "first-input",
+          "selector": "input:not([type='hidden']),textarea",
+          "weight": 2
+        },
+        {
+          "id": "submit-button",
+          "selector": "button,input[type='submit']",
+          "weight": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,235 @@
+{
+  "stateId": "signup-initial",
+  "side": "original",
+  "viewport": "desktop",
+  "requestedUrl": "https://gitee.com/signup",
+  "finalUrl": "https://gitee.com/signup",
+  "status": 405,
+  "title": "注册 - Gitee.com",
+  "bodyTextSample": "企业级 DevOps 研发管理平台\n霍泰稳 极客邦科技创始人\n类似 GitHub 这样的代码托管服务，是软件研发过程中不可缺少的一环，在国内目前还没有特别好的服务，Gitee 很好地填补了这个空白。一起努力，越来越好，为中国技术人群提供更多更贴心的服务。\nGitee 企业版 - 企业级 DevOps 研发管理平台 \n注册\n已有帐号？ 点此登录\nhttps://gitee.com/\t\n我已阅读并同意\n 使用条款 及 非活跃帐号处理规范\n立即注册\n其他方式登录\n© Gitee.com 关于我们 使用条款 帮助文档 在线自助服务 重发激活邮件",
+  "screenshotPath": "/Users/dangry/Documents/try/tencent/projects/gitee-signup/evaluation/latest/assets/gitee-signup/signup-initial/original-desktop.png",
+  "screenshot": {
+    "width": 1365,
+    "height": 768,
+    "blank": false
+  },
+  "selectors": {
+    "body": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "main": {
+      "count": 0,
+      "visibleCount": 0
+    },
+    "form": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "input:not([type='hidden']),textarea": {
+      "count": 7,
+      "visibleCount": 6
+    },
+    "input[type='password']": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "button,input[type='submit']": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "a": {
+      "count": 23,
+      "visibleCount": 15
+    }
+  },
+  "domProfile": {
+    "landmarks": {
+      "nav": 0,
+      "main": 0,
+      "form": 1,
+      "button": 1,
+      "link": 23,
+      "input": 11,
+      "list": 1,
+      "listitem": 0
+    },
+    "textSample": "企业级 DevOps 研发管理平台\n霍泰稳 极客邦科技创始人\n类似 GitHub 这样的代码托管服务，是软件研发过程中不可缺少的一环，在国内目前还没有特别好的服务，Gitee 很好地填补了这个空白。一起努力，越来越好，为中国技术人群提供更多更贴心的服务。\nGitee 企业版 - 企业级 DevOps 研发管理平台 \n注册\n已有帐号？ 点此登录\nhttps://gitee.com/\t\n我已阅读并同意\n 使用条款 及 非活跃帐号处理规范\n立即注册\n其他方式登录\n© Gitee.com 关于我们 使用条款 帮助文档 在线自助服务 重发激活邮件",
+    "styles": {
+      "body": {
+        "fontSize": "14px",
+        "color": "rgb(64, 72, 91)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderColor": "rgb(64, 72, 91)",
+        "borderRadius": "0px",
+        "width": "1365px",
+        "height": "768px",
+        "x": 0,
+        "y": 0,
+        "display": "block",
+        "fontWeight": "400",
+        "lineHeight": "19.6px"
+      },
+      "form": {
+        "fontSize": "14px",
+        "color": "rgb(64, 72, 91)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(64, 72, 91)",
+        "borderRadius": "0px",
+        "width": "360px",
+        "height": "302px",
+        "x": 753,
+        "y": 178,
+        "display": "block",
+        "fontWeight": "400",
+        "lineHeight": "19.6px"
+      },
+      "input:not([type='hidden']),textarea": {
+        "fontSize": "14px",
+        "color": "rgba(0, 0, 0, 0.8)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderColor": "rgb(223, 227, 233)",
+        "borderRadius": "3px",
+        "width": "360px",
+        "height": "21px",
+        "x": 753,
+        "y": 178,
+        "display": "block",
+        "fontWeight": "400",
+        "lineHeight": "18.62px"
+      },
+      "input[type='password']": {
+        "fontSize": "14px",
+        "color": "rgba(0, 0, 0, 0.8)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderColor": "rgb(223, 227, 233)",
+        "borderRadius": "3px",
+        "width": "360px",
+        "height": "40px",
+        "x": 753,
+        "y": 348,
+        "display": "inline-block",
+        "fontWeight": "400",
+        "lineHeight": "20.0001px"
+      },
+      "button,input[type='submit']": {
+        "fontSize": "18px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(254, 115, 0)",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderRadius": "2px",
+        "width": "360px",
+        "height": "38px",
+        "x": 753,
+        "y": 441,
+        "display": "block",
+        "fontWeight": "500",
+        "lineHeight": "22px"
+      },
+      "a": {
+        "fontSize": "14px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "width": "319px",
+        "height": "17px",
+        "x": 263,
+        "y": 574,
+        "display": "inline",
+        "fontWeight": "400",
+        "lineHeight": "19.6px"
+      }
+    },
+    "visibleInputs": [
+      {
+        "tag": "INPUT",
+        "type": null,
+        "name": null,
+        "placeholder": null,
+        "ariaLabel": null,
+        "title": null,
+        "rect": {
+          "x": 753,
+          "y": 178,
+          "width": 360,
+          "height": 21
+        }
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "name": "user[name]",
+        "placeholder": "姓名",
+        "ariaLabel": null,
+        "title": null,
+        "rect": {
+          "x": 753,
+          "y": 178,
+          "width": 360,
+          "height": 40
+        }
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "name": "user[username]",
+        "placeholder": "个人空间地址",
+        "ariaLabel": null,
+        "title": null,
+        "rect": {
+          "x": 890,
+          "y": 234,
+          "width": 222,
+          "height": 40
+        }
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "name": "user[account]",
+        "placeholder": "请输入手机号码",
+        "ariaLabel": null,
+        "title": null,
+        "rect": {
+          "x": 753,
+          "y": 291,
+          "width": 360,
+          "height": 40
+        }
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "name": "user[password]",
+        "placeholder": "密码不少于8位",
+        "ariaLabel": null,
+        "title": null,
+        "rect": {
+          "x": 753,
+          "y": 348,
+          "width": 360,
+          "height": 40
+        }
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "name": "accept_term",
+        "placeholder": null,
+        "ariaLabel": null,
+        "title": null,
+        "rect": {
+          "x": 753,
+          "y": 411,
+          "width": 13,
+          "height": 13
+        }
+      }
+    ]
+  },
+  "manualVerified": true,
+  "fromProjectBaseline": true,
+  "baselinePath": "/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-initial/original-dom.json",
+  "fallbackFromBaseline": false
+}

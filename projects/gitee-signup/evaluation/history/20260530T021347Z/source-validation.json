@@ -1,0 +1,128 @@
+{
+  "generatedAt": "2026-05-30T02:13:29.814Z",
+  "pages": [
+    {
+      "pageId": "gitee-signup",
+      "name": "Gitee Signup Replica",
+      "originalUrl": "https://gitee.com/signup",
+      "replicaUrl": "http://127.0.0.1:5173/replica/gitee-signup",
+      "sourceValidation": {
+        "status": "passed",
+        "canScore": true,
+        "finalUrl": "https://gitee.com/signup",
+        "issues": [
+          {
+            "severity": "info",
+            "code": "PROJECT_BASELINE_SOURCE",
+            "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-initial/original-dom.json"
+          },
+          {
+            "severity": "info",
+            "code": "PROJECT_BASELINE_SOURCE",
+            "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-blur-required/original-dom.json"
+          },
+          {
+            "severity": "info",
+            "code": "PROJECT_BASELINE_SOURCE",
+            "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-submit-validation/original-dom.json"
+          }
+        ],
+        "captureMode": "baseline",
+        "stateResults": [
+          {
+            "stateId": "signup-initial",
+            "name": "Signup form initial state",
+            "status": "passed",
+            "canScore": true,
+            "finalUrl": "https://gitee.com/signup",
+            "issues": [
+              {
+                "severity": "info",
+                "code": "PROJECT_BASELINE_SOURCE",
+                "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-initial/original-dom.json"
+              }
+            ],
+            "captureMode": "baseline"
+          },
+          {
+            "stateId": "signup-blur-required",
+            "name": "Required prompts after blur",
+            "status": "passed",
+            "canScore": true,
+            "finalUrl": "https://gitee.com/signup",
+            "issues": [
+              {
+                "severity": "info",
+                "code": "PROJECT_BASELINE_SOURCE",
+                "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-blur-required/original-dom.json"
+              }
+            ],
+            "captureMode": "baseline"
+          },
+          {
+            "stateId": "signup-submit-validation",
+            "name": "Signup button validation state",
+            "status": "passed",
+            "canScore": true,
+            "finalUrl": "https://gitee.com/signup",
+            "issues": [
+              {
+                "severity": "info",
+                "code": "PROJECT_BASELINE_SOURCE",
+                "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-submit-validation/original-dom.json"
+              }
+            ],
+            "captureMode": "baseline"
+          }
+        ]
+      },
+      "stateResults": [
+        {
+          "stateId": "signup-initial",
+          "name": "Signup form initial state",
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://gitee.com/signup",
+          "issues": [
+            {
+              "severity": "info",
+              "code": "PROJECT_BASELINE_SOURCE",
+              "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-initial/original-dom.json"
+            }
+          ],
+          "captureMode": "baseline"
+        },
+        {
+          "stateId": "signup-blur-required",
+          "name": "Required prompts after blur",
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://gitee.com/signup",
+          "issues": [
+            {
+              "severity": "info",
+              "code": "PROJECT_BASELINE_SOURCE",
+              "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-blur-required/original-dom.json"
+            }
+          ],
+          "captureMode": "baseline"
+        },
+        {
+          "stateId": "signup-submit-validation",
+          "name": "Signup button validation state",
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://gitee.com/signup",
+          "issues": [
+            {
+              "severity": "info",
+              "code": "PROJECT_BASELINE_SOURCE",
+              "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：/Users/dangry/Documents/try/tencent/projects/gitee-signup/baselines/signup-submit-validation/original-dom.json"
+            }
+          ],
+          "captureMode": "baseline"
+        }
+      ]
+    }
+  ]
+}
