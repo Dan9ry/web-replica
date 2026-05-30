@@ -1,0 +1,99 @@
+{
+  "stateId": "initial",
+  "side": "replica",
+  "viewport": "desktop",
+  "requestedUrl": "http://127.0.0.1:5173/replica/wechat-pay-login",
+  "finalUrl": "http://127.0.0.1:5173/replica/wechat-pay-login",
+  "status": 200,
+  "title": "微信支付 - 账号密码登录",
+  "bodyTextSample": "境内商户\n合作伙伴\nInternational Business\n✓\n微信支付\n首页\n接入指引\n产品中心\n解决方案\n文档中心\n接入微信支付\n微信支付商家助手\n\n即刻扫码移动办公，随时随地，助力经营\n\n账号密码登录\nJ\n7\nN\nW\n换一张\n登录\n忘记密码\n[04.02] 微信支付网络变更通知\n[10.18] 商家转账到零钱功能升级通知\n更多公告 >",
+  "screenshotPath": "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/replica-desktop.png",
+  "screenshot": {
+    "width": 1365,
+    "height": 768,
+    "blank": false
+  },
+  "selectors": {
+    "[data-replica='login-panel']": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "[data-replica='username-input']": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "[data-replica='password-input']": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "[data-replica='captcha-input']": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "[data-replica='login-button']": {
+      "count": 1,
+      "visibleCount": 1
+    }
+  },
+  "domProfile": {
+    "landmarks": {
+      "nav": 1,
+      "main": 1,
+      "form": 0,
+      "button": 2,
+      "link": 1,
+      "input": 3,
+      "list": 0,
+      "listitem": 0
+    },
+    "textSample": "境内商户\n合作伙伴\nInternational Business\n✓\n微信支付\n首页\n接入指引\n产品中心\n解决方案\n文档中心\n接入微信支付\n微信支付商家助手\n\n即刻扫码移动办公，随时随地，助力经营\n\n账号密码登录\nJ\n7\nN\nW\n换一张\n登录\n忘记密码\n[04.02] 微信支付网络变更通知\n[10.18] 商家转账到零钱功能升级通知\n更多公告 >",
+    "textNodeLength": 174,
+    "imageAreaRatio": 0,
+    "canvasAreaRatio": 0,
+    "backgroundImageAreaRatio": 0.6777892246642246,
+    "interactiveControlCount": 6,
+    "focusableControlCount": 6,
+    "base64ImageCount": 0,
+    "styles": {
+      "[data-replica='login-panel']": {
+        "fontSize": "16px",
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderColor": "rgb(51, 51, 51)",
+        "borderRadius": "0px",
+        "width": "320px",
+        "height": "351px",
+        "x": 923,
+        "y": 198,
+        "display": "block",
+        "fontWeight": "400",
+        "lineHeight": "normal"
+      }
+    }
+  },
+  "metrics": {
+    "loadTimeMs": 976,
+    "screenshotDiffRatio": 0.44453315781440783,
+    "ssim": 0.22895238579034624,
+    "regionScores": [
+      {
+        "stateId": "initial",
+        "regionId": "login-panel",
+        "selector": "[data-replica='login-panel']",
+        "weight": 1,
+        "score": 77.19438025371822,
+        "pixelScore": 88.35142215568862,
+        "ssimScore": 58.149257953309544,
+        "bboxScore": 83.7,
+        "styleScore": 88,
+        "diffRatio": 0.11648577844311377,
+        "ssim": 0.5814925795330954,
+        "originalPath": "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/original-login-panel-desktop.png",
+        "replicaPath": "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/replica-login-panel-desktop.png",
+        "diffPath": "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png"
+      }
+    ],
+    "layoutScore": 83.7,
+    "styleScore": 88
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "byDimension": {
+    "functionality": [
+      "projects/wechat-pay-login/evaluation/latest/captures/wechat-pay-login-source.json"
+    ],
+    "interaction": [],
+    "visual": [
+      "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png",
+      "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png"
+    ],
+    "structure": [
+      "projects/wechat-pay-login/evaluation/latest/captures/wechat-pay-login-source.json"
+    ],
+    "content": [
+      "projects/wechat-pay-login/evaluation/latest/captures/wechat-pay-login-source.json"
+    ],
+    "engineering": [
+      "summary.json",
+      "details.json",
+      "artifacts-index.json",
+      "report.md",
+      "index.html"
+    ]
+  },
+  "byPage": {
+    "wechat-pay-login": [
+      "projects/wechat-pay-login/evaluation/latest/captures/wechat-pay-login-source.json",
+      "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png",
+      "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png"
+    ]
+  },
+  "all": [
+    "projects/wechat-pay-login/evaluation/latest/captures/wechat-pay-login-source.json",
+    "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png",
+    "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png",
+    "summary.json",
+    "details.json",
+    "artifacts-index.json",
+    "report.md",
+    "index.html"
+  ]
+}

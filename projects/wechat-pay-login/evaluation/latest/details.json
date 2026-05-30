@@ -1,0 +1,737 @@
+{
+  "schemaVersion": "2.0",
+  "run": {
+    "generatedAt": "2026-05-30T04:32:16.954Z",
+    "targetConfig": "projects/wechat-pay-login/config/target.json",
+    "browser": "Chromium",
+    "viewports": [
+      "desktop 1365x768"
+    ],
+    "pageCount": 1
+  },
+  "gates": [
+    {
+      "id": "wechat-pay-login-source-gate",
+      "name": "WeChat Pay Login Form Replica 原站基线与复刻可运行门禁",
+      "status": "passed",
+      "pageId": "wechat-pay-login",
+      "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/wechat-pay-login/baselines/initial/original-dom.json"
+    }
+  ],
+  "summary": {
+    "schemaVersion": "2.0",
+    "totalScore": 92.5,
+    "weightedScore": 92.5,
+    "conclusion": "excellent",
+    "gateStatus": "passed",
+    "pageCount": 1,
+    "stateCount": 1,
+    "requiredStateCount": 1,
+    "failedStateCount": 0,
+    "highRiskIssueCount": 0,
+    "lowestDimension": {
+      "id": "visual",
+      "name": "视觉一致性",
+      "score": 75.8
+    },
+    "dimensions": {
+      "functionality": {
+        "id": "functionality",
+        "name": "功能正确性",
+        "weight": 0.25,
+        "score": 98.2,
+        "weightedContribution": 24.6,
+        "status": "excellent",
+        "issueCount": 0,
+        "topIssues": []
+      },
+      "interaction": {
+        "id": "interaction",
+        "name": "交互流程一致性",
+        "weight": 0.2,
+        "score": 100,
+        "weightedContribution": 20,
+        "status": "excellent",
+        "issueCount": 0,
+        "topIssues": []
+      },
+      "visual": {
+        "id": "visual",
+        "name": "视觉一致性",
+        "weight": 0.25,
+        "score": 75.8,
+        "weightedContribution": 19,
+        "status": "warning",
+        "issueCount": 2,
+        "topIssues": [
+          "wechat-pay-login-LOW_VISUAL_SCORE-2",
+          "wechat-pay-login-PROJECT_BASELINE_SOURCE-1"
+        ]
+      },
+      "structure": {
+        "id": "structure",
+        "name": "结构语义一致性",
+        "weight": 0.1,
+        "score": 99,
+        "weightedContribution": 9.9,
+        "status": "excellent",
+        "issueCount": 0,
+        "topIssues": []
+      },
+      "content": {
+        "id": "content",
+        "name": "内容数据一致性",
+        "weight": 0.1,
+        "score": 91.1,
+        "weightedContribution": 9.1,
+        "status": "excellent",
+        "issueCount": 0,
+        "topIssues": []
+      },
+      "engineering": {
+        "id": "engineering",
+        "name": "工程可维护性",
+        "weight": 0.1,
+        "score": 100,
+        "weightedContribution": 10,
+        "status": "excellent",
+        "issueCount": 0,
+        "topIssues": []
+      }
+    },
+    "issueCountByDimension": {
+      "functionality": 0,
+      "interaction": 0,
+      "visual": 2,
+      "structure": 0,
+      "content": 0,
+      "engineering": 0
+    },
+    "issueCountBySeverity": {
+      "blocker": 0,
+      "error": 0,
+      "warning": 1,
+      "info": 1
+    }
+  },
+  "dimensions": [
+    {
+      "id": "functionality",
+      "name": "功能正确性",
+      "weight": 0.25,
+      "score": 98.2,
+      "weightedContribution": 24.6,
+      "status": "excellent",
+      "issueCount": 0,
+      "topIssues": [],
+      "subMetrics": [
+        {
+          "id": "required-state-coverage",
+          "name": "required 状态覆盖率",
+          "weight": 0.25,
+          "score": 100,
+          "description": "required 状态是否有可信原站基线和复刻状态。",
+          "evidence": []
+        },
+        {
+          "id": "core-use-cases",
+          "name": "核心用例断言通过率",
+          "weight": 0.35,
+          "score": 100,
+          "description": "核心交互断言是否通过。",
+          "evidence": []
+        },
+        {
+          "id": "output-correctness",
+          "name": "输出结果正确率",
+          "weight": 0.2,
+          "score": 91.1,
+          "description": "结果文案、列表和状态输出是否正确。",
+          "evidence": []
+        },
+        {
+          "id": "boundary-cases",
+          "name": "边界/异常态通过率",
+          "weight": 0.2,
+          "score": 100,
+          "description": "空输入、错误态、无结果态等边界行为。",
+          "evidence": []
+        }
+      ],
+      "pageScores": [
+        {
+          "pageId": "wechat-pay-login",
+          "pageName": "WeChat Pay Login Form Replica",
+          "score": 98.2,
+          "status": "excellent",
+          "worstStates": [],
+          "topIssues": []
+        }
+      ],
+      "issues": [],
+      "evidence": [
+        "projects/wechat-pay-login/evaluation/latest/captures/wechat-pay-login-source.json"
+      ],
+      "recommendation": "保持当前实现，后续只需防止回归。"
+    },
+    {
+      "id": "interaction",
+      "name": "交互流程一致性",
+      "weight": 0.2,
+      "score": 100,
+      "weightedContribution": 20,
+      "status": "excellent",
+      "issueCount": 0,
+      "topIssues": [],
+      "subMetrics": [
+        {
+          "id": "case-pass-rate",
+          "name": "交互用例通过率",
+          "weight": 0.4,
+          "score": 100,
+          "description": "交互用例整体通过情况。",
+          "evidence": []
+        },
+        {
+          "id": "assertion-pass-rate",
+          "name": "步骤断言通过率",
+          "weight": 0.3,
+          "score": 100,
+          "description": "动作后的可见状态断言是否通过。",
+          "evidence": []
+        },
+        {
+          "id": "feedback-state",
+          "name": "反馈状态一致性",
+          "weight": 0.2,
+          "score": 95.6,
+          "description": "loading、error、disabled、即时反馈等状态是否一致。",
+          "evidence": []
+        },
+        {
+          "id": "keyboard-mouse-detail",
+          "name": "键盘/鼠标细节一致性",
+          "weight": 0.1,
+          "score": 100,
+          "description": "Enter、hover、focus、blur 等细节。",
+          "evidence": []
+        }
+      ],
+      "pageScores": [
+        {
+          "pageId": "wechat-pay-login",
+          "pageName": "WeChat Pay Login Form Replica",
+          "score": 100,
+          "status": "excellent",
+          "worstStates": [],
+          "topIssues": []
+        }
+      ],
+      "issues": [],
+      "evidence": [],
+      "recommendation": "保持当前实现，后续只需防止回归。"
+    },
+    {
+      "id": "visual",
+      "name": "视觉一致性",
+      "weight": 0.25,
+      "score": 75.8,
+      "weightedContribution": 19,
+      "status": "warning",
+      "issueCount": 2,
+      "topIssues": [
+        "wechat-pay-login-LOW_VISUAL_SCORE-2",
+        "wechat-pay-login-PROJECT_BASELINE_SOURCE-1"
+      ],
+      "subMetrics": [
+        {
+          "id": "full-page-visual",
+          "name": "整页视觉",
+          "weight": 0.2,
+          "score": 75.8,
+          "description": "整页截图 diff 与 SSIM 综合分。",
+          "evidence": []
+        },
+        {
+          "id": "region-visual",
+          "name": "区域加权视觉",
+          "weight": 0.45,
+          "score": 75.8,
+          "description": "关键区域截图、区域 diff、bbox 和样式综合分。未配置区域时会低于整页分，提示补充 regions。",
+          "evidence": []
+        },
+        {
+          "id": "key-style",
+          "name": "关键元素样式",
+          "weight": 0.2,
+          "score": 87.4,
+          "description": "字体、颜色、圆角、控件尺寸等样式对齐。",
+          "evidence": []
+        },
+        {
+          "id": "box-model",
+          "name": "布局盒模型",
+          "weight": 0.15,
+          "score": 70.8,
+          "description": "关键元素坐标、宽高、间距对齐。",
+          "evidence": []
+        }
+      ],
+      "pageScores": [
+        {
+          "pageId": "wechat-pay-login",
+          "pageName": "WeChat Pay Login Form Replica",
+          "score": 75.8,
+          "status": "warning",
+          "worstStates": [],
+          "topIssues": [
+            "wechat-pay-login-LOW_VISUAL_SCORE-2",
+            "wechat-pay-login-PROJECT_BASELINE_SOURCE-1"
+          ]
+        }
+      ],
+      "issues": [
+        {
+          "id": "wechat-pay-login-LOW_VISUAL_SCORE-2",
+          "code": "LOW_VISUAL_SCORE",
+          "dimension": "visual",
+          "severity": "warning",
+          "pageId": "wechat-pay-login",
+          "title": "视觉一致性偏低",
+          "description": "视觉一致性偏低：请优先查看当前 project/evaluation/latest/assets 下对应状态的视觉差异图，修复区域布局、字体字号、间距、颜色和控件尺寸。",
+          "evidence": [
+            "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png",
+            "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png"
+          ],
+          "impactScore": 4,
+          "confidence": 0.78,
+          "suggestedFix": "按区域 diff 调整布局、字号、颜色、间距和关键控件尺寸，优先修复低分区域。",
+          "artifactLinks": [
+            "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png",
+            "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png"
+          ],
+          "status": "new",
+          "priorityScore": 7.5
+        },
+        {
+          "id": "wechat-pay-login-PROJECT_BASELINE_SOURCE-1",
+          "code": "PROJECT_BASELINE_SOURCE",
+          "dimension": "visual",
+          "severity": "info",
+          "pageId": "wechat-pay-login",
+          "title": "PROJECT_BASELINE_SOURCE",
+          "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/wechat-pay-login/baselines/initial/original-dom.json",
+          "evidence": [
+            "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png",
+            "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png"
+          ],
+          "impactScore": 1,
+          "confidence": 0.9,
+          "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+          "artifactLinks": [
+            "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png",
+            "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png"
+          ],
+          "status": "new",
+          "priorityScore": 1.1
+        }
+      ],
+      "evidence": [
+        "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png",
+        "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png"
+      ],
+      "recommendation": "优先查看区域 diff 和整页 diff，按页面头、中、尾逐段修正布局、字体、颜色和间距。"
+    },
+    {
+      "id": "structure",
+      "name": "结构语义一致性",
+      "weight": 0.1,
+      "score": 99,
+      "weightedContribution": 9.9,
+      "status": "excellent",
+      "issueCount": 0,
+      "topIssues": [],
+      "subMetrics": [
+        {
+          "id": "dom-structure",
+          "name": "关键 DOM 结构",
+          "weight": 0.3,
+          "score": 99,
+          "description": "用户复刻范围内 functional/content/structural/visual selector 按权重匹配情况。",
+          "evidence": []
+        },
+        {
+          "id": "control-semantics",
+          "name": "关键控件语义",
+          "weight": 0.25,
+          "score": 99.5,
+          "description": "用户要求交互的 input、button、a、form 等控件是否真实可操作。",
+          "evidence": []
+        },
+        {
+          "id": "basic-a11y-semantics",
+          "name": "基础语义一致性",
+          "weight": 0.2,
+          "score": 95.1,
+          "description": "视觉必需区域、基础语义、焦点和可见文本是否合理。",
+          "evidence": []
+        },
+        {
+          "id": "anti-cheat",
+          "name": "反截图伪页面检查",
+          "weight": 0.1,
+          "score": 100,
+          "description": "是否存在整页截图、大面积 canvas 或不可交互伪装。",
+          "evidence": []
+        }
+      ],
+      "pageScores": [
+        {
+          "pageId": "wechat-pay-login",
+          "pageName": "WeChat Pay Login Form Replica",
+          "score": 99,
+          "status": "excellent",
+          "worstStates": [],
+          "topIssues": []
+        }
+      ],
+      "issues": [],
+      "evidence": [
+        "projects/wechat-pay-login/evaluation/latest/captures/wechat-pay-login-source.json"
+      ],
+      "recommendation": "保持当前实现，后续只需防止回归。"
+    },
+    {
+      "id": "content",
+      "name": "内容数据一致性",
+      "weight": 0.1,
+      "score": 91.1,
+      "weightedContribution": 9.1,
+      "status": "excellent",
+      "issueCount": 0,
+      "topIssues": [],
+      "subMetrics": [
+        {
+          "id": "core-text-coverage",
+          "name": "核心文本覆盖",
+          "weight": 0.3,
+          "score": 91.1,
+          "description": "标题、按钮、提示、结果等核心文本覆盖率。",
+          "evidence": []
+        },
+        {
+          "id": "form-copy",
+          "name": "表单文案",
+          "weight": 0.2,
+          "score": 95.1,
+          "description": "label、placeholder、helper text 是否一致。",
+          "evidence": []
+        },
+        {
+          "id": "state-copy",
+          "name": "错误/空态/loading 文案",
+          "weight": 0.2,
+          "score": 100,
+          "description": "状态文案是否与原站可见 UI 对齐。",
+          "evidence": []
+        },
+        {
+          "id": "data-shape",
+          "name": "列表/表格/卡片数据结构",
+          "weight": 0.2,
+          "score": 94.7,
+          "description": "结果项字段、数量和结构是否一致。",
+          "evidence": []
+        }
+      ],
+      "pageScores": [
+        {
+          "pageId": "wechat-pay-login",
+          "pageName": "WeChat Pay Login Form Replica",
+          "score": 91.1,
+          "status": "excellent",
+          "worstStates": [],
+          "topIssues": []
+        }
+      ],
+      "issues": [],
+      "evidence": [
+        "projects/wechat-pay-login/evaluation/latest/captures/wechat-pay-login-source.json"
+      ],
+      "recommendation": "保持当前实现，后续只需防止回归。"
+    },
+    {
+      "id": "engineering",
+      "name": "工程可维护性",
+      "weight": 0.1,
+      "score": 100,
+      "weightedContribution": 10,
+      "status": "excellent",
+      "issueCount": 0,
+      "topIssues": [],
+      "subMetrics": [
+        {
+          "id": "build-run-test",
+          "name": "构建/启动/测试",
+          "weight": 0.25,
+          "score": 100,
+          "description": "复刻工程是否可构建、可启动、可评估。",
+          "evidence": []
+        },
+        {
+          "id": "code-organization",
+          "name": "组件拆分与代码组织",
+          "weight": 0.2,
+          "score": 100,
+          "description": "源码是否位于 project/page 并按组件、数据、状态、样式组织。",
+          "evidence": []
+        },
+        {
+          "id": "style-isolation",
+          "name": "样式隔离与可维护性",
+          "weight": 0.15,
+          "score": 87.9,
+          "description": "样式是否隔离、命名清晰、便于维护。",
+          "evidence": []
+        },
+        {
+          "id": "artifact-completeness",
+          "name": "评估产物与日志完整性",
+          "weight": 0.2,
+          "score": 100,
+          "description": "summary、details、report、截图、diff 等产物是否完整。",
+          "evidence": []
+        }
+      ],
+      "pageScores": [
+        {
+          "pageId": "wechat-pay-login",
+          "pageName": "WeChat Pay Login Form Replica",
+          "score": 100,
+          "status": "excellent",
+          "worstStates": [],
+          "topIssues": []
+        }
+      ],
+      "issues": [],
+      "evidence": [
+        "summary.json",
+        "details.json",
+        "artifacts-index.json",
+        "report.md",
+        "index.html"
+      ],
+      "recommendation": "保持当前实现，后续只需防止回归。"
+    }
+  ],
+  "pages": [
+    {
+      "pageId": "wechat-pay-login",
+      "name": "WeChat Pay Login Form Replica",
+      "originalUrl": "https://pay.weixin.qq.com/index.php/core/home/login",
+      "replicaUrl": "http://127.0.0.1:5173/replica/wechat-pay-login",
+      "captureMode": "baseline",
+      "gateStatus": "passed",
+      "finalUrl": "https://pay.weixin.qq.com/index.php/core/home/login",
+      "score": {
+        "total": 92.5,
+        "level": "高一致",
+        "metrics": {
+          "functionality": 98.2,
+          "interaction": 100,
+          "visual": 75.8,
+          "structure": 99,
+          "content": 91.1,
+          "engineering": 100
+        }
+      },
+      "states": [
+        {
+          "stateId": "initial",
+          "name": "Initial login form",
+          "required": true,
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://pay.weixin.qq.com/index.php/core/home/login",
+          "issues": [
+            "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/wechat-pay-login/baselines/initial/original-dom.json"
+          ],
+          "score": {
+            "functionality": 98.2,
+            "interaction": 100,
+            "visual": 75.8,
+            "structure": 99,
+            "content": 91.1,
+            "engineering": 100
+          }
+        }
+      ],
+      "interactions": [
+        {
+          "id": "empty-submit-validation",
+          "stateId": "empty-submit-validation",
+          "name": "Click login with empty inputs and show validation",
+          "weight": 1,
+          "passed": true
+        },
+        {
+          "id": "typed-submit-failure",
+          "stateId": "typed-submit-failure",
+          "name": "Fill fields and click login to show local failure feedback",
+          "weight": 1,
+          "passed": true
+        }
+      ],
+      "issues": [
+        {
+          "id": "wechat-pay-login-LOW_VISUAL_SCORE-2",
+          "code": "LOW_VISUAL_SCORE",
+          "dimension": "visual",
+          "severity": "warning",
+          "pageId": "wechat-pay-login",
+          "title": "视觉一致性偏低",
+          "description": "视觉一致性偏低：请优先查看当前 project/evaluation/latest/assets 下对应状态的视觉差异图，修复区域布局、字体字号、间距、颜色和控件尺寸。",
+          "evidence": [
+            "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png",
+            "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png"
+          ],
+          "impactScore": 4,
+          "confidence": 0.78,
+          "suggestedFix": "按区域 diff 调整布局、字号、颜色、间距和关键控件尺寸，优先修复低分区域。",
+          "artifactLinks": [
+            "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png",
+            "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png"
+          ],
+          "status": "new",
+          "priorityScore": 7.5
+        },
+        {
+          "id": "wechat-pay-login-PROJECT_BASELINE_SOURCE-1",
+          "code": "PROJECT_BASELINE_SOURCE",
+          "dimension": "visual",
+          "severity": "info",
+          "pageId": "wechat-pay-login",
+          "title": "PROJECT_BASELINE_SOURCE",
+          "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/wechat-pay-login/baselines/initial/original-dom.json",
+          "evidence": [
+            "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png",
+            "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png"
+          ],
+          "impactScore": 1,
+          "confidence": 0.9,
+          "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+          "artifactLinks": [
+            "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png",
+            "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png"
+          ],
+          "status": "new",
+          "priorityScore": 1.1
+        }
+      ],
+      "artifacts": {
+        "captures": {
+          "original": "projects/wechat-pay-login/evaluation/latest/captures/wechat-pay-login-source.json",
+          "replica": "projects/wechat-pay-login/evaluation/latest/captures/wechat-pay-login-source.json"
+        },
+        "visualDiffs": [
+          "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png"
+        ],
+        "regionDiffs": [
+          "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png"
+        ]
+      }
+    }
+  ],
+  "issues": [
+    {
+      "id": "wechat-pay-login-LOW_VISUAL_SCORE-2",
+      "code": "LOW_VISUAL_SCORE",
+      "dimension": "visual",
+      "severity": "warning",
+      "pageId": "wechat-pay-login",
+      "title": "视觉一致性偏低",
+      "description": "视觉一致性偏低：请优先查看当前 project/evaluation/latest/assets 下对应状态的视觉差异图，修复区域布局、字体字号、间距、颜色和控件尺寸。",
+      "evidence": [
+        "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png",
+        "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png"
+      ],
+      "impactScore": 4,
+      "confidence": 0.78,
+      "suggestedFix": "按区域 diff 调整布局、字号、颜色、间距和关键控件尺寸，优先修复低分区域。",
+      "artifactLinks": [
+        "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png",
+        "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png"
+      ],
+      "status": "new",
+      "priorityScore": 7.5
+    },
+    {
+      "id": "wechat-pay-login-PROJECT_BASELINE_SOURCE-1",
+      "code": "PROJECT_BASELINE_SOURCE",
+      "dimension": "visual",
+      "severity": "info",
+      "pageId": "wechat-pay-login",
+      "title": "PROJECT_BASELINE_SOURCE",
+      "description": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/wechat-pay-login/baselines/initial/original-dom.json",
+      "evidence": [
+        "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png",
+        "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png"
+      ],
+      "impactScore": 1,
+      "confidence": 0.9,
+      "suggestedFix": "打开对应截图、diff 或区域 diff，对照修复布局与样式差异。",
+      "artifactLinks": [
+        "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png",
+        "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png"
+      ],
+      "status": "new",
+      "priorityScore": 1.1
+    }
+  ],
+  "artifacts": {
+    "byDimension": {
+      "functionality": [
+        "projects/wechat-pay-login/evaluation/latest/captures/wechat-pay-login-source.json"
+      ],
+      "interaction": [],
+      "visual": [
+        "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png",
+        "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png"
+      ],
+      "structure": [
+        "projects/wechat-pay-login/evaluation/latest/captures/wechat-pay-login-source.json"
+      ],
+      "content": [
+        "projects/wechat-pay-login/evaluation/latest/captures/wechat-pay-login-source.json"
+      ],
+      "engineering": [
+        "summary.json",
+        "details.json",
+        "artifacts-index.json",
+        "report.md",
+        "index.html"
+      ]
+    },
+    "byPage": {
+      "wechat-pay-login": [
+        "projects/wechat-pay-login/evaluation/latest/captures/wechat-pay-login-source.json",
+        "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png",
+        "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png"
+      ]
+    },
+    "all": [
+      "projects/wechat-pay-login/evaluation/latest/captures/wechat-pay-login-source.json",
+      "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png",
+      "projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png",
+      "summary.json",
+      "details.json",
+      "artifacts-index.json",
+      "report.md",
+      "index.html"
+    ]
+  },
+  "history": {
+    "status": "unavailable",
+    "message": "当前版本尚未接入历史归档对比；报告保留六维历史对比入口。"
+  }
+}

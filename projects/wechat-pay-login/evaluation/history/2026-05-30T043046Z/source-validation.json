@@ -1,0 +1,58 @@
+{
+  "generatedAt": "2026-05-30T04:30:46.538Z",
+  "pages": [
+    {
+      "pageId": "wechat-pay-login",
+      "name": "WeChat Pay Login Form Replica",
+      "originalUrl": "https://pay.weixin.qq.com/index.php/core/home/login",
+      "replicaUrl": "http://127.0.0.1:5173/replica/wechat-pay-login",
+      "sourceValidation": {
+        "status": "passed",
+        "canScore": true,
+        "finalUrl": "https://pay.weixin.qq.com/index.php/core/home/login",
+        "issues": [
+          {
+            "severity": "info",
+            "code": "PROJECT_BASELINE_SOURCE",
+            "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/wechat-pay-login/baselines/initial/original-dom.json"
+          }
+        ],
+        "captureMode": "baseline",
+        "stateResults": [
+          {
+            "stateId": "initial",
+            "name": "Initial login form",
+            "status": "passed",
+            "canScore": true,
+            "finalUrl": "https://pay.weixin.qq.com/index.php/core/home/login",
+            "issues": [
+              {
+                "severity": "info",
+                "code": "PROJECT_BASELINE_SOURCE",
+                "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/wechat-pay-login/baselines/initial/original-dom.json"
+              }
+            ],
+            "captureMode": "baseline"
+          }
+        ]
+      },
+      "stateResults": [
+        {
+          "stateId": "initial",
+          "name": "Initial login form",
+          "status": "passed",
+          "canScore": true,
+          "finalUrl": "https://pay.weixin.qq.com/index.php/core/home/login",
+          "issues": [
+            {
+              "severity": "info",
+              "code": "PROJECT_BASELINE_SOURCE",
+              "message": "原网页证据来自 Phase 3 已确认截图/DOM 基线：projects/wechat-pay-login/baselines/initial/original-dom.json"
+            }
+          ],
+          "captureMode": "baseline"
+        }
+      ]
+    }
+  ]
+}

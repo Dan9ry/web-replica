@@ -1,0 +1,166 @@
+{
+  "id": "wechat-pay-login",
+  "name": "WeChat Pay Login Form Replica",
+  "originalUrl": "https://pay.weixin.qq.com/index.php/core/home/login",
+  "replicaUrl": "http://127.0.0.1:5173/replica/wechat-pay-login",
+  "projectRoot": "projects/wechat-pay-login",
+  "baselineDir": "projects/wechat-pay-login/baselines",
+  "criticalSelectors": [
+    "[data-replica='login-panel']",
+    "[data-replica='username-input']",
+    "[data-replica='password-input']",
+    "[data-replica='captcha-input']",
+    "[data-replica='login-button']"
+  ],
+  "viewports": [
+    {
+      "name": "desktop",
+      "width": 1365,
+      "height": 768,
+      "weight": 1
+    }
+  ],
+  "expectedTitleIncludes": [
+    "微信支付"
+  ],
+  "expectedTextIncludes": [
+    "登录"
+  ],
+  "compareSelectors": [
+    "[data-replica='login-panel']"
+  ],
+  "structureSelectors": [
+    {
+      "selector": "[data-replica='login-panel']",
+      "purpose": "structural",
+      "required": true,
+      "expectedCount": 1,
+      "weight": 1
+    },
+    {
+      "selector": "[data-replica='username-input']",
+      "purpose": "functional",
+      "interactionRequired": true,
+      "required": true,
+      "expectedCount": 1,
+      "weight": 1.5
+    },
+    {
+      "selector": "[data-replica='password-input']",
+      "purpose": "functional",
+      "interactionRequired": true,
+      "required": true,
+      "expectedCount": 1,
+      "weight": 1.5
+    },
+    {
+      "selector": "[data-replica='captcha-input']",
+      "purpose": "functional",
+      "interactionRequired": true,
+      "required": true,
+      "expectedCount": 1,
+      "weight": 1.5
+    },
+    {
+      "selector": "[data-replica='login-button']",
+      "purpose": "functional",
+      "interactionRequired": true,
+      "required": true,
+      "expectedCount": 1,
+      "weight": 1.5
+    }
+  ],
+  "interactions": [
+    {
+      "id": "empty-submit-validation",
+      "name": "Click login with empty inputs and show validation",
+      "weight": 1,
+      "steps": [
+        {
+          "type": "click",
+          "selector": "[data-replica='login-button']"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "expectVisible",
+          "selector": "[data-replica='form-error']"
+        },
+        {
+          "type": "expectTextIncludes",
+          "selector": "[data-replica='form-error']",
+          "value": "请输入"
+        }
+      ]
+    },
+    {
+      "id": "typed-submit-failure",
+      "name": "Fill fields and click login to show local failure feedback",
+      "weight": 1,
+      "steps": [
+        {
+          "type": "fill",
+          "selector": "[data-replica='username-input']",
+          "value": "merchant@example.com"
+        },
+        {
+          "type": "fill",
+          "selector": "[data-replica='password-input']",
+          "value": "password123"
+        },
+        {
+          "type": "fill",
+          "selector": "[data-replica='captcha-input']",
+          "value": "9K2P"
+        },
+        {
+          "type": "click",
+          "selector": "[data-replica='login-button']"
+        },
+        {
+          "type": "wait",
+          "ms": 700
+        }
+      ],
+      "assertions": [
+        {
+          "type": "expectVisible",
+          "selector": "[data-replica='form-error']"
+        },
+        {
+          "type": "expectTextIncludes",
+          "selector": "[data-replica='form-error']",
+          "value": "验证码"
+        }
+      ]
+    }
+  ],
+  "states": [
+    {
+      "id": "initial",
+      "name": "Initial login form",
+      "required": true,
+      "weight": 1,
+      "criticalSelectors": [
+        "[data-replica='login-panel']",
+        "[data-replica='username-input']",
+        "[data-replica='password-input']",
+        "[data-replica='captcha-input']",
+        "[data-replica='login-button']"
+      ],
+      "expectedTextIncludes": [
+        "登录"
+      ],
+      "compareSelectors": [
+        "[data-replica='login-panel']"
+      ],
+      "regions": [
+        {
+          "id": "login-panel",
+          "selector": "[data-replica='login-panel']",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

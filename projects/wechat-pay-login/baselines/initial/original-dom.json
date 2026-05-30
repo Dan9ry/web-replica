@@ -1,0 +1,79 @@
+{
+  "stateId": "initial",
+  "side": "original",
+  "viewport": "desktop",
+  "requestedUrl": "https://pay.weixin.qq.com/index.php/core/home/login",
+  "finalUrl": "https://pay.weixin.qq.com/index.php/core/home/login",
+  "status": 200,
+  "title": "微信支付 - 中国领先的第三方支付平台 ｜ 微信支付提供安全快捷的支付方式",
+  "bodyTextSample": "境内商户 合作伙伴 International Business 微信支付商户平台 首页 接入指引 产品中心 解决方案 文档中心 接入微信支付 banner 账号密码登录 登录账号 登录密码 换一张 登录 忘记密码 最新公告",
+  "screenshotPath": "projects/wechat-pay-login/baselines/initial/original-desktop.png",
+  "screenshot": {
+    "width": 1365,
+    "height": 2688,
+    "blank": false
+  },
+  "selectors": {
+    "[data-replica='login-panel']": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "[data-replica='username-input']": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "[data-replica='password-input']": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "[data-replica='captcha-input']": {
+      "count": 1,
+      "visibleCount": 1
+    },
+    "[data-replica='login-button']": {
+      "count": 1,
+      "visibleCount": 1
+    }
+  },
+  "domProfile": {
+    "landmarks": {
+      "nav": 0,
+      "main": 0,
+      "form": 1,
+      "button": 1,
+      "link": 2,
+      "input": 3,
+      "list": 0,
+      "listitem": 0
+    },
+    "textSample": "账号密码登录 登录账号 登录密码 换一张 登录 忘记密码",
+    "textNodeLength": 43,
+    "imageAreaRatio": 0.02,
+    "canvasAreaRatio": 0,
+    "backgroundImageAreaRatio": 0.2,
+    "interactiveControlCount": 6,
+    "focusableControlCount": 6,
+    "base64ImageCount": 0,
+    "styles": {
+      "[data-replica='login-panel']": {
+        "fontSize": "14px",
+        "color": "rgb(51, 51, 51)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderColor": "rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "width": "320px",
+        "height": "334px",
+        "x": 922,
+        "y": 178,
+        "display": "block",
+        "fontWeight": "400",
+        "lineHeight": "25.2px"
+      }
+    }
+  },
+  "metrics": {
+    "loadTimeMs": 0
+  },
+  "fromProjectBaseline": true,
+  "manualVerified": true
+}

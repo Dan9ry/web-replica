@@ -108,6 +108,7 @@ http://127.0.0.1:5173/replica/{target-id}
 | ---- | -------- | ------------ | ---------------- | -------- | -------------- |
 | 1 | [Google](https://www.google.com/) | 搜索输入框、搜索按钮点击交互、搜索结果文案展示、结果列表翻页功能。 | `projects/google-search/page/` | `/replica/google-search` | 总分 91.9，门禁通过，结论 excellent。 |
 | 2 | [Gitee 注册页](https://gitee.com/signup) | 复刻注册页面，包括点击输入框离开后的必填项提示，各个输入框，注册按钮交互提示。 | `projects/gitee-signup/page/` | `/replica/gitee-signup` | 总分 93.6，门禁通过，结论 excellent。 |
+| 3 | [微信支付商户登录页](https://pay.weixin.qq.com/index.php/core/home/login) | 仅复刻用户名、密码、验证码输入区域，以及登录按钮的点击交互。 | `projects/wechat-pay-login/page/` | `/replica/wechat-pay-login` | 总分 92.5，门禁通过，结论 excellent。 |
 
 ## 复刻项目流程
 

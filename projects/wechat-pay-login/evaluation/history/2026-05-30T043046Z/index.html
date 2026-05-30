@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>网页复刻一致性评估报告</title>
+    <style>
+      :root { color-scheme: light; --border: #d8dee8; --text: #17202a; --muted: #687386; --bg: #f5f7fb; --panel: #ffffff; --good: #0b7a45; --warn: #9a5b00; --bad: #b42318; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.6; }
+      main { max-width: 1180px; margin: 0 auto; padding: 32px 20px 56px; }
+      h1, h2, h3, p { margin-top: 0; }
+      h1 { font-size: 30px; margin-bottom: 8px; letter-spacing: 0; }
+      h2 { font-size: 22px; margin-bottom: 16px; }
+      h3 { font-size: 18px; margin-bottom: 12px; }
+      .hero { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: stretch; margin-bottom: 20px; }
+      .eyebrow { color: var(--muted); font-size: 13px; margin-bottom: 6px; }
+      .score-block, .dashboard article, .metric-card, .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; }
+      .score-block { min-width: 180px; padding: 18px; display: grid; gap: 4px; }
+      .score-block span, .dashboard span, .metric-meta { color: var(--muted); font-size: 13px; }
+      .score-block strong { font-size: 40px; line-height: 1; }
+      .score-block em { font-style: normal; font-weight: 600; }
+      .dashboard { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
+      .dashboard article { padding: 14px; display: grid; gap: 6px; min-height: 78px; }
+      .dashboard strong { font-size: 20px; }
+      .metric-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 18px; }
+      .metric-card { padding: 16px; border-left-width: 5px; }
+      .metric-title { font-weight: 700; }
+      .metric-score { font-size: 34px; font-weight: 800; line-height: 1.1; margin: 8px 0; }
+      .panel { padding: 18px; margin-bottom: 18px; overflow-x: auto; }
+      .dimension-stack .panel { margin-bottom: 12px; }
+      table { width: 100%; border-collapse: collapse; font-size: 14px; }
+      th, td { border-bottom: 1px solid var(--border); padding: 9px 10px; text-align: left; vertical-align: top; }
+      th { color: #3c4658; background: #f8fafc; font-weight: 700; }
+      code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; }
+      .pill { display: inline-flex; align-items: center; min-height: 24px; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 700; background: #eef2f7; color: var(--text); }
+      .good { border-left-color: var(--good); color: var(--good); }
+      .warn { border-left-color: var(--warn); color: var(--warn); }
+      .bad { border-left-color: var(--bad); color: var(--bad); }
+      .pill.good { background: #e8f5ee; }
+      .pill.warn { background: #fff4df; }
+      .pill.bad { background: #fdeceb; }
+      @media (max-width: 820px) {
+        .hero, .dashboard, .metric-grid { grid-template-columns: 1fr; }
+        main { padding: 20px 12px 40px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">六维证据驱动评估报告 v2.0</p>
+        <h1>网页复刻一致性评估报告</h1>
+        <p>生成时间：2026-05-30T04:30:46.796Z · 目标配置：projects/wechat-pay-login/config/target.json · 浏览器：Chromium</p>
+      </div>
+      <div class="score-block good">
+        <span>总分</span>
+        <strong>92.5</strong>
+        <em>excellent</em>
+      </div>
+    </header>
+
+    <section class="dashboard">
+      <article><span>门禁状态</span><strong>passed</strong></article>
+      <article><span>核心维度最低分</span><strong>视觉一致性 75.8</strong></article>
+      <article><span>页面 / 状态</span><strong>1 / 1</strong></article>
+      <article><span>失败状态</span><strong>0</strong></article>
+      <article><span>高危问题</span><strong>0</strong></article>
+    </section>
+
+    <section class="metric-grid">
+        <section class="metric-card good">
+          <div class="metric-title">功能正确性</div>
+          <div class="metric-score">98.2</div>
+          <div class="metric-meta">权重 25% · 贡献 24.6</div>
+          <div class="metric-meta">问题 0 · excellent</div>
+        </section>
+        <section class="metric-card good">
+          <div class="metric-title">交互流程一致性</div>
+          <div class="metric-score">100</div>
+          <div class="metric-meta">权重 20% · 贡献 20</div>
+          <div class="metric-meta">问题 0 · excellent</div>
+        </section>
+        <section class="metric-card warn">
+          <div class="metric-title">视觉一致性</div>
+          <div class="metric-score">75.8</div>
+          <div class="metric-meta">权重 25% · 贡献 19</div>
+          <div class="metric-meta">问题 2 · warning</div>
+        </section>
+        <section class="metric-card good">
+          <div class="metric-title">结构语义一致性</div>
+          <div class="metric-score">99</div>
+          <div class="metric-meta">权重 10% · 贡献 9.9</div>
+          <div class="metric-meta">问题 0 · excellent</div>
+        </section>
+        <section class="metric-card good">
+          <div class="metric-title">内容数据一致性</div>
+          <div class="metric-score">91.1</div>
+          <div class="metric-meta">权重 10% · 贡献 9.1</div>
+          <div class="metric-meta">问题 0 · excellent</div>
+        </section>
+        <section class="metric-card good">
+          <div class="metric-title">工程可维护性</div>
+          <div class="metric-score">100</div>
+          <div class="metric-meta">权重 10% · 贡献 10</div>
+          <div class="metric-meta">问题 0 · excellent</div>
+        </section></section>
+
+    <section class="panel">
+      <h2>页面 × 六维矩阵</h2>
+      <table><thead><tr><th>页面</th><th>总分</th><th>功能</th><th>交互</th><th>视觉</th><th>结构</th><th>内容</th><th>工程</th><th>结论</th><th>评估方式</th></tr></thead><tbody><tr><td>WeChat Pay Login Form Replica</td><td>92.5</td><td>98.2</td><td>100</td><td>75.8</td><td>99</td><td>91.1</td><td>100</td><td><span class="pill good">高一致</span></td><td>Phase 3 截图/DOM 基线评估</td></tr></tbody></table>
+    </section>
+
+    <section class="panel">
+      <h2>状态矩阵</h2>
+      <table><thead><tr><th>页面</th><th>状态</th><th>required</th><th>门禁</th><th>功能</th><th>交互</th><th>视觉</th><th>结构</th><th>内容</th><th>工程</th></tr></thead><tbody><tr><td>WeChat Pay Login Form Replica</td><td>Initial login form (initial)</td><td>是</td><td><span class="pill good">passed</span></td><td>98.2</td><td>100</td><td>75.8</td><td>99</td><td>91.1</td><td>100</td></tr></tbody></table>
+    </section>
+
+    <section class="panel">
+      <h2>问题中心</h2>
+      <table><thead><tr><th>优先级</th><th>维度</th><th>严重级别</th><th>页面</th><th>状态</th><th>问题</th><th>影响分</th><th>建议</th></tr></thead><tbody><tr><td>P0</td><td>视觉一致性</td><td><span class="pill warn">warning</span></td><td>wechat-pay-login</td><td>-</td><td>视觉一致性偏低</td><td>-4</td><td>按区域 diff 调整布局、字号、颜色、间距和关键控件尺寸，优先修复低分区域。</td></tr><tr><td>P1</td><td>视觉一致性</td><td><span class="pill good">info</span></td><td>wechat-pay-login</td><td>-</td><td>PROJECT_BASELINE_SOURCE</td><td>-1</td><td>打开对应截图、diff 或区域 diff，对照修复布局与样式差异。</td></tr></tbody></table>
+    </section>
+
+    <section class="dimension-stack">
+      <h2>六维详情</h2>
+      <section class="panel" id="dimension-functionality">
+          <h3>功能正确性</h3>
+          <p><strong>分数：</strong>98.2 / 100 · <strong>建议：</strong>保持当前实现，后续只需防止回归。</p>
+          <table><thead><tr><th>子项</th><th>权重</th><th>分数</th><th>说明</th></tr></thead><tbody><tr><td>required 状态覆盖率</td><td>25%</td><td>100</td><td>required 状态是否有可信原站基线和复刻状态。</td></tr><tr><td>核心用例断言通过率</td><td>35%</td><td>100</td><td>核心交互断言是否通过。</td></tr><tr><td>输出结果正确率</td><td>20%</td><td>91.1</td><td>结果文案、列表和状态输出是否正确。</td></tr><tr><td>边界/异常态通过率</td><td>20%</td><td>100</td><td>空输入、错误态、无结果态等边界行为。</td></tr></tbody></table>
+        </section>
+        <section class="panel" id="dimension-interaction">
+          <h3>交互流程一致性</h3>
+          <p><strong>分数：</strong>100 / 100 · <strong>建议：</strong>保持当前实现，后续只需防止回归。</p>
+          <table><thead><tr><th>子项</th><th>权重</th><th>分数</th><th>说明</th></tr></thead><tbody><tr><td>交互用例通过率</td><td>40%</td><td>100</td><td>交互用例整体通过情况。</td></tr><tr><td>步骤断言通过率</td><td>30%</td><td>100</td><td>动作后的可见状态断言是否通过。</td></tr><tr><td>反馈状态一致性</td><td>20%</td><td>95.6</td><td>loading、error、disabled、即时反馈等状态是否一致。</td></tr><tr><td>键盘/鼠标细节一致性</td><td>10%</td><td>100</td><td>Enter、hover、focus、blur 等细节。</td></tr></tbody></table>
+        </section>
+        <section class="panel" id="dimension-visual">
+          <h3>视觉一致性</h3>
+          <p><strong>分数：</strong>75.8 / 100 · <strong>建议：</strong>优先查看区域 diff 和整页 diff，按页面头、中、尾逐段修正布局、字体、颜色和间距。</p>
+          <table><thead><tr><th>子项</th><th>权重</th><th>分数</th><th>说明</th></tr></thead><tbody><tr><td>整页视觉</td><td>20%</td><td>75.8</td><td>整页截图 diff 与 SSIM 综合分。</td></tr><tr><td>区域加权视觉</td><td>45%</td><td>75.8</td><td>关键区域截图、区域 diff、bbox 和样式综合分。未配置区域时会低于整页分，提示补充 regions。</td></tr><tr><td>关键元素样式</td><td>20%</td><td>87.4</td><td>字体、颜色、圆角、控件尺寸等样式对齐。</td></tr><tr><td>布局盒模型</td><td>15%</td><td>70.8</td><td>关键元素坐标、宽高、间距对齐。</td></tr></tbody></table>
+        </section>
+        <section class="panel" id="dimension-structure">
+          <h3>结构语义一致性</h3>
+          <p><strong>分数：</strong>99 / 100 · <strong>建议：</strong>保持当前实现，后续只需防止回归。</p>
+          <table><thead><tr><th>子项</th><th>权重</th><th>分数</th><th>说明</th></tr></thead><tbody><tr><td>关键 DOM 结构</td><td>30%</td><td>99</td><td>用户复刻范围内 functional/content/structural/visual selector 按权重匹配情况。</td></tr><tr><td>关键控件语义</td><td>25%</td><td>99.5</td><td>用户要求交互的 input、button、a、form 等控件是否真实可操作。</td></tr><tr><td>基础语义一致性</td><td>20%</td><td>95.1</td><td>视觉必需区域、基础语义、焦点和可见文本是否合理。</td></tr><tr><td>反截图伪页面检查</td><td>10%</td><td>100</td><td>是否存在整页截图、大面积 canvas 或不可交互伪装。</td></tr></tbody></table>
+        </section>
+        <section class="panel" id="dimension-content">
+          <h3>内容数据一致性</h3>
+          <p><strong>分数：</strong>91.1 / 100 · <strong>建议：</strong>保持当前实现，后续只需防止回归。</p>
+          <table><thead><tr><th>子项</th><th>权重</th><th>分数</th><th>说明</th></tr></thead><tbody><tr><td>核心文本覆盖</td><td>30%</td><td>91.1</td><td>标题、按钮、提示、结果等核心文本覆盖率。</td></tr><tr><td>表单文案</td><td>20%</td><td>95.1</td><td>label、placeholder、helper text 是否一致。</td></tr><tr><td>错误/空态/loading 文案</td><td>20%</td><td>100</td><td>状态文案是否与原站可见 UI 对齐。</td></tr><tr><td>列表/表格/卡片数据结构</td><td>20%</td><td>94.7</td><td>结果项字段、数量和结构是否一致。</td></tr></tbody></table>
+        </section>
+        <section class="panel" id="dimension-engineering">
+          <h3>工程可维护性</h3>
+          <p><strong>分数：</strong>100 / 100 · <strong>建议：</strong>保持当前实现，后续只需防止回归。</p>
+          <table><thead><tr><th>子项</th><th>权重</th><th>分数</th><th>说明</th></tr></thead><tbody><tr><td>构建/启动/测试</td><td>25%</td><td>100</td><td>复刻工程是否可构建、可启动、可评估。</td></tr><tr><td>组件拆分与代码组织</td><td>20%</td><td>100</td><td>源码是否位于 project/page 并按组件、数据、状态、样式组织。</td></tr><tr><td>样式隔离与可维护性</td><td>15%</td><td>87.9</td><td>样式是否隔离、命名清晰、便于维护。</td></tr><tr><td>评估产物与日志完整性</td><td>20%</td><td>100</td><td>summary、details、report、截图、diff 等产物是否完整。</td></tr></tbody></table>
+        </section>
+    </section>
+
+    <section class="panel">
+      <h2>证据中心</h2>
+      <table><thead><tr><th>维度</th><th>证据数量</th><th>代表产物</th></tr></thead><tbody><tr><td>功能正确性</td><td>1</td><td><code>projects/wechat-pay-login/evaluation/latest/captures/wechat-pay-login-source.json</code></td></tr><tr><td>交互流程一致性</td><td>0</td><td>-</td></tr><tr><td>视觉一致性</td><td>2</td><td><code>projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/diff-desktop.png</code><br><code>projects/wechat-pay-login/evaluation/latest/assets/wechat-pay-login/initial/regions/diff-login-panel-desktop.png</code></td></tr><tr><td>结构语义一致性</td><td>1</td><td><code>projects/wechat-pay-login/evaluation/latest/captures/wechat-pay-login-source.json</code></td></tr><tr><td>内容数据一致性</td><td>1</td><td><code>projects/wechat-pay-login/evaluation/latest/captures/wechat-pay-login-source.json</code></td></tr><tr><td>工程可维护性</td><td>5</td><td><code>summary.json</code><br><code>details.json</code><br><code>artifacts-index.json</code><br><code>report.md</code><br><code>index.html</code></td></tr></tbody></table>
+    </section>
+
+    <section class="panel">
+      <h2>历史对比</h2>
+      <p>当前版本尚未接入历史归档对比；报告保留六维历史对比入口。</p>
+    </section></main>
+  </body>
+</html>
