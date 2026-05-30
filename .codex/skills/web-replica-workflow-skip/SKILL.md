@@ -46,7 +46,7 @@ This skip skill must stay content-equivalent to `web-replica-workflow` except fo
 > npm run dev
 > ```
 > 15. **PROJECT-LOCAL PAGE SOURCE**: generated replica page source MUST live inside the current project folder, not under `src/pages/`. `src/` is only the shared app shell, router entry, and common infrastructure.
-> 16. **SAME-BROWSER VERIFICATION HANDOFF**: if the browser used for source capture hits CAPTCHA, security verification, login, or AI verification, hand that exact browser tab/session to the user. Do not tell the user to verify in a different browser/profile. After the user finishes, resume in the same session and re-check the target state.
+> 16. **VERIFICATION HANDOFF CONTRACT**: if Phase 3 may encounter CAPTCHA, security verification, login, or AI verification, the capture browser MUST be a visible session and follow the Verification Handoff Contract below. URL-only handoff, non-TTY `Press Enter` as the only resume signal, and switching browsers/profiles after verification appears are forbidden.
 > 17. **NO OLD-PROJECT REFERENCE**: a new replica project MUST NOT reference any old project, including its directory shape, file names, component split, prompts, mock data, CSS, page logic, interaction implementation, or visual implementation. Build only from this skill, the current user request, and the current source baselines/screenshots.
 > 18. **MAINTAINABLE AND INDEPENDENT OUTPUT**: the replica artifact must be complete, long-term maintainable source code that can run locally or online without the original site's backend for the specified core functionality and interactions.
 > 19. **INTERACTIVE WEBPAGE ONLY, NEVER SCREENSHOT-AS-PAGE**: source screenshots are evidence and implementation references only. The final replica MUST be an interactive webpage built with DOM/CSS/JS behavior. Never use a full-page screenshot, large region screenshot, image map, canvas-only screenshot rendering, or screenshot background as the webpage. Never switch to screenshot-as-page because evaluation scores are low; if scores remain below target, deliver the best interactive webpage plus the report and remaining issues.
@@ -117,6 +117,87 @@ Use these templates only as generic checklists. They do not override the current
 - core regions: form container, labels, inputs, helper text, captcha block, submit button, error messages, footer,
 - core interactions: focus/blur, typing, clearing, validation, disabled/enabled submit, local failure feedback. Do not call real login/payment/upload APIs unless explicitly requested.
 - sensitive-page capture rule: on payment, login, account, security verification, or similar pages, collect only visible UI evidence. Do not dump full DOM, hidden inputs, cookies, localStorage, sessionStorage, or token fields. If a QR-code/scanning mode covers the form, first use visible buttons, links, icons, or screenshot coordinates to switch to the visible form mode, then capture the visible form.
+
+## Verification Handoff Contract
+
+This contract is mandatory for Phase 3 URL capture whenever the target may show CAPTCHA, security verification, AI verification, login challenge, or access restriction.
+
+**Visible browser requirement**:
+
+- The capture browser MUST be visible: Playwright must use `headless: false`, or the task must use a real visible Browser/Chrome tab.
+- Do not give the user only a URL. Verification handoff means handing the currently used visible browser window/tab to the user.
+- When verification is detected, keep the browser and page open and bring that exact window/tab to a visible foreground state when possible.
+- If the visible browser cannot be opened because of sandboxing or OS restrictions, request sandbox-outside permission and rerun capture visibly. Do not continue with headless capture.
+- `projects/{target-id}/sources/capture-session.md` MUST record browser provider, profile/session path, current verification URL, and the instruction that the user must complete verification in the already-opened window.
+
+Required script assertion:
+
+```js
+if (captureMayNeedVerification && headless !== false) {
+  throw new Error("Verification handoff requires a visible headed browser window.");
+}
+```
+
+**Resume signal requirement**:
+
+- `Press Enter` is allowed only when the capture process has positively detected `process.stdin.isTTY === true`.
+- In Codex/automation contexts, the default resume signal is the file `projects/{target-id}/captures/verification-resume.json`.
+- While waiting for the resume signal, the script MUST keep the same browser context and page alive.
+- After the resume signal, remove the signal file, revisit or reload the target URL in the same page/context, and re-check verification signals before capturing.
+- If verification is still present after handoff, fail closed: record the blocker and stop.
+
+Required resume state machine:
+
+```text
+open target
+  -> verification detected
+  -> write capture-session.md
+  -> keep browser alive
+  -> wait for verification-resume.json
+  -> reload/revisit target in same page/context
+  -> re-check verification signal
+  -> capture baseline or fail closed
+```
+
+Required resume logic:
+
+```js
+while (!(await fileExists(resumeSignalFile))) {
+  await sleep(2000);
+}
+
+await removeFile(resumeSignalFile);
+await page.goto(targetUrl);
+const stillBlocked = await detectVerification(page);
+
+if (stillBlocked) {
+  throw new Error("Verification still present after user handoff.");
+}
+```
+
+**Same-session lock requirement**:
+
+- Phase 3 must choose the capture provider before opening the target and write it to `capture-session.md`.
+- After capture begins, do not close the current browser, create a different Playwright context, switch to the user's normal Chrome, or ask the user to verify in another browser/profile.
+- If ordinary Chrome is desired, choose it before Phase 3 capture starts. Once capture starts, the provider is locked.
+- If verification cannot be completed in the same session, record a blocker and stop. Do not silently change capture path.
+
+Required session record:
+
+```js
+const sessionId = {
+  provider: "playwright-headed",
+  profileDir,
+  pageId: state.id,
+};
+
+await writeCaptureSession(sessionId);
+
+// Later:
+assertSameSession(currentSession, sessionId);
+```
+
+The key rule is: verification handoff is not "give the user a URL"; it is "hand the user the visible browser window currently doing capture, then continue in that same session after a visible resume signal."
 
 ## Workflow
 
@@ -224,7 +305,7 @@ Default: auto-proceed to Phase 3 unless the user asked to pause.
 
 - choose and record the capture browser/session before opening the real site,
 - prefer `@chrome` when the task needs the user's normal Chrome profile, cookies, extensions, or visible local verification,
-- if using Playwright or another automation browser, launch a visible persistent browser/context that can be handed to the user,
+- if using Playwright or another automation browser, launch a visible persistent browser/context (`headless: false`) that can be handed to the user,
 - open the real site,
 - execute state trigger steps,
 - capture page head/top, middle, footer/bottom, and viewport screenshots for every required state,
@@ -235,22 +316,25 @@ Default: auto-proceed to Phase 3 unless the user asked to pause.
 
 **Same-browser verification handoff protocol**:
 
-1. Detect verification pages by URL/title/text signals such as CAPTCHA, security verification, AI verification, access restriction, login challenge, or missing required selectors.
-2. Keep the failing tab/session open. Do not close it, recreate it, or switch to another browser profile.
-3. Bring that exact browser window/tab to the foreground or provide its live-view URL when using a remote browser session.
-4. Tell the user: "Please complete verification in this opened browser window/tab, then tell me when finished."
-5. Provide an explicit recovery signal before waiting. The recovery path must be visible to Codex and the user, for example terminal `Enter`, a documented resume command, or a watched `verification-resume.json` file.
-6. Wait for the user confirmation or the documented recovery signal. Do not leave a capture process waiting with no Codex-side resume entry.
-7. Resume capture in the same browser session and re-run the state gate.
+1. Follow the Verification Handoff Contract exactly.
+2. Detect verification pages by URL/title/text signals such as CAPTCHA, security verification, AI verification, access restriction, login challenge, or missing required selectors.
+3. Keep the failing tab/session open. Do not close it, recreate it, or switch to another browser profile.
+4. Bring that exact browser window/tab to the foreground. Do not provide only a URL.
+5. Tell the user: "Please complete verification in this opened browser window/tab. After finishing, tell me; I will create `projects/{target-id}/captures/verification-resume.json` and continue in the same session."
+6. Use file-signal resume by default: `projects/{target-id}/captures/verification-resume.json`. Use terminal `Enter` only when `process.stdin.isTTY === true`.
+7. Resume capture in the same browser context/page, reload or revisit the target URL, and re-run the verification and state gates.
 8. If the same session still fails, record the blocker and stop. Do not guess or use a different browser silently.
 
 Record the browser handoff in `projects/{target-id}/sources/capture-session.md`:
 
 - browser provider: `@chrome`, Playwright headed, remote live-view browser, or screenshot source,
 - profile/session path or live-view URL when available,
+- locked session id/provider and state id,
 - target state and URL,
+- current verification URL,
 - verification signal detected,
-- recovery signal or resume command,
+- recovery signal file or TTY resume command,
+- explicit note: "user must complete verification in the already-opened browser window/tab",
 - user handoff time and result,
 - post-verification gate result.
 
